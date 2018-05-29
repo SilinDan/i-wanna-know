@@ -1,0 +1,33 @@
+@import './styles/media.less';
+
+html,
+body,
+:global(#root) {
+    height: 100%;
+    font-size: 16px;
+}
+
+
+
+/** antd */
+:global {
+    .ant-badge-count {
+        z-index: 1;
+    }
+}
+
+@media @tablet {
+    html,
+    body,
+    :global(#root) {
+        font-size: 14px;
+    }
+}
+
+@media @small-phone {
+    html,
+    body,
+    :global(#root) {
+        font-size: 14px;
+    }
+}

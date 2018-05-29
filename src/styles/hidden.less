@@ -1,0 +1,71 @@
+@import './media.less';
+
+:global {
+  .visible-block-desktop {
+    display: none;
+  }
+
+  .visible-inline-desktop {
+    display: none;
+  }
+
+  .visible-block-mobile {
+    display: none;
+  }
+}
+
+@media @desktop {
+  :global {
+      .hidden-desktop {
+          display: none;
+      }
+
+      .visible-block-desktop {
+        display: block;
+      }
+
+      .visible-inline-desktop {
+        display: inline;
+      }
+  }
+}
+
+@media @tablet {
+  :global {
+      .hidden-tablet {
+          display: none;
+      }
+  }
+}
+
+@media @mobile {
+  html,
+  body,
+  :global(#root) {
+      font-size: 14px;
+  }
+
+  :global {
+      .hidden-mb {
+          display: none !important;
+      }
+
+      .visible-block-mobile {
+        display: block;
+      }
+  }
+}
+
+@media @small-phone {
+  html,
+  body,
+  :global(#root) {
+      font-size: 10px;
+  }
+
+  :global {
+      .hidden-sp {
+          display: none;
+      }
+  }
+}

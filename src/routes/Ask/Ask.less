@@ -1,0 +1,50 @@
+@import '../../styles/media.less';
+
+:global {
+  .public-DraftStyleDefault-ol:before {
+    content: "";
+    display: none;
+  }
+
+  .RichEditor-root {
+    z-index: 0;
+  }
+  
+  .openFullAll {
+    z-index: 999;
+  }
+}
+
+.input-title {
+  border: 1px solid #DDD;
+  outline: 0;
+  height: 4rem;
+  width: 100%;
+  line-height: 4rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.select {
+  width: 100%;
+}
+
+.btn-submit {
+  float: right;
+  margin-top: 1rem;
+}
+
+@media @mobile {
+  .btn-submit {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+@media @small-phone {
+  .btn-submit {
+    width: 100%;
+    margin-top: 0;
+  }
+}

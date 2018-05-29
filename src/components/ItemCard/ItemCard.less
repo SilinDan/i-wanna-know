@@ -1,0 +1,76 @@
+:global {
+  #card {
+    border-top: 1px solid #e8e8e8;
+    cursor: auto;
+    transition: background .15s ease;
+
+    &:hover {
+      background-color: rgba(0,0,0,.02);
+    }
+
+    .title {
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: .5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    content {
+      color: #999;
+      font-size: .9rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .user {
+        margin-right: 1rem;
+        display: flex;
+        align-items: center;
+
+        .icon {
+          width: 1.5rem;
+          height: 1.5rem;
+          margin-right: .5rem;
+        }
+  
+        .username {
+          font-size: .9rem;
+          color: #999;
+        }
+      }
+
+      .icon {
+        font-size: .9rem;
+
+        &:not(:last-of-type) {
+          margin-right: 1rem;
+        }
+
+        .anticon-heart {
+          transition: color .3s ease;
+        }
+
+        &:hover > .anticon-heart,
+        .like {
+          color: #f97178;
+        }
+
+        &:hover > .anticon-star,
+        .star {
+          color: #1890ff;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+.menu-item {
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+
+  .menu-name {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1rem;
+    text-align: center;
+    height: 1rem;
+  }
+  
+  .menu-icon {
+    font-size: 1.5rem;
+    margin-top: .5rem;
+    color: #333;
+  }
+
+  &:hover > .menu-name,
+  &:hover > .menu-icon {
+    color: #1890ff;
+    transition: color .3s ease;
+  }
+
+  .menu-active {
+    color: #1890ff;
+    transition: color .3s ease;
+  }
+}
+
