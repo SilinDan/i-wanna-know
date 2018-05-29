@@ -9,9 +9,9 @@
     <meta name="robots" content="index,follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Windlike系统</title>
-    <link rel="stylesheet" href="/index.css" />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/dist/index.css" />
+    <link rel="manifest" href="/dist/manifest.json" />
+    <link rel="shortcut icon" href="/dist/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
     <script src="/index.js"></script>
     <script type="text/javascript">
         if (navigator.serviceWorker != null) {
-            navigator.serviceWorker.register('/ServiceWorker.js')
+            navigator.serviceWorker.register('/dist/ServiceWorker.js')
                 .then(function(registration) {
                     console.log('Registered events at scope: ', registration.scope);
                 });
