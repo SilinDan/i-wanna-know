@@ -12,7 +12,7 @@ export default routesCreator([
     component: import('./routes/IndexPage'),
   },
   {
-    name: '分类',
+    name: '提问',
     path: '/ask/default',
     component: import('./routes/Ask/Ask'),
   },

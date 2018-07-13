@@ -23,7 +23,6 @@ export default class MobileMenuItem extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { menu, isActive } = this.props;
     
     return (

@@ -1,21 +1,15 @@
 import React from 'react';
 import { connect } from 'dva';
 import PropTypes from 'prop-types';
-import { graphql, Query  } from 'react-apollo';
+import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styles from './IndexPage.css';
 
 const GET_DEMO = gql`
   {
-    todos @client {
-      id
-      completed
-      text
-    }
     demo @client {
       oneState
     }
-    visibilityFilter @client
   }
 `;
 
@@ -23,7 +17,7 @@ function IndexPage(props) {
   return (
     <Query query={GET_DEMO}>
       {
-        ({ data: { visibilityFilter, todos, demo } }) => (
+        ({ data: { demo } }) => (
           <div className={styles.normal}>
             <h1 className={styles.title}>{demo.oneState}</h1>
             <div className={styles.welcome} />

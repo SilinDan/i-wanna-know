@@ -3,60 +3,64 @@ import './index.less';
 import './styles/common.less';
 import './styles/hidden.less';
 import browserHistory from 'history/createBrowserHistory';
+import hashHistory from 'history/createHashHistory';
 import { Component } from 'react';
 import { is } from 'immutable';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { HttpLink } from 'apollo-link-http';
+import { ApolloLink } from 'apollo-link';
+import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
+import handleError from './utils/errors';
 import 'ant-design-pro/dist/ant-design-pro.css';
 
 // 1. Initialize
 const app = dva({
-  history: browserHistory(),
+    history: browserHistory(),
 });
 
 Component.shouldComponentUpdate = (nextProps, nextState) => {
-  return !(this.props === nextProps || is(this.props, nextProps)) ||
-         !(this.state === nextState || is(this.state, nextState));
+    return !(this.props === nextProps || is(this.props, nextProps)) ||
+        !(this.state === nextState || is(this.state, nextState));
 };
 
 // 默认情况客户端会发送到相同主机名(域名)下的/graphql端点
 const client = new ApolloClient({
-  clientState: {
-    defaults: {
-      demo: {
-        oneState: 'Hello Windlike',
-        __typename: 'Demo',
-      },
-      todos: [{
-        id: 0,
-        completed: false,
-        text: 'TODO',
-        __typename : 'Todo',
-      }],
-      visibilityFilter: 'SHOW_ALL',
+    uri: 'http://localhost:8080/graphql',
+    clientState: {
+        defaults: {
+            demo: {
+                oneState: 'Hello Windlike',
+                __typename: 'Demo',
+            },
+        },
+        typeDefs: `
+            input QuestionInput {
+                title: String!
+                content: String!
+                preview: String
+                classificationId: ID
+            }
+        `
     },
-    typeDefs: `
-      type Demo {
-        oneState: String
-      }
+    link: ApolloLink.from([
+        new HttpLink({ uri: 'http://localhost:8080/graphql' }),
+    ]),
+    onError: (({ graphQLErrors, networkError }) => {
+        if (graphQLErrors)
+            graphQLErrors.map(({ message, locations, path }) =>
+                console.log(
+                    `[GraphQL]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+                ),
+            );
 
-      type Query {
-        demo: Demo
-        visibilityFilter: String
-      }
-
-      type Todo {
-        id: int
-        completed: bool
-        text: String
-      }
-    `
-  },
-  link: new HttpLink(),
-  cache: new InMemoryCache(),
+        if (networkError) {
+            handleError(networkError);
+        }
+    }),
+    cache: new InMemoryCache(),
 });
 
 export default app;
@@ -74,7 +78,7 @@ app.router(require('./router').default);
 const App = app.start();
 
 ReactDOM.render((
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>
+    <ApolloProvider client={client} >
+        <App />
+    </ApolloProvider>
 ), document.querySelector('#root'));

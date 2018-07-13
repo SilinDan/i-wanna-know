@@ -32,19 +32,29 @@
 
 .btn-submit {
   float: right;
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 
 @media @mobile {
+  .input-title {
+    margin-top: 1rem;
+  }
+
   .btn-submit {
     width: 100%;
-    margin-top: 0;
+    margin-top: .5rem;
+  }
+  
+  :global {
+    .RichEditor-editor .public-DraftEditor-content {
+      min-height: 320px;
+    }
   }
 }
 
 @media @small-phone {
   .btn-submit {
     width: 100%;
-    margin-top: 0;
+    margin-top: .5rem;
   }
 }

@@ -33,3 +33,7 @@ export const MOBILE_MENUS = [
     link: '/user/default',
   },
 ];
+
+export const HIDDEN_MOBILE_MENUS = [
+  '/ask/default',
+];

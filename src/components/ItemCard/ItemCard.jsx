@@ -8,29 +8,46 @@ const { Meta } = Card;
 
 export default class ItemCard extends Component {
   static propTypes = {
+    item: PropTypes.shape({
+      _id: PropTypes.string,
+      title: PropTypes.string,
+      content: PropTypes.string,
+      preview: PropTypes.string,
+      like: PropTypes.number,
+      view: PropTypes.number,
+    }),
+    isLoading: PropTypes.bool,
+  }
 
+  static defaultProps = {
+    item: {},
   }
 
   render() {
+    const { item, isLoading } = this.props;
+
     return (
       <Card
-      id="card"
-      bordered={false}
-      hoverable
+        loading={isLoading}
+        id="card"
+        bordered={false}
+        hoverable
       >
-        <Link to="/question/default" className="title ell">Flutter 布局详解</Link>
-        <content>按《简书交友》的老规矩，先发一张照骗吧。 昵称：林木草 职业：大一学生，未来的教师 年龄：19 坐标：绵阳 其实很想写一篇爆文，有上千阅读量，有...</content>
+        <Link to="/question/default">
+          <h3 className="title ell">{item.title}</h3>
+          <content>{item.preview}</content>
+        </Link>
         <div className="card-bottom">
           <Link to="/user/default" className="user">
-            <Avatar className="icon" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            <Avatar className="icon-user" src="https://upload.jianshu.io/users/upload_avatars/6192738/cb13fdd2-5a22-4ba8-a44b-4a3fd05c61f9.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" />
             <span className="username">Windlike</span>
           </Link>
           <span>
             <span className="icon pointer">
-              <Icon type="heart" className="like" /> 18
+              <Icon type="heart" className="like" /> {item.like}
             </span>
             <span className="icon">
-              <Icon type="eye" /> 11
+              <Icon type="eye" /> {item.view}
             </span>
             <span className="icon pointer">
               <Icon type="star" className="star" />

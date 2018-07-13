@@ -1,7 +1,7 @@
 /// <reference types="Modal" />
-import React, { Component } from 'react';
-import { Modal } from 'antd';
+import {Modal} from 'antd';
 import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 
 export default class WindlikeModal extends Component {
   static propTypes = {
@@ -9,7 +9,7 @@ export default class WindlikeModal extends Component {
     handleOpen: PropTypes.func,
     /** 模态框关闭处理函数 */
     handleClose: PropTypes.func,
-  }
+  };
 
   componentDidMount() {
     this.handleVisibleChange();
@@ -21,25 +21,19 @@ export default class WindlikeModal extends Component {
     }
   }
 
-  handleVisibleChange = ()=> {
+  handleVisibleChange = () => {
     if (this.props.visible) {
-      if(typeof this.props.handleOpen === 'function') {
+      if (typeof this.props.handleOpen === 'function') {
         this.props.handleOpen();
       }
     } else {
-      if(typeof this.props.handleClose === 'function') {
+      if (typeof this.props.handleClose === 'function') {
         this.props.handleClose();
       }
     }
-  }
+  };
 
   render() {
-    return (
-      <Modal
-      {...this.props}
-      >
-        {this.props.children}
-      </Modal>
-    );
+    return <Modal {...this.props}>{this.props.children}</Modal>;
   }
 }

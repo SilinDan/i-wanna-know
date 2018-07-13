@@ -1,4 +1,4 @@
-import MENUS, { MOBILE_MENUS } from 'Assets/menus';
+import MENUS, { MOBILE_MENUS, HIDDEN_MOBILE_MENUS } from 'Assets/menus';
 import MenuList from 'Components/Menu/MenuList';
 import MenuItem from 'Components/Menu/MobileMenuItem';
 import MenuCreator from 'Components/Menu/MenuCreator';
@@ -18,22 +18,22 @@ import icon from 'Assets/icon-front.png';
 
 const { Header, Footer } = Layout;
 const initRoute = MENUS[0].links && MENUS[0].links.length ? `${MENUS[0].link}/${MENUS[0].links[0]}` : `${MENUS[0].link}/default`;
-const ResponsiveMenu = function(props) {
+const ResponsiveMenu = function (props) {
   const { subMenus } = props;
   const { menu, subMenu } = props.match.params;
   const sub = subMenus.filter(subMenu => subMenu.link === menu)[0];
   const title = sub ?
-   (sub.menus && sub.menus.length ? `${sub.titles[sub.links.indexOf(subMenu)]}` : sub.name) :
-   ('首页');
+    (sub.menus && sub.menus.length ? `${sub.titles[sub.links.indexOf(subMenu)]}` : sub.name) :
+    ('首页');
 
   return (
     <div>
-      <MenuList 
-      className={styles['nav-desktop']}
-      style={{ lineHeight: '64px' }}
-      mode="horizontal" 
-      theme="light" 
-      {...props} />
+      <MenuList
+        className={styles['nav-desktop']}
+        style={{ lineHeight: '3rem' }}
+        mode="horizontal"
+        theme="light"
+        {...props} />
       {/* <Dropdown 
       overlay={
         MenuCreator(subMenus, {
@@ -76,9 +76,9 @@ export default class FrontLayout extends Component {
             <div className={'flex'}>
               {/* logo */}
               <Logo
-              logoName={logoName}
-              logoIcon={logoIcon}
-              isFront
+                logoName={logoName}
+                logoIcon={logoIcon}
+                isFront
               />
               {/* Menu */}
               <Switch>
@@ -86,7 +86,7 @@ export default class FrontLayout extends Component {
                   path="/:menu/:subMenu"
                   render={
                     props => (
-                      <ResponsiveMenu subMenus={MENUS} {...this.props} {...props}/>
+                      <ResponsiveMenu subMenus={MENUS} {...this.props} {...props} />
                     )
                   }
                 />
@@ -99,7 +99,6 @@ export default class FrontLayout extends Component {
               <HeaderSearch
                 className={styles.search}
                 placeholder="你在寻找什么呢"
-                dataSource={['搜索提示一', '搜索提示二', '搜索提示三']}
                 onSearch={(value) => {
                   console.log('input', value); // eslint-disable-line
                 }}
@@ -109,24 +108,26 @@ export default class FrontLayout extends Component {
               />
               {/* info */}
               <Info infoNum={infoNum}></Info>
-              <User 
-              menu={UserMenu({
-                history: this.props.history,
-              })}
+              <User
+                menu={UserMenu({
+                  history: this.props.history,
+                })}
               />
             </div>
           </div>
-          
+
         </Header>
         {/* 内容 */}
         <Content />
         {/* 页脚 */}
-        <Footer style={{ textAlign: 'center' }} className="hidden-db hidden-sp">
+        <Footer style={{ textAlign: 'center' }} className="visible-block-desktop">
           Ant Design ©2016 Created by Ant UED
         </Footer>
-        <FooterToolbar className="hidden-desktop hidden-tablet">
+        <FooterToolbar
+          style={{ height: HIDDEN_MOBILE_MENUS.includes(location.pathname) ? '0' : '3.5rem' }}
+          className="hidden-desktop hidden-tablet">
           {
-            MOBILE_MENUS.map((menu)=> <MenuItem key={menu.name} menu={menu} isActive={location.pathname === menu.link}/>)
+            MOBILE_MENUS.map((menu) => <MenuItem key={menu.name} menu={menu} isActive={location.pathname === menu.link} />)
           }
         </FooterToolbar>
       </Layout>
