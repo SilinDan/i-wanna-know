@@ -6,17 +6,21 @@
 
 :global {
   #list-classification {
-    .ant-card-head {
+    &>.ant-card-head {
       height: 67px;
-
       .ant-card-head-wrapper {
         height: 100%;
       }
-
       .ant-card-head-title {
         display: flex;
         align-items: center;
         height: 100%;
+      }
+    }
+    &>.ant-card-body {
+      padding: 1px 0;
+      &>.ant-card-loading-content {
+        padding: 16px;
       }
     }
   }

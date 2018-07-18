@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Avatar, Icon } from 'antd';
 import { Link } from 'dva/router';
-import styles from './ItemCard.less';
+import styles from './QuestionCard.less';
 
 const { Meta } = Card;
 
-export default class ItemCard extends Component {
+export default class QuestionCard extends Component {
   static propTypes = {
     item: PropTypes.shape({
       _id: PropTypes.string,
       title: PropTypes.string,
-      content: PropTypes.string,
       preview: PropTypes.string,
       like: PropTypes.number,
       view: PropTypes.number,
@@ -29,7 +28,7 @@ export default class ItemCard extends Component {
     return (
       <Card
         loading={isLoading}
-        id="card"
+        id="question-card"
         bordered={false}
         hoverable
       >

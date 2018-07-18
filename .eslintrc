@@ -12,7 +12,10 @@
         "no-unused-vars": "warn",
         "react/prop-types": "warn",
         "semi": "error",
-        "quotes": ["error", "single"],
+        "quotes": [
+            "error",
+            "single"
+        ],
         "no-console": "warn",
         "global-require": "off",
         "newline-after-var": "error",

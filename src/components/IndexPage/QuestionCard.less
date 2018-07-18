@@ -1,15 +1,12 @@
 @import '../../styles/media';
-
 :global {
-  #card {
+  #question-card {
     border-top: 1px solid #e8e8e8;
     cursor: auto;
     transition: background .15s ease;
-
     &:hover {
       background-color: #fcfcfc;
     }
-
     .title {
       display: inline-block;
       max-width: 100%;
@@ -17,12 +14,10 @@
       font-size: 1.2rem;
       font-weight: bold;
       color: #333;
-
       &:hover {
         text-decoration: underline;
       }
     }
-
     content {
       color: #999;
       font-size: .9rem;
@@ -30,46 +25,37 @@
       display: block;
       padding-bottom: 1rem;
     }
-
     .card-bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
-
       .user {
         margin-right: 1rem;
         display: flex;
         align-items: center;
-
         .icon-user {
           width: 1.5rem;
           height: 1.5rem;
           margin-right: .5rem;
         }
-  
         .username {
           font-size: .9rem;
           color: #999;
         }
       }
-
       .icon {
         font-size: .9rem;
-
         &:not(:last-of-type) {
           margin-right: 1rem;
         }
-
         .anticon-heart {
           transition: color .3s ease;
         }
-
-        &:hover > .anticon-heart,
+        &:hover>.anticon-heart,
         .like {
           color: #fc626a;
         }
-
-        &:hover > .anticon-star,
+        &:hover>.anticon-star,
         .star {
           color: #1890ff;
         }
@@ -81,7 +67,7 @@
 @media @mobile {
   :global {
     #card {
-      margin-bottom: .5rem;      
+      margin-bottom: .5rem;
     }
   }
 }

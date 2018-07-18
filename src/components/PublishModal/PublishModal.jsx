@@ -9,9 +9,12 @@ const { Option } = Select;
 const FormItem = Form.Item;
 const GET_CLASSIFICATIONS = gql`
   {
-    classifications: ClassificationsQuery {
-      _id
-      name
+    classifications: ClassificationsQuery(page: 1) {
+      list {
+        _id
+        name
+      }
+      total  
     }
   }
 `;
@@ -48,7 +51,7 @@ export default class PublishModal extends Component {
                     >
                       <Option key="" value="">无</Option>
                       {
-                        loading ? null : classifications && classifications.map((classification) => (
+                        loading ? null : classifications && classifications.list.map((classification) => (
                           <Option key={classification._id} value={classification._id}>{classification.name}</Option>
                         ))
                       }
