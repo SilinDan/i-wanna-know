@@ -57,6 +57,7 @@ export default class QuestionList extends Component {
                 id="list-question"
                 className={styles.list}
               >
+                {/* TODO:当没数据的时候显示图片 */}
                 {
                   loading ? (new Array(3).fill(true)).map((value, index) => (
                     <QuestionCard key={index} isLoading={loading} />

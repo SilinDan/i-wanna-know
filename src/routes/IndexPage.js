@@ -19,7 +19,6 @@ function IndexPage(props) {
       {
         ({ data: { demo } }) => (
           <div className={styles.normal}>
-            <h1 className={styles.title}>{demo.oneState}</h1>
             <div className={styles.welcome} />
             <ul className={styles.list}>
               <li>To get started, edit <code>src/index.js</code> and save to reload.</li>
