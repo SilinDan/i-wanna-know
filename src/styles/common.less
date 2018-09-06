@@ -1,76 +1,94 @@
 /** 常用样式 */
 :global {
   /** font */
+  .container {
+    background: #fff;
+    padding: 1rem 2rem;
+    display: block;
+  }
+
   .bold {
-      font-weight: bold;
+    font-weight: bold;
   }
 
   .font-lg {
-      font-size: 20px;
+    font-size: 20px;
   }
-  
+
   .color-primary {
-      color: #1890ff;
+    color: #1890ff;
   }
 
   .color-danger {
-      color: #f5222d;
+    color: #f5222d;
   }
 
   .color-warn {
-      color: #ffe58f;
+    color: #ffe58f;
   }
 
   .color-success {
-      color: #52c41a;
+    color: #52c41a;
   }
 
   .color-black {
-      color: #000;
+    color: #000;
   }
 
   /** flex */
   .flex {
-      display: flex;
+    display: flex;
   }
 
   .flex-center {
-      display: flex;
-      align-items: center;
+    display: flex;
+    align-items: center;
   }
 
   .flex-between {
-      display: flex;
-      justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
   }
 
   /** margin */
   .margin-right-sm {
-      margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 
   .margin-right-md {
-      margin-right: 1rem;
+    margin-right: 1rem;
   }
 
   .margin-right-lg {
-      margin-right: 1.5rem;
+    margin-right: 1.5rem;
   }
 
   .margin-left-sm {
-      margin-left: .5rem;
+    margin-left: 0.5rem;
   }
 
   .margin-left-md {
-      margin-left: 1rem;
+    margin-left: 1rem;
   }
 
   .margin-left-lg {
-      margin-left: 1.5rem;
+    margin-left: 1.5rem;
+  }
+
+  .margin-top-sm {
+    margin-top: 0.5rem;
+  }
+
+  .margin-top-md {
+    margin-top: 1rem;
+  }
+
+  .margin-top-lg {
+    margin-top: 1.5rem;
   }
 
   .margin-bottom-sm {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
 
   .margin-bottom-md {
@@ -83,25 +101,25 @@
 
   /** vertical */
   .vertical-top {
-      vertical-align: top;
+    vertical-align: top;
   }
 
   /** other */
   .pointer {
-      cursor: pointer;
+    cursor: pointer;
   }
 
   .clearfix:before,
   .clearfix:after {
-      content: "";
-      clear: both;
-      display: block; 
+    content: '';
+    clear: both;
+    display: block;
   }
 
   .ell {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .right {
