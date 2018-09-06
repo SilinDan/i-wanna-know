@@ -1,17 +1,14 @@
-import { Breadcrumb, Layout } from 'antd';
-import { Switch } from 'dva/router';
-import React, { Component } from 'react';
+/** 前台主要内容区域组件 */
+import {Breadcrumb, Layout} from 'antd';
+import {Switch} from 'dva/router';
+import React, {Component} from 'react';
 import routes from '../../routes';
 import styles from './FrontContent.less';
 
-const { Content } = Layout;
+const {Content} = Layout;
 const routeComponents = routes.map(({name, Component}) => Component());
 
 export default class FrontContent extends Component {
-  static propTypes = {
-
-  }
-
   render() {
     return (
       <Content className={styles['content-front']}>
@@ -20,9 +17,7 @@ export default class FrontContent extends Component {
           <Breadcrumb.Item>List</Breadcrumb.Item>
           <Breadcrumb.Item>App</Breadcrumb.Item>
         </Breadcrumb> */}
-        <Switch location={location}>
-          {routeComponents}
-        </Switch>
+        <Switch location={location}>{routeComponents}</Switch>
       </Content>
     );
   }

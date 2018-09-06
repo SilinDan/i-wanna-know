@@ -13,7 +13,7 @@ function routesCreator(routes = []) {
 
     return {
       name: route.name,
-      Component: props => (
+      Component: () => (
         <Route key={route.name} path={route.path} component={RouteComponent} />
       ),
     };

@@ -1,20 +1,19 @@
-import MENUS, {MOBILE_MENUS, HIDDEN_MOBILE_MENUS} from 'Assets/menus';
+import FooterToolbar from 'ant-design-pro/lib/FooterToolbar';
+import HeaderSearch from 'ant-design-pro/lib/HeaderSearch';
+import {Layout} from 'antd';
+import icon from 'Assets/icon-front.png';
+import MENUS, {HIDDEN_MOBILE_MENUS, MOBILE_MENUS} from 'Assets/menus';
+import Info from 'Components/Info/Info';
+import Logo from 'Components/Logo/Logo';
 import MenuList from 'Components/Menu/MenuList';
 import MenuItem from 'Components/Menu/MobileMenuItem';
-import MenuCreator from 'Components/Menu/MenuCreator';
-import Info from 'Components/Info/Info';
 import User from 'Components/User/User';
-import Logo from 'Components/Logo/Logo';
-import HeaderSearch from 'ant-design-pro/lib/HeaderSearch';
-import {Layout, Dropdown, Icon, Button} from 'antd';
-import {Redirect, Route, Switch, Link} from 'dva/router';
+import {Redirect, Route, Switch} from 'dva/router';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import FooterToolbar from 'ant-design-pro/lib/FooterToolbar';
 import Content from '../Content/FrontContent';
 import styles from './Layout.less';
 import UserMenu from './UserMenu';
-import icon from 'Assets/icon-front.png';
 
 const {Header, Footer} = Layout;
 const initRoute =
@@ -69,14 +68,9 @@ export default class FrontLayout extends Component {
     infoNum: 0,
   };
 
-  componentWillMount() {}
-
   render() {
     const {location} = this.props.history;
     const {logoName, logoIcon, infoNum} = this.props;
-
-    console.log(location.search);
-    console.log(window.location);
 
     return (
       <Layout className={styles.layout} id="front-layout">
