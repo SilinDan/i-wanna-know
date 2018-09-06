@@ -27,15 +27,18 @@ export default {
   env: {
     development: {
       publicPath: '/',
+      disableCSSSourceMap: true,
       extraBabelPlugins: [
         'dva-hmr',
-        ['import', {libraryName: 'antd', style: 'css'}],
+        ['import', { libraryName: 'antd', style: 'css' }],
       ],
+      devtool: 'eval',
+      ignoreMomentLocale: true,
     },
     production: {
       publicPath: './',
       hash: true,
-      extraBabelPlugins: [['import', {libraryName: 'antd', style: 'css'}]],
+      extraBabelPlugins: [['import', { libraryName: 'antd', style: 'css' }]],
     },
   },
 };
