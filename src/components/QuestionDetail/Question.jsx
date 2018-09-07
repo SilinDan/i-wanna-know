@@ -1,7 +1,8 @@
 /** 问题详情的问题组件 */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styles from './Question.less';
-import {Icon, Button, Card} from 'antd';
+import { Icon, Button, Card } from 'antd';
+import LzEditor from 'react-lz-editor';
 
 class Question extends Component {
   state = {};
@@ -20,6 +21,9 @@ class Question extends Component {
         <Button type="primary" size="large">
           邀请回答
         </Button>
+        <div className="margin-top-lg">
+          <LzEditor />
+        </div>
       </Card>
     );
   }

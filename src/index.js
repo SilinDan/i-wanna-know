@@ -1,20 +1,17 @@
+import 'ant-design-pro/dist/ant-design-pro.css';
+import ApolloClient from 'apollo-boost';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloLink } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
 import dva from 'dva';
+import browserHistory from 'history/createBrowserHistory';
+import { ApolloProvider } from 'react-apollo';
+import ReactDOM from 'react-dom';
 import './index.less';
 import './styles/common.less';
 import './styles/hidden.less';
-import browserHistory from 'history/createBrowserHistory';
-import hashHistory from 'history/createHashHistory';
-import { Component } from 'react';
-import ReactDOM from 'react-dom';
-import ApolloClient from 'apollo-boost';
-import { HttpLink } from 'apollo-link-http';
-import { ApolloLink } from 'apollo-link';
-import { onError } from 'apollo-link-error';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
-import handleError from './utils/errors';
 import { SERVER_ADDRESS } from './utils/constance';
-import 'ant-design-pro/dist/ant-design-pro.css';
+import handleError from './utils/errors';
 
 // 1. Initialize
 const app = dva({
@@ -38,7 +35,7 @@ const client = new ApolloClient({
     `
   },
   link: ApolloLink.from([
-    new HttpLink({ uri: 'http://localhost:8080/graphql' }),
+    new HttpLink({ uri: `${SERVER_ADDRESS}/graphql` }),
   ]),
   onError: (({ graphQLErrors, networkError }) => {
     if (graphQLErrors)

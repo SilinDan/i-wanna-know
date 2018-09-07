@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Card, Avatar, Icon} from 'antd';
-import {Link} from 'dva/router';
+import { Card, Avatar, Icon } from 'antd';
+import { Link } from 'dva/router';
 import styles from './QuestionCard.less';
 
-const {Meta} = Card;
+const { Meta } = Card;
 
 export default class QuestionCard extends Component {
   static propTypes = {
@@ -23,7 +23,7 @@ export default class QuestionCard extends Component {
   };
 
   render() {
-    const {item, isLoading} = this.props;
+    const { item, isLoading } = this.props;
 
     return (
       <Card loading={isLoading} id="question-card" bordered={false} hoverable>

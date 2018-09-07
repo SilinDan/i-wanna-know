@@ -5,6 +5,7 @@ import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styles from './IndexPage.css';
 
+
 function IndexPage(props) {
   return (
     <div className={styles.normal}>

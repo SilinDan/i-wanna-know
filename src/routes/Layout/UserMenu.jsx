@@ -11,9 +11,9 @@ const styles = {
 
 const menus = [
   {
-    name: '设置',
-    icon: 'setting',
-    href: '/setting/default',
+    name: '个人中心',
+    icon: 'user',
+    href: '/user/default',
   },
   {
     name: '注销',
@@ -23,23 +23,23 @@ const menus = [
 ];
 
 function handleClick(history, href, onClick) {
-  if(href && history && history.push) {
+  if (href && history && history.push) {
     history.push(href);
   }
 
-  if(typeof onClick === 'function') {
+  if (typeof onClick === 'function') {
     onClick();
   }
 }
 
-const UserMenu = (props = { history: {} })=> (
+const UserMenu = (props = { history: {} }) => (
   <Menu>
     {
-      menus.map((menu)=> (
+      menus.map((menu) => (
         <Menu.Item key={menu.name}>
-          <a 
-          style={styles.menuItem} 
-          onClick={()=> handleClick(props.history, menu.href, props[menu.onClick])}>
+          <a
+            style={styles.menuItem}
+            onClick={() => handleClick(props.history, menu.href, props[menu.onClick])}>
             {menu.icon ? <Icon type={menu.icon} className="margin-right-sm" /> : null}
             {menu.name}
           </a>

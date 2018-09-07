@@ -49,7 +49,7 @@ class BackLayout extends Component {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
 
     if (rootSubmenuKeys.indexOf(latestOpenKey) === -1 ||
-        !this.props.isCloseWhenOpenOther) {
+      !this.props.isCloseWhenOpenOther) {
       /** 在目录中没有包含最新单开的菜单或者不需要关闭其他菜单 */
       this.setState({ openKeys });
     } else {
@@ -70,10 +70,10 @@ class BackLayout extends Component {
           onCollapse={this.onCollapse}
           collapsible={isCollapsible}
         >
-          <Logo 
-          logoIcon={logoIcon} 
-          logoName={logoName} 
-          collapsed={collapsed}
+          <Logo
+            logoIcon={logoIcon}
+            logoName={logoName}
+            collapsed={collapsed}
           />
           <Switch>
             {/* Menu */}

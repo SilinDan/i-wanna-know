@@ -4,6 +4,7 @@ import styles from './QuestionDetail.less';
 import Question from 'Components/QuestionDetail/Question';
 import Answer from 'Components/QuestionDetail/Answer';
 import {Radio, Card} from 'antd';
+import LzEditor from 'react-lz-editor';
 
 class QuestionDetail extends Component {
   state = {};
@@ -13,7 +14,7 @@ class QuestionDetail extends Component {
       <div>
         <Question />
         <Card style={{marginTop: '2em'}}>
-          <Radio.Group className="container">
+        <Radio.Group className="container">
             <Radio.Button value="large">按热度排序</Radio.Button>
             <Radio.Button value="default">按时间排序</Radio.Button>
           </Radio.Group>

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styles from './Answer.less';
-import {Card} from 'antd';
+import { Card, Button } from 'antd';
 
 class Answer extends Component {
   state = {};
@@ -8,7 +8,7 @@ class Answer extends Component {
     return (
       <Card>
         <p>回答</p>
-        <span>回复</span>
+        <Button type="primary">回复</Button>
       </Card>
     );
   }

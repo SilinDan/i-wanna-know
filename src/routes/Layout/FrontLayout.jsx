@@ -1,28 +1,28 @@
 import FooterToolbar from 'ant-design-pro/lib/FooterToolbar';
 import HeaderSearch from 'ant-design-pro/lib/HeaderSearch';
-import {Layout} from 'antd';
+import { Layout } from 'antd';
 import icon from 'Assets/icon-front.png';
-import MENUS, {HIDDEN_MOBILE_MENUS, MOBILE_MENUS} from 'Assets/menus';
+import MENUS, { HIDDEN_MOBILE_MENUS, MOBILE_MENUS } from 'Assets/menus';
 import Info from 'Components/Info/Info';
 import Logo from 'Components/Logo/Logo';
 import MenuList from 'Components/Menu/MenuList';
 import MenuItem from 'Components/Menu/MobileMenuItem';
 import User from 'Components/User/User';
-import {Redirect, Route, Switch} from 'dva/router';
+import { Redirect, Route, Switch } from 'dva/router';
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Content from '../Content/FrontContent';
 import styles from './Layout.less';
 import UserMenu from './UserMenu';
 
-const {Header, Footer} = Layout;
+const { Header, Footer } = Layout;
 const initRoute =
   MENUS[0].links && MENUS[0].links.length
     ? `${MENUS[0].link}/${MENUS[0].links[0]}`
     : `${MENUS[0].link}/default`;
-const ResponsiveMenu = function(props) {
-  const {subMenus} = props;
-  const {menu, subMenu} = props.match.params;
+const ResponsiveMenu = function (props) {
+  const { subMenus } = props;
+  const { menu, subMenu } = props.match.params;
   const sub = subMenus.filter(subMenu => subMenu.link === menu)[0];
   const title = sub
     ? sub.menus && sub.menus.length
@@ -34,7 +34,6 @@ const ResponsiveMenu = function(props) {
     <div>
       <MenuList
         className={styles['nav-desktop']}
-        style={{lineHeight: '3rem'}}
         mode="horizontal"
         theme="light"
         {...props}
@@ -69,8 +68,8 @@ export default class FrontLayout extends Component {
   };
 
   render() {
-    const {location} = this.props.history;
-    const {logoName, logoIcon, infoNum} = this.props;
+    const { location } = this.props.history;
+    const { logoName, logoIcon, infoNum } = this.props;
 
     return (
       <Layout className={styles.layout} id="front-layout">
@@ -122,7 +121,7 @@ export default class FrontLayout extends Component {
         {/* 内容 */}
         <Content />
         {/* 页脚 */}
-        <Footer style={{textAlign: 'center'}} className="visible-block-desktop">
+        <Footer style={{ textAlign: 'center' }} className="visible-block-desktop">
           Ant Design ©2016 Created by Ant UED
         </Footer>
         <FooterToolbar

@@ -21,4 +21,9 @@ export default routesCreator([
     path: '/question/default',
     component: import('./routes/QuestionDetail/QuestionDetail'),
   },
+  {
+    name: '用户信息',
+    path: '/user/default',
+    component: import('./routes/UserPage/UserPage'),
+  },
 ]);

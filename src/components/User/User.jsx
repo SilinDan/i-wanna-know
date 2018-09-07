@@ -1,3 +1,4 @@
+/** 前台头部用户头像组件 */
 import { Avatar, Dropdown } from 'antd';
 import { Link } from 'dva/router';
 import PropTypes from 'prop-types';
@@ -22,14 +23,14 @@ export default class User extends Component {
       <Dropdown
         overlay={menu}
       >
-        <Link 
-        to="/" 
-        className="flex-center hidden-mb" 
-        style={{ minHeight: '100%' }}>
-          <Avatar 
-          style={{ marginRight: username ? '8px' : '0' }}
-          src={icon}
-          className={styles.avatar}
+        <Link
+          to="/"
+          className="flex-center hidden-mb"
+          style={{ minHeight: '100%' }}>
+          <Avatar
+            style={{ marginRight: username ? '8px' : '0' }}
+            src={icon}
+            className={styles.avatar}
           />
           <span className={styles.username}>{username}</span>
         </Link>
