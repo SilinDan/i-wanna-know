@@ -27,7 +27,8 @@
     "jsx-quotes": "error",
     "array-callback-return": "off",
     "react/react-in-jsx-scope": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "react/self-closing-comp": "error"
   },
   "settings": {
     "react": {
