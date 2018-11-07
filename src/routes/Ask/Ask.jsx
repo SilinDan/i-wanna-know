@@ -1,17 +1,17 @@
 /** 提问页 */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'Components/Modal/Modal';
 import PublishModal from 'Components/PublishModal/PublishModal';
-import {Input, Select, Button, message} from 'antd';
-import {browserHistory} from 'dva/router';
+import { Input, Select, Button, message } from 'antd';
+import { browserHistory } from 'dva/router';
 import LzEditor from 'react-lz-editor';
 import handleSuccess from 'Utils/successes';
-import {graphql, Mutation} from 'react-apollo';
+import { graphql, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import styles from './Ask.less';
 
-const {Option} = Select;
+const { Option } = Select;
 const CREATE_QUESTION = gql`
   mutation createQuestion($input: QuestionInput!) {
     data: createQuestion(input: $input) {
@@ -32,15 +32,15 @@ export default class Ask extends Component {
   };
 
   handleTitleChange = e => {
-    this.setState({title: e.target.value});
+    this.setState({ title: e.target.value });
   };
 
   handleContetnChange = value => {
-    this.setState({content: value});
+    this.setState({ content: value });
   };
 
   handleClassificationSelect = id => {
-    this.setState({classificationId: id});
+    this.setState({ classificationId: id });
   };
 
   showPublishModal = () => {
@@ -49,16 +49,16 @@ export default class Ask extends Component {
     } else if (!this.state.content) {
       message.error('内容必须填写哦');
     } else {
-      this.setState({isShowPublishModal: true});
+      this.setState({ isShowPublishModal: true });
     }
   };
 
   hidePublishModal = () => {
-    this.setState({isShowPublishModal: false});
+    this.setState({ isShowPublishModal: false });
   };
 
   publish = createQuestion => {
-    const {title, content, classificationId} = this.state;
+    const { title, content, classificationId } = this.state;
     const preview = content.replace(/<[^>]*>/g, '').substr(0, 140);
 
     createQuestion({
@@ -73,7 +73,7 @@ export default class Ask extends Component {
     });
   };
 
-  handlePublishSuccess = ({data}) => {
+  handlePublishSuccess = ({ data }) => {
     if (handleSuccess(data)) {
       this.props.history.replace('/');
     }
@@ -84,7 +84,7 @@ export default class Ask extends Component {
       <Mutation
         onCompleted={this.handlePublishSuccess}
         mutation={CREATE_QUESTION}>
-        {(createQuestion, {data}) => (
+        {(createQuestion, { data }) => (
           <div>
             <input
               value={this.state.title}

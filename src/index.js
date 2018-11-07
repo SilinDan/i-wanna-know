@@ -38,7 +38,7 @@ const client = new ApolloClient({
     `
   },
   link: ApolloLink.from([
-    new HttpLink({ uri: 'http://localhost:8080/graphql' }),
+    new HttpLink({ uri: `${SERVER_ADDRESS}/graphql` }),
   ]),
   onError: (({ graphQLErrors, networkError }) => {
     if (graphQLErrors)
