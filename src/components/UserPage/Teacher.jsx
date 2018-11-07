@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { Form, Select, Tag, Button, Icon } from 'antd';
+import AddClassModal from './AddClassModal';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const tagColor = '#108ee9';
 
 class Teacher extends Component {
-  state = {}
+  state = {
+    isShowModal: false,
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -17,6 +21,7 @@ class Teacher extends Component {
             <Icon type="plus" /> 添加班级课程
           </Tag>
         </FormItem>
+        <AddClassModal visible={this.state.isShowModal} />
       </React.Fragment>
     );
   }
