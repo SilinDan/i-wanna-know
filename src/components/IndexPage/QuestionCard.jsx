@@ -16,29 +16,27 @@ export default class QuestionCard extends Component {
       view: PropTypes.number,
     }),
     isLoading: PropTypes.bool,
-  }
+  };
 
   static defaultProps = {
     item: {},
-  }
+  };
 
   render() {
     const { item, isLoading } = this.props;
 
     return (
-      <Card
-        loading={isLoading}
-        id="question-card"
-        bordered={false}
-        hoverable
-      >
+      <Card loading={isLoading} id="question-card" bordered={false} hoverable>
         <Link to="/question/default">
           <h3 className="title ell">{item.title}</h3>
           <content>{item.preview}</content>
         </Link>
         <div className="card-bottom">
           <Link to="/user/default" className="user">
-            <Avatar className="icon-user" src="https://upload.jianshu.io/users/upload_avatars/6192738/cb13fdd2-5a22-4ba8-a44b-4a3fd05c61f9.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" />
+            <Avatar
+              className="icon-user"
+              src="https://upload.jianshu.io/users/upload_avatars/6192738/cb13fdd2-5a22-4ba8-a44b-4a3fd05c61f9.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120"
+            />
             <span className="username">Windlike</span>
           </Link>
           <span>

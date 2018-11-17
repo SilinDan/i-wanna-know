@@ -24,14 +24,14 @@ export default class MobileMenuItem extends Component {
 
   render() {
     const { menu, isActive } = this.props;
-    
+
     return (
       <Link className={styles['menu-item']} to={menu.link}>
-        <Icon 
-        type={menu.icon} 
-        className={isActive ? `${styles['menu-icon']} ${styles['menu-active']}` : styles['menu-icon']}></Icon>
-        <h2 
-        className={isActive ? `${styles['menu-name']} ${styles['menu-active']}` : styles['menu-name']}>{menu.name}</h2>
+        <Icon
+          type={menu.icon}
+          className={isActive ? `${styles['menu-icon']} ${styles['menu-active']}` : styles['menu-icon']} />
+        <h2
+          className={isActive ? `${styles['menu-name']} ${styles['menu-active']}` : styles['menu-name']}>{menu.name}</h2>
       </Link>
     );
   }

@@ -6,9 +6,9 @@
     "dev": "next",
     "electron": "electron .",
     "build": "roadhog build",
-    "lint": "eslint --ext .js src test",
-    "lint:fix": "eslint --fix --ext .js src test",
-    "precommit": "npm run lint"
+    "lint": "eslint --ext .jsx src",
+    "lint:fix": "eslint --fix src",
+    "precommit": "yarn lint"
   },
   "dependencies": {
     "ant-design-pro": "^1.3.0",
@@ -40,9 +40,11 @@
     "eslint-plugin-flowtype": "^2.34.1",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-typescript": "^0.12.0",
     "husky": "^0.12.0",
     "redbox-react": "^1.4.3",
-    "roadhog": "^2.0.0"
+    "roadhog": "^2.0.0",
+    "typescript-eslint-parser": "^18.0.0"
   }
 }
