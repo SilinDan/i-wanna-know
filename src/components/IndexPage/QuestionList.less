@@ -1,23 +1,19 @@
 @import '../../styles/media.less';
-
 .list {
   flex-grow: 1;
 }
 
 :global {
   #list-question {
-    background: #f0f2f5;
+    // background: #f0f2f5;
     border: 0;
-    
     .ant-card-head-title {
       display: flex;
       align-items: center;
     }
-
-    & > .ant-card-body {
+    &>.ant-card-body {
       padding: 0;
-
-      & > .ant-card-loading-content {
+      &>.ant-card-loading-content {
         margin: 1.5rem;
       }
     }
@@ -29,7 +25,6 @@
     #list-question {
       margin-top: .5rem;
       margin-bottom: 3.5rem;
-      
       .ant-card-head {
         display: none;
       }

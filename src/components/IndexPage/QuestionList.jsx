@@ -12,16 +12,19 @@ const GET_QUESTIONS = gql`
   query QuestionsQuery($page: Int!, $perPageNum: Int) {
     questions: QuestionsQuery(page: $page, perPageNum: $perPageNum) {
       list {
-        _id
         title
-        time
-        like
-        view
+        content
         preview
+        user {
+          id
+        }
         classification {
-          _id
           name
         }
+        like
+        view
+        createTime
+        updateTime
       }
       total
     }

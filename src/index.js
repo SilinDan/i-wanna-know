@@ -1,8 +1,10 @@
 import 'ant-design-pro/dist/ant-design-pro.css';
-import ApolloClient from 'apollo-boost';
+// import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
-import { HttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
+import { createHttpLink, HttpLink } from 'apollo-link-http';
 import dva from 'dva';
 import browserHistory from 'history/createBrowserHistory';
 import { ApolloProvider } from 'react-apollo';
@@ -18,9 +20,27 @@ const app = dva({
   history: browserHistory(),
 });
 
+const httpLink = new HttpLink({
+  uri: `${SERVER_ADDRESS}/graphql`,
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    }
+  };
+});
+
+console.log(authLink);
+
 // 默认情况客户端会发送到相同主机名(域名)下的/graphql端点
 const client = new ApolloClient({
-  uri: `${SERVER_ADDRESS}/graphql`,
   clientState: {
     defaults: {
 
@@ -34,9 +54,7 @@ const client = new ApolloClient({
       }
     `
   },
-  link: ApolloLink.from([
-    new HttpLink({ uri: `${SERVER_ADDRESS}/graphql` }),
-  ]),
+  link: authLink.concat(httpLink),
   onError: (({ graphQLErrors, networkError }) => {
     if (graphQLErrors)
       graphQLErrors.map(({ message, locations, path }) =>
@@ -61,7 +79,7 @@ export default app;
 // app.model(require('./models/demo').default);
 
 // 4. Router
-app.router(require('./router').default);
+app.router(require('./router.jsx').default);
 
 // 5. Start
 const App = app.start();

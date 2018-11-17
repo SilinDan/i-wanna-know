@@ -18,8 +18,8 @@ import UserMenu from './UserMenu';
 const { Header, Footer } = Layout;
 const initRoute =
   MENUS[0].links && MENUS[0].links.length
-    ? `${MENUS[0].link}/${MENUS[0].links[0]}`
-    : `${MENUS[0].link}/default`;
+    ? `${MENUS[0].link}/${MENUS[0].links[0]}${location.search}`
+    : `${MENUS[0].link}/default${location.search}`;
 const ResponsiveMenu = function (props) {
   const { subMenus } = props;
   const { menu, subMenu } = props.match.params;
@@ -96,7 +96,7 @@ export default class FrontLayout extends Component {
               </Switch>
             </div>
             {/* 导航右侧 */}
-            <div className="flex-center">
+            <div className="flex">
               {/* search */}
               <HeaderSearch
                 className={styles.search}
