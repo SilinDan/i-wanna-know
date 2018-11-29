@@ -9,8 +9,8 @@ import handleError from 'Utils/errors';
 import styles from './QuestionList.less';
 
 const GET_QUESTIONS = gql`
-  query QuestionsQuery($page: Int!, $perPageNum: Int) {
-    questions: QuestionsQuery(page: $page, perPageNum: $perPageNum) {
+  query QuestionsQuery($title: String, $page: Int, $perPageNum: Int) {
+    questions: QuestionsQuery(title: $title, page: $page, perPageNum: $perPageNum) {
       list {
         title
         content

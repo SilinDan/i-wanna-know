@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import styles from './Question.less';
 import { Icon, Button, Card } from 'antd';
-import LzEditor from 'react-lz-editor';
 
 class Question extends Component {
   state = {};
@@ -15,15 +14,13 @@ class Question extends Component {
           2018.09.14 09:00
         </p>
         <p>正文</p>
-        <Button type="primary" size="large" className="margin-right-md">
-          回答问题
+        <Button className="margin-right-md" type="primary">
+          <Icon type="highlight" />写回答
         </Button>
-        <Button type="primary" size="large">
-          邀请回答
+        <Button style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}>
+          <Icon type="user-add" />邀请回答
         </Button>
-        <div className="margin-top-lg">
-          <LzEditor />
-        </div>
+
       </Card>
     );
   }

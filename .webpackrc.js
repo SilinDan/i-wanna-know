@@ -15,14 +15,14 @@ export default {
     Components: path.resolve(__dirname, 'src/components/'),
     Utils: path.resolve(__dirname, 'src/utils/'),
     Assets: path.resolve(__dirname, 'src/assets/'),
-    react: path.resolve(
-      __dirname,
-      'node_modules/react/umd/react.production.min.js'
-    ),
-    'react-dom': path.resolve(
-      __dirname,
-      'node_modules/react-dom/umd/react-dom.production.min.js'
-    ),
+    // react: path.resolve(
+    //   __dirname,
+    //   'node_modules/react/umd/react.production.min.js'
+    // ),
+    // 'react-dom': path.resolve(
+    //   __dirname,
+    //   'node_modules/react-dom/umd/react-dom.production.min.js'
+    // ),
   },
   env: {
     development: {
@@ -32,14 +32,14 @@ export default {
         Components: path.resolve(__dirname, 'src/components/'),
         Utils: path.resolve(__dirname, 'src/utils/'),
         Assets: path.resolve(__dirname, 'src/assets/'),
-        react: path.resolve(
-          __dirname,
-          'node_modules/react/umd/react.development.js'
-        ),
-        'react-dom': path.resolve(
-          __dirname,
-          'node_modules/react-dom/umd/react-dom.development.js'
-        ),
+        // react: path.resolve(
+        //   __dirname,
+        //   'node_modules/react/umd/react.development.js'
+        // ),
+        // 'react-dom': path.resolve(
+        //   __dirname,
+        //   'node_modules/react-dom/umd/react-dom.development.js'
+        // ),
       },
       extraBabelPlugins: [
         'dva-hmr',

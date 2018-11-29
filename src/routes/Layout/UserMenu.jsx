@@ -11,6 +11,11 @@ const styles = {
 
 const menus = [
   {
+    name: '我的主页',
+    icon: 'user',
+    href: '/home/default',
+  },
+  {
     name: '个人中心',
     icon: 'user',
     href: '/user/default',

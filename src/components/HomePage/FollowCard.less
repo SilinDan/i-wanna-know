@@ -1,0 +1,35 @@
+@import '../../styles/media.less';
+:global {
+    .FollowCard-dd{
+        width: 30%;
+        .ant-card{
+            
+            margin-top: .5rem;
+            .ant-card-grid{
+                padding: 1rem;
+            }
+            span{
+                font-weight: 900;
+                color: #111;
+            }
+        }
+    }
+}
+
+@media @mobile{
+    :global {
+        .FollowCard-dd{
+            width: 100%;
+            .ant-card{
+                margin-top: .5rem;
+                .ant-card-grid{
+                    padding: 1rem;
+                }
+                span{
+                    font-weight: 900;
+                    color: #111;
+                }
+            }
+        }
+    }
+  }

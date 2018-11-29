@@ -9,7 +9,7 @@ export default routesCreator([
   {
     name: '分类',
     path: '/classification/default',
-    component: import('./routes/IndexPage'),
+    component: import('./routes/Classification/Classification'),
   },
   {
     name: '提问',
@@ -25,5 +25,25 @@ export default routesCreator([
     name: '用户信息',
     path: '/user/default',
     component: import('./routes/UserPage/UserPage'),
+  },
+  {
+    name: '我的主页',
+    path: '/home/default',
+    component: import('./routes/HomePage/HomePage'),
+  },
+  {
+    name: '课程详情',
+    path: '/course/default',
+    component: import('./routes/CourseDetail/CourseDetail'),
+  },
+  {
+    name: '通知页列表',
+    path: '/notice/default',
+    component: import('./routes/NoticeDetail/NoticeDetail'),
+  },
+  {
+    name: '关注页列表',
+    path: '/follow/default',
+    component: import('./routes/FollowDetail/FollowDetail'),
   },
 ]);

@@ -1,0 +1,45 @@
+@import '../../styles/media.less';
+:global {
+    .MyHomeTab-dd{
+width: 69%;
+        .ant-tabs{
+            background: #fff;
+            padding: 1rem;
+            margin-top: .5rem;
+            .ant-tabs-tab{
+                font-size: 1.10rem;
+                span{
+                    color: #ababab;
+                    padding-left: 0.4rem;
+                    font-size: 1rem;
+                }
+            }
+            
+        }
+    }
+   
+}
+
+@media @mobile {
+    :global {
+        .MyHomeTab-dd{
+            width: 100%;
+            .ant-tabs{
+                background: #fff;
+                padding: 1rem;
+                margin-top: .5rem;
+                width: 100%;
+                .ant-tabs-tab{
+                    font-size: 1rem;
+                    span{
+                        color: #ababab;
+                        padding-left: 0.4rem;
+                        font-size: 1rem;
+                    }
+                }
+                
+            }
+        }
+   
+  }
+}

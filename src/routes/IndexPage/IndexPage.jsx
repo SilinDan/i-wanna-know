@@ -1,4 +1,5 @@
-import React, {PureComponent} from 'react';
+/** 首页 */
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import QuestionList from 'Components/IndexPage/QuestionList';
 import AskButton from 'Components/IndexPage/AskButton';
@@ -11,8 +12,9 @@ export default class IndexPage extends PureComponent {
     return (
       <div className="flex-between">
         <QuestionList />
-        <ClassificationList />
-        <AskButton />
+        {/* <ClassificationList /> */}
+        {/* 手机提问按钮，暂时不用 */}
+        {/* <AskButton /> */}
       </div>
     );
   }
