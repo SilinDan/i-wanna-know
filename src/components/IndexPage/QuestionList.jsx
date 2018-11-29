@@ -23,8 +23,8 @@ const GET_QUESTIONS = gql`
         }
         like
         view
-        createTime
-        updateTime
+        createdTime
+        updatedTime
       }
       total
     }
@@ -50,7 +50,6 @@ export default class QuestionList extends Component {
         query={GET_QUESTIONS}>
         {
           ({ loading, data }) => {
-
             const { questions } = data || {};
 
             return (
