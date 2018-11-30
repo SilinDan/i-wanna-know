@@ -164,7 +164,7 @@ export default class CourseTable extends Component {
                                             <List.Item.Meta
                                                 title={
                                                     <div
-                                                        className="flex-between" style={{ padding: '0 1rem', 'align-items': 'center' }}
+                                                        className="flex-between" style={{ padding: '0 1rem', 'alignItems': 'center' }}
                                                     >
                                                         <div>
                                                             <a href="" style={{ color: '#111' }}>
