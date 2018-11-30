@@ -1,6 +1,6 @@
 import { Menu, Icon } from 'antd';
 import { Link } from 'dva/router';
-
+import { LOGOUT_HREF } from 'Utils/constance';
 
 const styles = {
   menuItem: {
@@ -23,7 +23,10 @@ const menus = [
   {
     name: '注销',
     icon: 'logout',
-    href: '/logout/default',
+    onClick: () => {
+      localStorage.removeItem('token');
+      location.href = LOGOUT_HREF;
+    }
   },
 ];
 
@@ -44,7 +47,7 @@ const UserMenu = (props = { history: {} }) => (
         <Menu.Item key={menu.name}>
           <a
             style={styles.menuItem}
-            onClick={() => handleClick(props.history, menu.href, props[menu.onClick])}>
+            onClick={() => handleClick(props.history, menu.href, menu.onClick)}>
             {menu.icon ? <Icon type={menu.icon} className="margin-right-sm" /> : null}
             {menu.name}
           </a>

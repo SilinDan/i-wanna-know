@@ -7,26 +7,54 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import FrontLayout from './routes/Layout/FrontLayout';
 import BackLayout from './routes/Layout/BackLayout';
+import { LOGOUT_HREF } from 'Utils/constance';
+import get from 'Utils/get';
 
 const GET_TOKEN = gql`
-query TokenQuery($token: String!) {
-  token: TokenQuery(token: $token)
-}
+  query TokenQuery($token: String!) {
+    token: TokenQuery(token: $token)
+  }
+`;
+
+const GET_USER = gql`
+  query CurrentUserQuery {
+    user: CurrentUserQuery {
+      id
+      name
+    }
+  }
 `;
 
 const createRouter = (history) => (
-  <LocaleProvider locale={zh_CN}>
-    <Router history={history}>
-      {/* 前台布局 */}
-      <FrontLayout
-        history={history}
-        logoName="i Wanna Know" />
-      {/* 后台布局 */}
-      {/* <BackLayout
-      isCollapsible 
-      isCloseWhenOpenOther /> */}
-    </Router>
-  </LocaleProvider >
+  <Query query={GET_USER}>
+    {
+      ({ data, loading }) => {
+        const user = get(data, 'user');
+
+        if (user || loading) {
+          return (
+            <LocaleProvider locale={zh_CN}>
+              <Router history={history}>
+                {/* 前台布局 */}
+                <FrontLayout
+                  history={history}
+                  logoName="i Wanna Know" />
+                {/* 后台布局 */}
+                {/* <BackLayout
+                  isCollapsible 
+                  isCloseWhenOpenOther /> */}
+              </Router>
+            </LocaleProvider >
+
+          );
+        } else {
+          location.href = LOGOUT_HREF;
+
+          return '未登录';
+        }
+      }
+    }
+  </Query>
 );
 
 function RouterConfig({ history }) {
@@ -41,9 +69,8 @@ function RouterConfig({ history }) {
         query={GET_TOKEN}
       >
         {
-          ({data}) => {
+          ({ data }) => {
             if (data && data.token) {
-              console.log(data);
               localStorage.setItem('token', data.token);
               history.replace('/index/default');
             }
