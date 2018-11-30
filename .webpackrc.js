@@ -9,7 +9,7 @@ export default {
   },
   entry: 'src/index.js',
   define: {
-    __DEV__: false,
+    __DEV__: true,
   },
   alias: {
     Components: path.resolve(__dirname, 'src/components/'),
