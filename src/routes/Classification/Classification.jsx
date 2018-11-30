@@ -7,7 +7,7 @@ import styles from './Classification.less';
 
 export default class Classification extends Component {
     static propTypes = {
-        prop: PropTypes
+
     }
 
     render() {

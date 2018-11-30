@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
 import { Table, Button, Icon } from 'antd';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import get from 'Utils/get';
+
+const GET_COURSES = gql`
+    query ClassificationsQuery($majorId:  String!){
+        courses : ClassificationsQuery(majorId: $majorId){
+            list{
+                _id
+                name
+                followedNum
+                isFollowed
+            }
+            total
+        }
+    }
+`;
 
 const data = [{
     key: '1',
@@ -50,54 +67,78 @@ export default class CourseTable extends Component {
 
     render() {
 
+
         let { sortedInfo, filteredInfo } = this.state;
 
         sortedInfo = sortedInfo || {};
         filteredInfo = filteredInfo || {};
-        const columns = [{
-            title: '课程名',
-            dataIndex: 'courseName',
-            key: 'courseName',
-            filters: [
-                { text: 'Joe', value: 'Joe' },
-                { text: 'Jim', value: 'Jim' },
-            ],
-            filteredValue: filteredInfo.courseName || null,
-            onFilter: (value, record) => record.courseName.includes(value),
-            sortOrder: sortedInfo.columnKey === 'courseName' && sortedInfo.order,
-        }, {
-            title: '类别',
-            dataIndex: 'classification',
-            key: 'classification',
-            filters: [
-                { text: '任选', value: '任选' },
-                { text: '限选', value: '限选' },
-            ],
-            filteredValue: filteredInfo.classification || null,
-            onFilter: (value, record) => record.classification.includes(value),
-            sortOrder: sortedInfo.columnKey === 'classification' && sortedInfo.order,
-        }, {
-            title: '关注数',
-            dataIndex: 'follow',
-            key: 'follow',
-            sorter: (a, b) => a.follow - b.follow,
-            sortOrder: sortedInfo.columnKey === 'follow' && sortedInfo.order,
-        }, {
-            title: 'Action',
-            key: 'action',
-            render: (text, record) => (
-                <span>
-                    <Button type="primary"><Icon type="plus" />关注</Button>
-                </span>
-            ),
-        }
+        const columns = [
+            {
+                title: '课程名',
+                dataIndex: 'name',
+                key: 'name',
+                filters: [
+                    { text: 'Joe', value: 'Joe' },
+                    { text: 'Jim', value: 'Jim' },
+                ],
+                filteredValue: filteredInfo.courseName || null,
+                onFilter: (value, record) => record.courseName.includes(value),
+                sortOrder: sortedInfo.columnKey === 'courseName' && sortedInfo.order,
+            },
+            // {
+            //     title: '类别',
+            //     dataIndex: 'classification',
+            //     key: 'classification',
+            //     filters: [
+            //         { text: '任选', value: '任选' },
+            //         { text: '限选', value: '限选' },
+            //     ],
+            //     filteredValue: filteredInfo.classification || null,
+            //     onFilter: (value, record) => record.classification.includes(value),
+            //     sortOrder: sortedInfo.columnKey === 'classification' && sortedInfo.order,
+            // },
+            {
+                title: '关注数',
+                dataIndex: 'followedNum',
+                key: 'followedNum',
+                sorter: (a, b) => a.follow - b.follow,
+                sortOrder: sortedInfo.columnKey === 'follow' && sortedInfo.order,
+            },
+            {
 
+            },
+            {
+                title: 'Action',
+                key: 'action',
+                render: (text, record) => (
+                    <span>
+                        <Button type="primary"><Icon type="plus" />关注</Button>
+                    </span>
+                ),
+            }
         ];
 
         return (
-            <div>
-                <Table columns={columns} dataSource={data} onChange={this.handleChange} />
-            </div>
+            <Query
+                variables={{ majorId: this.props.majorId }}
+                query={GET_COURSES}
+            >
+                {
+                    ({ data, loading }) => {
+                        const list = get(data, 'courses.list');
+
+
+                        return (
+                            <Table
+                                loading={loading}
+                                columns={columns}
+                                dataSource={list}
+                                onChange={this.handleChange}
+                            />
+                        );
+                    }
+                }
+            </Query>
         );
     }
 }

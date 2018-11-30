@@ -8,6 +8,7 @@ import gql from 'graphql-tag';
 import FrontLayout from './routes/Layout/FrontLayout';
 import BackLayout from './routes/Layout/BackLayout';
 import { LOGOUT_HREF } from 'Utils/constance';
+import get from 'Utils/get';
 
 const GET_TOKEN = gql`
   query TokenQuery($token: String!) {
@@ -20,16 +21,15 @@ const GET_USER = gql`
     user: CurrentUserQuery {
       id
       name
-      icon
     }
   }
 `;
 
 const createRouter = (history) => (
-  <Query query={GET_TOKEN}>
+  <Query query={GET_USER}>
     {
       ({ data, loading }) => {
-        const user = data.user || null;
+        const user = get(data, 'user');
 
         if (user || loading) {
           return (
@@ -48,7 +48,9 @@ const createRouter = (history) => (
 
           );
         } else {
-          // location.href = LOGOUT_HREF;
+          location.href = LOGOUT_HREF;
+
+          return '未登录';
         }
       }
     }
