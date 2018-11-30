@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Icon } from 'antd';
+import { Table, Button, Icon, List } from 'antd';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import get from 'Utils/get';
@@ -29,6 +29,21 @@ const data = [{
     classification: '限选',
     follow: 1000,
 }];
+
+const course = [
+    {
+        title: '算法与数据结构',
+    },
+    {
+        title: 'Java EE编程技术（2）',
+    },
+    {
+        title: 'Java EE编程技术（2）',
+    },
+    {
+        title: 'Java EE编程技术（2）',
+    },
+];
 
 export default class CourseTable extends Component {
     state = {
@@ -128,13 +143,44 @@ export default class CourseTable extends Component {
                         const list = get(data, 'courses.list');
 
 
+
                         return (
-                            <Table
-                                loading={loading}
-                                columns={columns}
-                                dataSource={list}
-                                onChange={this.handleChange}
-                            />
+
+                            <div>
+                                <Table
+                                    className="hidden-mb"
+                                    loading={loading}
+                                    columns={columns}
+                                    dataSource={list}
+                                    onChange={this.handleChange}
+                                    style={{ margin: '1rem', 'minHeight': '300px' }}
+                                />
+                                <List
+                                    className="visible-block-mobile container"
+                                    itemLayout="horizontal"
+                                    dataSource={course}
+                                    renderItem={item => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                title={
+                                                    <div
+                                                        className="flex-between" style={{ padding: '0 1rem', 'align-items': 'center' }}
+                                                    >
+                                                        <div>
+                                                            <a href="" style={{ color: '#111' }}>
+                                                                {item.title}
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            <Button type="primary">关注</Button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            />
+                                        </List.Item>
+                                    )}
+                                />
+                            </div>
                         );
                     }
                 }

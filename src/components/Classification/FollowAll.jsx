@@ -8,8 +8,17 @@ export default class FollowAll extends Component {
         return (
             // <div id="FollowAll-dd" style={{ flex: 1, background: '#fff', padding: '30px' }}>
             <div id="FollowAll-dd">
-                <div><Icon type="ordered-list" /><span>所有课程</span></div>
-                <div><a href="../"><Button><Icon type="plus" />一键关注本学期课程</Button></a></div>
+                <div className="all-title">
+                    <Icon type="ordered-list" />
+                    <span>全部课程</span>
+                </div>
+                <div>
+                    <a href="../">
+                        <Button type="primary" style={{ color: 'white' }}>
+                            +一键关注本学期课程
+                        </Button>
+                    </a>
+                </div>
             </div>
         );
     }

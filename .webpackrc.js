@@ -43,7 +43,15 @@ export default {
       },
       extraBabelPlugins: [
         'dva-hmr',
-        ['import', { libraryName: 'antd', style: 'css' }],
+        [
+          'import',
+          { libraryName: 'antd', style: 'css' },
+        ],
+        [
+          'import',
+          { libraryName: 'antd-mobile', style: 'css' },
+          'antd-mobile'
+        ],
       ],
       devtool: 'eval',
       ignoreMomentLocale: true,
@@ -51,7 +59,17 @@ export default {
     production: {
       publicPath: './',
       hash: true,
-      extraBabelPlugins: [['import', { libraryName: 'antd', style: 'css' }]],
+      extraBabelPlugins: [
+        [
+          'import',
+          { libraryName: 'antd', style: 'css' },
+        ],
+        [
+          'import',
+          { libraryName: 'antd-mobile', style: 'css' },
+          'antd-mobile'
+        ],
+      ],
     },
   },
 };

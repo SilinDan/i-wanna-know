@@ -1,16 +1,30 @@
+@import '../../styles/media.less';
 :global {
     #FollowAll-dd{
+        font-family: '-apple-system,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Arial,sans-serif';
         display:flex;
         display:-webkit-flex;
         justify-content:space-between;
         flex: 1;
         height: 3rem;
         align-items: center;
-        margin: 0 1rem;
-        span{
-            color: #111;
-            font-weight: 900;
-            margin-left:.3rem; 
+        padding:2rem 2rem;
+        border-bottom: 2px solid #f3f3f3;
+        .all-title{
+            color: #007fff;
+            font-weight: 600;
+            span{
+                margin-left:.3rem; 
+            }
         }
     }
 }
+
+
+@media @mobile {
+    :global {
+        #FollowAll-dd{
+            padding:2rem 1rem;
+        }
+    }
+  }
