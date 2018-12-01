@@ -1,3 +1,4 @@
+/** 废弃 */
 import React, { Component } from 'react';
 import { Tabs, Radio } from 'antd';
 import CourseTable from './CourseTable';
