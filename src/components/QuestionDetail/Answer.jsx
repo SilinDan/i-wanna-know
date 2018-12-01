@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Answer.less';
 import { Card, Button } from 'antd';
-import LzEditor from 'react-lz-editor';
+// import LzEditor from 'react-lz-editor';
 
 class Answer extends Component {
   state = {};
@@ -9,7 +9,7 @@ class Answer extends Component {
     return (
       <Card>
         <div className="margin-top-lg">
-          <LzEditor />
+          {/* <LzEditor /> */}
         </div>
         <Button type="primary" style={{ marginTop: '1rem' }}>提交回答</Button>
 

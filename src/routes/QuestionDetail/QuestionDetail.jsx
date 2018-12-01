@@ -5,7 +5,7 @@ import Question from 'Components/QuestionDetail/Question';
 import Answer from 'Components/QuestionDetail/Answer';
 import AnswerList from 'Components/QuestionDetail/AnswerList';
 import { Radio, Card } from 'antd';
-import LzEditor from 'react-lz-editor';
+// import LzEditor from 'react-lz-editor';
 
 class QuestionDetail extends Component {
   state = {};

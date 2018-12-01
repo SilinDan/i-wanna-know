@@ -19,16 +19,15 @@
     "apollo-link-context": "^1.0.9",
     "apollo-link-error": "^1.0.9",
     "apollo-link-http": "^1.5.4",
-    "dva": "^2.2.3",
+    "braft-editor": "^2.1.33",
+    "dva": "^2.4.1",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
-    "immutability-helper-x": "^1.0.5",
-    "next": "^6.1.1",
+    "next": "^7.0.2",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-apollo": "2.1.4",
     "react-dom": "^16.2.0",
-    "react-lz-editor": "^0.12.1",
     "windlike-utils": "^2.1.6"
   },
   "devDependencies": {
@@ -45,7 +44,7 @@
     "eslint-plugin-typescript": "^0.12.0",
     "husky": "^0.12.0",
     "redbox-react": "^1.4.3",
-    "roadhog": "^2.0.0",
+    "roadhog": "^2.4.7",
     "typescript-eslint-parser": "^18.0.0"
   }
 }

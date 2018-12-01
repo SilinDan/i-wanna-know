@@ -4,12 +4,16 @@ import PropTypes from 'prop-types';
 import Modal from 'Components/Modal/Modal';
 import PublishModal from 'Components/PublishModal/PublishModal';
 import { Input, Select, Button, message } from 'antd';
+import 'antd/lib/upload/style/css';
 import { browserHistory } from 'dva/router';
-import LzEditor from 'react-lz-editor';
+// import LzEditor from 'react-lz-editor';
+import Editor from 'braft-editor';
+import 'braft-editor/dist/index.css';
 import handleSuccess from 'Utils/successes';
 import { graphql, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import styles from './Ask.less';
+import { SERVER_ADDRESS } from 'Utils/constance';
 
 const { Option } = Select;
 const CREATE_QUESTION = gql`
@@ -29,6 +33,7 @@ export default class Ask extends Component {
     title: '',
     content: '',
     classificationId: '',
+    fileList: []
   };
 
   handleTitleChange = e => {
@@ -79,7 +84,17 @@ export default class Ask extends Component {
     }
   };
 
+  handleUpload = (info) => {
+    console.log(info);
+    if (info.file.status === 'done') {
+      info.fileList[info.fileList.length - 1].url = `${SERVER_ADDRESS}/uploads/assets/${info.file.response.name}`;
+    }
+    this.setState({ fileList: info.fileList });
+  }
+
   render() {
+    const { fileList } = this.state;
+
     return (
       <Mutation
         onCompleted={this.handlePublishSuccess}
@@ -93,16 +108,22 @@ export default class Ask extends Component {
               type="text"
               className={styles['input-title']}
             />
-            <LzEditor
-              value={this.state.content}
+            <Editor />
+            {/* <LzEditor
+              importContent={this.state.content}
               className="maring-bottom-md"
               active={true}
               cbReceiver={this.handleContetnChange}
               uploadProps={{
-                action: '/upload',
+                action: `${SERVER_ADDRESS}/uploads`,
+                onChange: this.handleUpload,
+                showUploadList: true,
+                listType: 'picture',
+                fileList
               }}
+              convertFormat="markdown"
               removeStyle={false}
-            />
+            /> */}
             <Button
               onClick={this.showPublishModal}
               type="primary"
