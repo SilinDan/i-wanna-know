@@ -4,25 +4,42 @@ import styles from './QuestionDetail.less';
 import Question from 'Components/QuestionDetail/Question';
 import Answer from 'Components/QuestionDetail/Answer';
 import AnswerList from 'Components/QuestionDetail/AnswerList';
+import { Query } from 'react-apollo';
 import { Radio, Card } from 'antd';
-// import LzEditor from 'react-lz-editor';
+import { GET_QUESTION } from 'Queries/questions';
+import get from 'Utils/get';
 
 class QuestionDetail extends Component {
   state = {};
 
   render() {
+    const _id = get(this.props.match, 'params._id');
+
     return (
-      <div>
-        <Question />
-        <Card style={{ marginTop: '2em' }}>
-          <Radio.Group className="container">
-            <Radio.Button value="large">按热度排序</Radio.Button>
-            <Radio.Button value="default">按时间排序</Radio.Button>
-          </Radio.Group>
-          <AnswerList />
-        </Card>
-        <Answer />
-      </div>
+      <Query
+        query={GET_QUESTION}
+        variables={{ _id }}
+      >
+        {
+          ({ data }) => {
+            const question = get(data, 'question') || {};
+
+            return (
+              <div>
+                <Question question={question} />
+                <Card style={{ marginTop: '2em' }}>
+                  <Radio.Group className="container">
+                    <Radio.Button value="large">按热度排序</Radio.Button>
+                    <Radio.Button value="default">按时间排序</Radio.Button>
+                  </Radio.Group>
+                  <AnswerList />
+                </Card>
+                <Answer />
+              </div>
+            );
+          }
+        }
+      </Query>
     );
   }
 }

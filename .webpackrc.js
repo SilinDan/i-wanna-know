@@ -15,6 +15,7 @@ export default {
     Components: path.resolve(__dirname, 'src/components/'),
     Utils: path.resolve(__dirname, 'src/utils/'),
     Assets: path.resolve(__dirname, 'src/assets/'),
+    Queries: path.resolve(__dirname, 'src/queries/'),
     // react: path.resolve(
     //   __dirname,
     //   'node_modules/react/umd/react.production.min.js'
@@ -32,6 +33,7 @@ export default {
         Components: path.resolve(__dirname, 'src/components/'),
         Utils: path.resolve(__dirname, 'src/utils/'),
         Assets: path.resolve(__dirname, 'src/assets/'),
+        Queries: path.resolve(__dirname, 'src/queries/'),
         // react: path.resolve(
         //   __dirname,
         //   'node_modules/react/umd/react.development.js'

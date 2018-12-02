@@ -7,29 +7,9 @@ import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import handleError from 'Utils/errors';
 import styles from './QuestionList.less';
-
-const GET_QUESTIONS = gql`
-  query QuestionsQuery($title: String, $page: Int, $perPageNum: Int) {
-    questions: QuestionsQuery(title: $title, page: $page, perPageNum: $perPageNum) {
-      list {
-        title
-        content
-        preview
-        user {
-          id
-        }
-        classification {
-          name
-        }
-        like
-        view
-        createdTime
-        updatedTime
-      }
-      total
-    }
-  }
-`;
+import { GET_QUESTIONS } from 'Queries/questions';
+import Exception from 'ant-design-pro/lib/Exception';
+import get from 'Utils/get';
 
 export default class QuestionList extends Component {
   static propTypes = {
@@ -50,11 +30,15 @@ export default class QuestionList extends Component {
         query={GET_QUESTIONS}>
         {
           ({ loading, data }) => {
-            const { questions } = data || {};
+            const questions = get(data, 'questions');
 
             return (
               <Card
-                extra={<Button type="primary"><Link to="/ask/default">提问</Link></Button>}
+                extra={(
+                  <Button type="primary">
+                    <Link to="/ask/default">提问</Link>
+                  </Button>
+                )}
                 title="热门提问"
                 id="list-question"
                 className={styles.list}
@@ -65,7 +49,14 @@ export default class QuestionList extends Component {
                     <QuestionCard key={index} isLoading={loading} />
                   )) : questions ? questions.list.map((question) => (
                     <QuestionCard key={question._id} item={question} />
-                  )) : '这里空空的'
+                  )) : <Exception
+                        actions={(
+                          <Link to="/classification/default">
+                            <Button size="large" type="primary">去关注</Button>
+                          </Link>
+                        )}
+                        style={{ padding: '2rem 1rem' }}
+                        desc="你还没有关注任何课程呢" />
                 }
               </Card>
             );

@@ -2,7 +2,7 @@ export default function get(obj, path = '') {
     const keys = path.split('.');
     let value = null;
     let current = obj;
-    
+
     for (let currentKey of keys) {
         if (currentKey) {
             if (typeof current === 'object' && current[currentKey]) {
@@ -10,12 +10,12 @@ export default function get(obj, path = '') {
             } else {
                 return value;
             }
-            } else {
-                break;
-            }
+        } else {
+            break;
+        }
     }
-    
+
     value = current;
-    
+
     return value;
 }

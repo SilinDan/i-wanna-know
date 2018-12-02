@@ -12,10 +12,14 @@ import ReactDOM from 'react-dom';
 import './index.less';
 import './styles/common.less';
 import './styles/hidden.less';
+import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import 'highlight.js';
 import { SERVER_ADDRESS } from './utils/constance';
 import handleError from './utils/errors';
 
+
 // 1. Initialize
+
 const app = dva({
   history: browserHistory(),
 });
@@ -38,7 +42,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 // 默认情况客户端会发送到相同主机名(域名)下的/graphql端点
-const client = new ApolloClient({
+export const client = new ApolloClient({
   clientState: {
     defaults: {
 

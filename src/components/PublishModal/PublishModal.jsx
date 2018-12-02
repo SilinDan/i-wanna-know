@@ -1,3 +1,4 @@
+// 弃用
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'Components/Modal/Modal';

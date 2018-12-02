@@ -2,12 +2,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'Components/Modal/Modal';
-import PublishModal from 'Components/PublishModal/PublishModal';
+// import PublishModal from 'Components/PublishModal/PublishModal';
+import BraftEditor from 'braft-editor';
 import { Input, Select, Button, message } from 'antd';
 import 'antd/lib/upload/style/css';
 import { browserHistory } from 'dva/router';
-// import LzEditor from 'react-lz-editor';
-import Editor from 'braft-editor';
+import Editor from 'Components/Common/Editor';
 import 'braft-editor/dist/index.css';
 import handleSuccess from 'Utils/successes';
 import { graphql, Mutation } from 'react-apollo';
@@ -17,8 +17,8 @@ import { SERVER_ADDRESS } from 'Utils/constance';
 
 const { Option } = Select;
 const CREATE_QUESTION = gql`
-  mutation createQuestion($input: QuestionInput!) {
-    data: createQuestion(input: $input) {
+  mutation createQuestion($title: String!, $content: String!, $classificationId: ID!) {
+    data: createQuestion(title: $title, content: $content, classificationId: $classificationId) {
       code
       message
     }
@@ -31,7 +31,7 @@ export default class Ask extends Component {
   state = {
     isShowPublishModal: false,
     title: '',
-    content: '',
+    editorState: BraftEditor.createEditorState(null),
     classificationId: '',
     fileList: []
   };
@@ -40,22 +40,8 @@ export default class Ask extends Component {
     this.setState({ title: e.target.value });
   };
 
-  handleContetnChange = value => {
-    this.setState({ content: value });
-  };
-
-  handleClassificationSelect = id => {
-    this.setState({ classificationId: id });
-  };
-
-  showPublishModal = () => {
-    if (!this.state.title) {
-      message.error('请填写标题哦');
-    } else if (!this.state.content) {
-      message.error('内容必须填写哦');
-    } else {
-      this.setState({ isShowPublishModal: true });
-    }
+  handleContetnChange = editorState => {
+    this.setState({ editorState });
   };
 
   hidePublishModal = () => {
@@ -63,34 +49,31 @@ export default class Ask extends Component {
   };
 
   publish = createQuestion => {
-    const { title, content, classificationId } = this.state;
-    const preview = content.replace(/<[^>]*>/g, '').substr(0, 140);
+    // TODO: 修改分类id
+    const { title, editorState, classificationId } = this.state;
+    // const preview = content.replace(/<[^>]*>/g, '').substr(0, 140);
 
-    createQuestion({
-      variables: {
-        input: {
+    if (!title) {
+      message.error('请填写标题哦');
+    } else if (!editorState.toHTML().replace(/<[^>]*>/g, '')) {
+      message.error('内容必须填写哦');
+    } else {
+      createQuestion({
+        variables: {
           title,
-          content,
-          preview,
-          classificationId,
+          content: editorState.toHTML(),
+          classificationId: '046259',
         },
-      },
-    });
+      });
+    }
   };
 
   handlePublishSuccess = ({ data }) => {
+    // TODO: 发布完成后跳转到问题详情页
     if (handleSuccess(data)) {
       this.props.history.replace('/');
     }
   };
-
-  handleUpload = (info) => {
-    console.log(info);
-    if (info.file.status === 'done') {
-      info.fileList[info.fileList.length - 1].url = `${SERVER_ADDRESS}/uploads/assets/${info.file.response.name}`;
-    }
-    this.setState({ fileList: info.fileList });
-  }
 
   render() {
     const { fileList } = this.state;
@@ -108,7 +91,9 @@ export default class Ask extends Component {
               type="text"
               className={styles['input-title']}
             />
-            <Editor />
+            <Editor
+              onChange={this.handleContetnChange}
+              value={this.state.editorState} />
             {/* <LzEditor
               importContent={this.state.content}
               className="maring-bottom-md"
@@ -125,18 +110,18 @@ export default class Ask extends Component {
               removeStyle={false}
             /> */}
             <Button
-              onClick={this.showPublishModal}
+              onClick={() => this.publish(createQuestion)}
               type="primary"
               size="large"
               className={styles['btn-submit']}>
               发布
             </Button>
-            <PublishModal
+            {/* <PublishModal
               handleClassificationSelect={this.handleClassificationSelect}
               handleCancel={this.hidePublishModal}
               handleOk={() => this.publish(createQuestion)}
               visible={this.state.isShowPublishModal}
-            />
+            /> */}
           </div>
         )}
       </Mutation>

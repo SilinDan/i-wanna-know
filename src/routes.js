@@ -18,7 +18,7 @@ export default routesCreator([
   },
   {
     name: '问题详情',
-    path: '/question/default',
+    path: '/question/:_id',
     component: import('./routes/QuestionDetail/QuestionDetail'),
   },
   {

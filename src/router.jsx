@@ -9,24 +9,11 @@ import FrontLayout from './routes/Layout/FrontLayout';
 import BackLayout from './routes/Layout/BackLayout';
 import { LOGOUT_HREF } from 'Utils/constance';
 import get from 'Utils/get';
-
-const GET_TOKEN = gql`
-  query TokenQuery($token: String!) {
-    token: TokenQuery(token: $token)
-  }
-`;
-
-const GET_USER = gql`
-  query CurrentUserQuery {
-    user: CurrentUserQuery {
-      id
-      name
-    }
-  }
-`;
+import { GET_TOKEN } from 'Queries/tokens';
+import { GET_CURRENT_USER } from 'Queries/users';
 
 const createRouter = (history) => (
-  <Query query={GET_USER}>
+  <Query query={GET_CURRENT_USER}>
     {
       ({ data, loading }) => {
         const user = get(data, 'user');

@@ -1,3 +1,4 @@
+/** 废弃 */
 import React, { Component } from 'react';
 import { Table, Button, Icon, List } from 'antd';
 import { Query } from 'react-apollo';
@@ -81,8 +82,6 @@ export default class CourseTable extends Component {
 
 
     render() {
-
-
         let { sortedInfo, filteredInfo } = this.state;
 
         sortedInfo = sortedInfo || {};
@@ -135,6 +134,7 @@ export default class CourseTable extends Component {
 
         return (
             <Query
+                skip={!this.props.majorId}
                 variables={{ majorId: this.props.majorId }}
                 query={GET_COURSES}
             >
@@ -142,14 +142,12 @@ export default class CourseTable extends Component {
                     ({ data, loading }) => {
                         const list = get(data, 'courses.list');
 
-
-
                         return (
 
                             <div>
                                 <Table
                                     className="hidden-mb"
-                                    loading={loading}
+                                    loading={loading && this.props.majorId}
                                     columns={columns}
                                     dataSource={list}
                                     onChange={this.handleChange}
