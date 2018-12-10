@@ -6,7 +6,14 @@ export const GET_CURRENT_USER = gql`
       id
       name
       departmentId
+      department
       majorId
+      class
+      major
+      group
+      followsNum
+      followersNum
+      
     }
   }
 `;

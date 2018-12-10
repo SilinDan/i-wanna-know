@@ -8,8 +8,13 @@ import AlterInformation from 'Components/HomePage/AlterInformation';
 const { Meta } = Card;
 
 export default class InformationCard extends Component {
+    static propTypes = {
+        user: PropTypes.object.isRequired,
+    }
 
     render() {
+        const user = this.props.user || {};
+
         return (
             <div className="information-card-dd">
                 <Card className="hidden-mb">
@@ -17,46 +22,45 @@ export default class InformationCard extends Component {
                         avatar={<Avatar size={84} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                         title={(
                             <div className="flex-between" style={{ flexWrap: 'wrap' }}>
-                                京蜜
+                                {user.name}
                                 <AlterInformation />
                             </div>
                         )}
-
                         description={
                             <div className="description-dd">
                                 <Icon type="home" theme="filled" className="idcard-dd" />
-                                计算机学院 <span>|</span>软件工程
+
+                                <span className="ell">{user.department} | {user.major} | {user.class}</span>
                                 <br />
                                 <Icon type="idcard" theme="filled" className="idcard-dd" />
-                                沙关在沙漠，星星死在天上，名字葬在咽喉
+                                <span className="ell">沙关在沙漠，星星死在天上，名字葬在咽喉</span>
                             </div>
                         }
-                    // description={<DescriptionCollapse />}
                     />
                 </Card>
 
                 {/* 手机版 */}
                 <div className="hidden-desktop hidden-tablet">
                     <Card
-
                         bordered={false}
                     >
                         <Meta
                             avatar={<Avatar size={50} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                            title="京蜜"
+                            title={user.name}
                             description={
                                 <div >
-                                    <span className="introduce-mb">沙关在沙漠，星星死在天上……</span>
+                                    <p className="introduce-mb ell">沙关在沙漠，星星死在天上，名字葬在咽喉</p>
                                 </div>
                             }
                         />
                     </Card>
                     <div className="followAndAlter">
-                        <FollowCard />
-                        <AlterInformation />
+                        <FollowCard user={user} />
+                        <AlterInformation user={user} />
                     </div>
                 </div>
             </div>
+
         );
     }
 }

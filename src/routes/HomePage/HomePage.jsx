@@ -4,7 +4,9 @@ import { Input, Card, Form, Switch, Button, Radio } from 'antd';
 import InformationCard from 'Components/HomePage/InformationCard';
 import MyHomeTab from 'Components/HomePage/MyHomeTab';
 import FollowCard from 'Components/HomePage/FollowCard';
-
+import { GET_CURRENT_USER } from 'Queries/users.js';
+import { Query } from 'react-apollo';
+import get from 'Utils/get';
 import styles from './HomePage.less';
 
 const FormItem = Form.Item;
@@ -22,15 +24,28 @@ class HomePage extends Component {
     state = {}
     render() {
         return (
-            <div className={styles['flex-box-between']}>
-                <div className={styles['left']}>
-                    < InformationCard />
-                    < MyHomeTab />
-                </div>
-                <div className={`${styles['right']} hidden-mb`}>
-                    <FollowCard />
-                </div>
-            </div>
+
+            <Query
+                query={GET_CURRENT_USER}
+            >
+                {
+                    ({ data }) => {
+                        const user = get(data, 'user') || {};
+
+                        return (
+                            <div className={styles['flex-box-between']}>
+                                <div className={styles['left']}>
+                                    < InformationCard user={user} />
+                                    < MyHomeTab />
+                                </div>
+                                <div className={`${styles['right']} hidden-mb`}>
+                                    <FollowCard user={user} />
+                                </div>
+                            </div>
+                        );
+                    }
+                }
+            </Query>
         );
     }
 }
