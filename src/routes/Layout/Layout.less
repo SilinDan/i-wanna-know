@@ -30,33 +30,39 @@
   margin-left: 1rem;
 }
 
+.front-header {
+  box-shadow: 0px 1px 4px #ccc;
+  height: 3rem;
+  z-index: 1;
+}
+
+.mobile-toolbar {
+  padding: 0;
+  height: 3.5rem;
+  width: 100%;
+
+  .toolbar {
+    height: 100%;
+    width: 100vw;
+    display: flex;
+  }
+}
+
 :global {
   #front-layout {
     .ant-layout-header {
-      box-shadow: 0px 1px 4px #ccc;
-      height: 3rem;
-      z-index: 1;
-    }
-    .antd-pro-footer-toolbar-toolbar {
-      padding: 0;
-      height: 3.5rem;
-    }
-    .antd-pro-footer-toolbar-right {
-      height: 100%;
-      width: 100%;
-      display: flex;
-    }
-    .ant-badge,
-    .anticon-search {
-      margin-top: 1rem;
-      vertical-align: top;
-    }
-    .anticon-bell {
-      padding: 0;
-    }
-    .antd-pro-header-search-input {
-      vertical-align: top;
-      margin-top: .5rem;
+      .ant-badge,
+      .anticon-search {
+        margin-top: 1rem;
+        vertical-align: top;
+      }
+      .anticon-bell {
+        padding: 0;
+      }
+      .antd-pro-header-search-input {
+        vertical-align: top;
+        margin-top: .5rem;
+      }
     }
   }
 }
