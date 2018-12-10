@@ -17,7 +17,7 @@
     "apollo-cache-inmemory": "^1.2.1",
     "apollo-link": "^1.2.2",
     "apollo-link-context": "^1.0.9",
-    "apollo-link-error": "^1.0.9",
+    "apollo-link-error": "^1.1.2",
     "apollo-link-http": "^1.5.4",
     "braft-editor": "^2.1.33",
     "dva": "^2.4.1",

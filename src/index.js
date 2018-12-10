@@ -16,7 +16,7 @@ import 'highlight.js/styles/atom-one-dark-reasonable.css';
 import 'highlight.js';
 import { SERVER_ADDRESS } from './utils/constance';
 import handleError from './utils/errors';
-
+import { onError } from 'apollo-link-error';
 
 // 1. Initialize
 
@@ -41,6 +41,20 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    );
+  }
+
+  if (networkError) {
+    handleError(networkError);
+  }
+});
+
 // 默认情况客户端会发送到相同主机名(域名)下的/graphql端点
 export const client = new ApolloClient({
   clientState: {
@@ -48,27 +62,9 @@ export const client = new ApolloClient({
 
     },
     typeDefs: `
-      input QuestionInput {
-          title: String!
-          content: String!
-          preview: String
-          classificationId: ID
-      }
     `
   },
-  link: authLink.concat(httpLink),
-  onError: (({ graphQLErrors, networkError }) => {
-    if (graphQLErrors)
-      graphQLErrors.map(({ message, locations, path }) =>
-        console.log(
-          `[GraphQL]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-        ),
-      );
-
-    if (networkError) {
-      handleError(networkError);
-    }
-  }),
+  link: authLink.concat(errorLink).concat(httpLink),
   cache: new InMemoryCache(),
 });
 
