@@ -10,7 +10,7 @@ export default class IndexPage extends PureComponent {
 
   render() {
     return (
-      <div className="flex-between">
+      <div>
         <QuestionList />
         {/* <ClassificationList /> */}
         {/* 手机提问按钮，暂时不用 */}

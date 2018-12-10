@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Answer.less';
+import { Link } from 'dva/router';
 import { List, Avatar, Icon, Skeleton, Button } from 'antd';
 import Comment from './Comment';
 
@@ -29,7 +30,6 @@ class AnswerList extends Component {
     render() {
         const { loading } = this.state;
 
-
         return (
             <div>
                 <List
@@ -53,7 +53,7 @@ class AnswerList extends Component {
                         >
                             <Skeleton loading={loading} avatar paragraph={{ rows: 4 }} >
                                 <List.Item.Meta
-                                    title={<a href={item.href}>{item.title}</a>}
+                                    title={<Link to="/user/default">{item.title}</Link>}
                                     avatar={<Avatar src={item.avatar} />}
                                 />
                                 {item.content}

@@ -1,6 +1,6 @@
 import FooterToolbar from 'ant-design-pro/lib/FooterToolbar';
 import HeaderSearch from 'ant-design-pro/lib/HeaderSearch';
-import { Layout } from 'antd';
+import { Layout, BackTop } from 'antd';
 import icon from 'Assets/icon-front.png';
 import MENUS, { HIDDEN_MOBILE_MENUS, MOBILE_MENUS } from 'Assets/menus';
 import Info from 'Components/Info/Info';
@@ -139,6 +139,7 @@ export default class FrontLayout extends Component {
             />
           ))}
         </FooterToolbar>
+        <BackTop />
       </Layout>
     );
   }

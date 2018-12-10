@@ -49,7 +49,7 @@ class Question extends Component {
         <div
           className={styles.content}
           dangerouslySetInnerHTML={createMarkup(question.content)} />
-        <Button className="margin-right-md" type="primary">
+        <Button className="margin-right-sm" type="primary">
           <Icon type="highlight" />写回答
         </Button>
         <Button style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}>
