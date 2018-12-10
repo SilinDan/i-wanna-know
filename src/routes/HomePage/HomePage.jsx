@@ -22,11 +22,13 @@ class HomePage extends Component {
     state = {}
     render() {
         return (
-            <div>
-                < InformationCard />
-                <div className={styles['flex-box']}>
-                    <FollowCard />
+            <div className={styles['flex-box-between']}>
+                <div className={styles['left']}>
+                    < InformationCard />
                     < MyHomeTab />
+                </div>
+                <div className={`${styles['right']} hidden-mb`}>
+                    <FollowCard />
                 </div>
             </div>
         );

@@ -17,14 +17,11 @@ const data = [
     },
 ];
 
-export default class NoticeTab extends Component {
-    static propTypes = {
-        prop: PropTypes
-    }
+export default class NoticeList extends Component {
 
     render() {
         return (
-            <List style={{ 'padding-left': '2rem' }}
+            <List style={{ paddingLeft: '2rem' }}
                 itemLayout="horizontal"
                 dataSource={data}
                 renderItem={item => (

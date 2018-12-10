@@ -9,9 +9,6 @@ function callback(key) {
     console.log(key);
 }
 export default class NoticeTab extends Component {
-    static propTypes = {
-        prop: PropTypes
-    }
 
     render() {
         return (

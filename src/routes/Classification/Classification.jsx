@@ -13,12 +13,20 @@ export default class Classification extends Component {
 
     }
 
+    state = {
+        selectedMajor: ''
+    }
+
+    selectMajor = (majorId) => {
+        this.setState({ selectedMajor: majorId });
+    }
+
     render() {
         return (
             <div id="classification-dd">
                 <FollowAll />
-                <DepartmentSelect />
-                <CourseTable />
+                <DepartmentSelect selectMajor={this.selectMajor} />
+                <CourseTable majorId={this.state.selectedMajor} />
             </div>
         );
     }

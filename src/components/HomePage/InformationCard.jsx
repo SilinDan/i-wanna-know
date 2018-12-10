@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Icon, Avatar, Button } from 'antd';
 import './InformationCard.less';
-import DescriptionCollapse from 'Components/HomePage/DescriptionCollapse';
+import FollowCard from 'Components/HomePage/FollowCard';
 import AlterInformation from 'Components/HomePage/AlterInformation';
 
 const { Meta } = Card;
@@ -11,26 +11,51 @@ export default class InformationCard extends Component {
 
     render() {
         return (
-            <div>
-                <Card
-                // style={{ width: 300 }}
-                // cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
-                >
-
+            <div className="information-card-dd">
+                <Card className="hidden-mb">
                     <Meta
                         avatar={<Avatar size={84} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                         title={(
                             <div className="flex-between" style={{ flexWrap: 'wrap' }}>
-                                <p>沈丹真可爱</p>
+                                京蜜
                                 <AlterInformation />
                             </div>
                         )}
 
-
-                        description={<DescriptionCollapse />}
+                        description={
+                            <div className="description-dd">
+                                <Icon type="home" theme="filled" className="idcard-dd" />
+                                计算机学院 <span>|</span>软件工程
+                                <br />
+                                <Icon type="idcard" theme="filled" className="idcard-dd" />
+                                沙关在沙漠，星星死在天上，名字葬在咽喉
+                            </div>
+                        }
+                    // description={<DescriptionCollapse />}
                     />
+                </Card>
 
-                </Card >
+                {/* 手机版 */}
+                <div className="hidden-desktop hidden-tablet">
+                    <Card
+
+                        bordered={false}
+                    >
+                        <Meta
+                            avatar={<Avatar size={50} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                            title="京蜜"
+                            description={
+                                <div >
+                                    <span className="introduce-mb">沙关在沙漠，星星死在天上……</span>
+                                </div>
+                            }
+                        />
+                    </Card>
+                    <div className="followAndAlter">
+                        <FollowCard />
+                        <AlterInformation />
+                    </div>
+                </div>
             </div>
         );
     }
