@@ -13,8 +13,8 @@ import get from 'Utils/get';
 
 export default class QuestionList extends Component {
   static propTypes = {
-    title: PropTypes.isRequired,
-    extra: PropTypes.isRequired,
+    title: PropTypes,
+    extra: PropTypes,
     classificationId: PropTypes.string,
     word: PropTypes.string,  // 搜索关键字
   }

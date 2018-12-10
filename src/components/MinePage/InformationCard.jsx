@@ -5,6 +5,7 @@ import { Link } from 'dva/router';
 import { GET_CURRENT_USER } from 'Queries/users.js';
 import { Query } from 'react-apollo';
 import get from 'Utils/get';
+import { DEFAULT_ICON } from 'Utils/constance.js';
 
 export default class InformationCard extends Component {
 
@@ -15,7 +16,6 @@ export default class InformationCard extends Component {
             >
                 {
                     ({ data, loading }) => {
-                        console.log(data);
                         const user = get(data, 'user') || {};
 
                         return (
@@ -28,8 +28,7 @@ export default class InformationCard extends Component {
                                         thumb={
                                             <div>
                                                 <img
-                                                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                                    alt=""
+                                                    src={user.icon ? user.icon : DEFAULT_ICON}
                                                     style={{ width: '40px', height: '40px' }}
                                                 />
                                             </div>

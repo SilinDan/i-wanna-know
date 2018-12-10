@@ -4,6 +4,7 @@ import { Card, Icon, Avatar, Button } from 'antd';
 import './InformationCard.less';
 import FollowCard from 'Components/HomePage/FollowCard';
 import AlterInformation from 'Components/HomePage/AlterInformation';
+import { DEFAULT_ICON } from 'Utils/constance.js';
 
 const { Meta } = Card;
 
@@ -19,7 +20,7 @@ export default class InformationCard extends Component {
             <div className="information-card-dd">
                 <Card className="hidden-mb">
                     <Meta
-                        avatar={<Avatar size={84} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                        avatar={<Avatar size={84} src={user.icon ? user.icon : DEFAULT_ICON} />}
                         title={(
                             <div className="flex-between" style={{ flexWrap: 'wrap' }}>
                                 {user.name}
@@ -45,7 +46,7 @@ export default class InformationCard extends Component {
                         bordered={false}
                     >
                         <Meta
-                            avatar={<Avatar size={50} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                            avatar={<Avatar size={50} src={user.icon ? user.icon : DEFAULT_ICON} />}
                             title={user.name}
                             description={
                                 <div >

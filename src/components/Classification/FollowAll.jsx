@@ -13,8 +13,8 @@ export default class FollowAll extends Component {
                 </div>
                 <div>
                     <Button type="primary" style={{ color: 'white' }}>
-                        +一键关注本学期课程
-                        </Button>
+                        <Icon type="smile" />一键关注本学期课程
+                    </Button>
                 </div>
             </div>
         );
