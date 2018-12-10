@@ -30,7 +30,7 @@ export const MOBILE_MENUS = [
   {
     name: '我的',
     icon: 'user',
-    link: '/user/default',
+    link: '/mine/default',
   },
 ];
 

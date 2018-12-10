@@ -32,8 +32,13 @@ export default routesCreator([
     component: import('./routes/HomePage/HomePage'),
   },
   {
+    name: '手机我的个人中心',
+    path: '/mine/default',
+    component: import('./routes/MinePage/MinePage'),
+  },
+  {
     name: '课程详情',
-    path: '/course/default',
+    path: '/course/:_id',
     component: import('./routes/CourseDetail/CourseDetail'),
   },
   {

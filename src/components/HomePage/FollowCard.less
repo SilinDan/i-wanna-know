@@ -1,10 +1,25 @@
 @import '../../styles/media.less';
 :global {
+    .follow-mb{
+        width: 150px;
+        display:flex;
+        display:-webkit-flex;
+        justify-content: space-around;
+      .font-follow{
+        color:rgba(0, 0, 0, 0.45);
+        font-size: 0.75rem;
+      }
+      .number-follow{
+        color: #111;
+        font-size: 0.85rem;
+        font-weight: 600;
+        max-width: 75px;
+        overflow: hidden;
+        text-overflow:ellipsis
+      }
+    }
     .FollowCard-dd{
-        width: 30%;
         .ant-card{
-            
-            margin-top: .5rem;
             .ant-card-grid{
                 padding: 1rem;
             }
@@ -16,20 +31,17 @@
     }
 }
 
-@media @mobile{
+@media @desktop{
     :global {
-        .FollowCard-dd{
-            width: 100%;
-            .ant-card{
-                margin-top: .5rem;
-                .ant-card-grid{
-                    padding: 1rem;
-                }
-                span{
-                    font-weight: 900;
-                    color: #111;
-                }
-            }
+        .follow-mb{
+            display: none;
+        }
+    }
+  }
+  @media @tablet{
+    :global {
+        .follow-mb{
+            display: none;
         }
     }
   }

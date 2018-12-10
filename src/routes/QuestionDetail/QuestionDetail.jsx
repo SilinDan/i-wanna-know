@@ -21,7 +21,7 @@ class QuestionDetail extends Component {
         variables={{ _id }}
       >
         {
-          ({ data }) => {
+          ({ data, loading }) => {
             const question = get(data, 'question') || {};
 
             return (

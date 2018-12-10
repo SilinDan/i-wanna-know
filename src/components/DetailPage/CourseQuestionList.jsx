@@ -7,6 +7,7 @@ import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import handleError from 'Utils/errors';
 import styles from './CourseQuestionList.less';
+import Follow from '../Classification/Follow';
 
 const GET_QUESTIONS = gql`
   query QuestionsQuery($page: Int!, $perPageNum: Int) {
@@ -57,11 +58,10 @@ export default class CourseQuestionList extends Component {
 
                             <Card
                                 extra={<div><a>热门</a><a>最新</a></div>}
-                                title={<div> <Button ><Icon type="eye" theme="twoTone" twoToneColor="#eb2f96" />关注</Button><Button type="primary" style={{ 'margin-left': '.5rem' }}><Link to="/ask/default">提问</Link></Button></div>}
+                                title={<Follow />}
                                 id="list-question-dd"
                                 className={styles.list}
                             >
-                                {/* TODO:当没数据的时候显示图片 */}
                                 {
                                     loading ? (new Array(3).fill(true)).map((value, index) => (
                                         <QuestionCard key={index} isLoading={loading} />

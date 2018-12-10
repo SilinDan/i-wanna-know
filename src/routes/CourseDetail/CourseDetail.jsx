@@ -3,21 +3,37 @@ import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import './Detail.less';
 import CourseQuestionList from 'Components/DetailPage/CourseQuestionList';
+import { GET_COURSE } from 'Queries/classifications';
+import get from 'Utils/get';
+import { Query } from 'react-apollo';
+
 
 export default class Detail extends Component {
-    static propTypes = {
-        prop: PropTypes
-    }
 
     render() {
+        const _id = get(this.props.match, 'params._id');
+
         return (
-            <div id="detail-dd" >
-                <div className="course-name">
-                    <h1>Linux操作系统</h1>
-                    <p>121828 关注，4932 文章</p>
-                </div>
-                <CourseQuestionList />
-            </div>
+            <Query
+                query={GET_COURSE}
+                variables={{ _id: _id }}
+            >
+                {
+                    ({ data, loading }) => {
+                        const course = get(data, 'course') || {};
+
+                        return (
+                            <div id="detail-dd" >
+                                <div className="course-name">
+                                    <h1>{course.name}</h1>
+                                    <p>{course.followedNum} 关注，{course.questionsNum} 问题</p>
+                                </div>
+                                <CourseQuestionList />
+                            </div>
+                        );
+                    }
+                }
+            </Query>
         );
     }
 }
