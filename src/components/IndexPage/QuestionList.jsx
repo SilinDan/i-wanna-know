@@ -10,11 +10,12 @@ import styles from './QuestionList.less';
 import { GET_QUESTIONS } from 'Queries/questions';
 import Exception from 'ant-design-pro/lib/Exception';
 import get from 'Utils/get';
+import { throttle } from 'windlike-utils/dist/fn';
 
 export default class QuestionList extends Component {
   static propTypes = {
-    title: PropTypes.isRequired,
-    extra: PropTypes.isRequired,
+    title: PropTypes.any,
+    extra: PropTypes.any,
     classificationId: PropTypes.string,
     word: PropTypes.string,  // 搜索关键字
   }
@@ -26,6 +27,22 @@ export default class QuestionList extends Component {
         <Link to="/ask/default">提问</Link>
       </Button>
     )
+  }
+
+  loadMore = () => {
+
+  }
+
+  componentDidMount() {
+    const executor = throttle(this.loadMore, 200);
+
+    document.addEventListener('scroll', function () {
+      executor.execute();
+    });
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.loadMore);
   }
 
   state = {
@@ -44,6 +61,28 @@ export default class QuestionList extends Component {
         {
           ({ loading, data }) => {
             const questions = get(data, 'questions');
+            let list = null;
+
+            if (loading) {
+              list = (new Array(3).fill(true)).map((value, index) => (
+                <QuestionCard key={index} isLoading={loading} />
+              ));
+            } else {
+              if (questions && questions.list.length) {
+                list = questions.list.map((question) => (
+                  <QuestionCard key={question._id} item={question} />
+                ));
+              } else {
+                list = <Exception
+                  actions={classificationId ? (
+                    <Link to="/ask/default">
+                      <Button size="large" type="primary">去提问</Button>
+                    </Link>
+                  ) : (<div />)}
+                  style={{ padding: '2rem 1rem' }}
+                  desc="还没有任何问题呢" />;
+              }
+            }
 
             return (
               <Card
@@ -53,20 +92,7 @@ export default class QuestionList extends Component {
                 className={styles.list}
               >
                 {/* TODO:当没数据的时候显示图片 */}
-                {
-                  loading ? (new Array(3).fill(true)).map((value, index) => (
-                    <QuestionCard key={index} isLoading={loading} />
-                  )) : questions ? questions.list.map((question) => (
-                    <QuestionCard key={question._id} item={question} />
-                  )) : <Exception
-                        actions={(
-                          <Link to="/classification/default">
-                            <Button size="large" type="primary">去关注</Button>
-                          </Link>
-                        )}
-                        style={{ padding: '2rem 1rem' }}
-                        desc="你还没有关注任何课程呢" />
-                }
+                {list}
               </Card>
             );
           }
