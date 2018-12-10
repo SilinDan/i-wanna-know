@@ -1,8 +1,12 @@
 /** 用户信息页面 */
 import React, { Component } from 'react';
-import { Input, Card, Form, Switch, Button, Radio } from 'antd';
-import Student from 'Components/UserPage/Student';
-import Teacher from 'Components/UserPage/Teacher';
+import { Input, Card, Form, Upload, Icon, Button, Radio } from 'antd';
+import { Query } from 'react-apollo';
+import { CurrentUserQuery } from 'Queries/users';
+import { GET_CURRENT_USER } from '../../queries/users';
+import get from 'Utils/get';
+import { DEFAULT_ICON } from 'Utils/constance';
+import styles from './UserPage.less';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -19,40 +23,55 @@ class UserPage extends Component {
   state = {}
   render() {
     return (
-      <Card>
-        <Form>
-          <h3>个人信息</h3>
-          <FormItem
-            label="姓名"
-            {...formItemLayout}
-          >
-            <Input value="姓名" disabled />
-          </FormItem>
-          <FormItem
-            label="学号"
-            {...formItemLayout}
-          >
-            <Input value="201541400000" disabled />
-          </FormItem>
-          <FormItem
-            label="学院"
-            {...formItemLayout}
-          >
-            <Input value="计算机与网络安全学院" disabled />
-          </FormItem>
-          <Student />
-          <Teacher />
-          <h3>账号信息</h3>
-          <FormItem
-            label="昵称"
-            {...formItemLayout}
-            required
-          >
-            <Input value="Windlike" />
-          </FormItem>
-          <Button type="primary">保存</Button>
-        </Form>
-      </Card>
+      <Query
+        query={GET_CURRENT_USER}
+      >
+        {
+          ({ data, loading }) => {
+            const user = get(data, 'user') || {};
+            const uploadButton = (
+              <div>
+                <Icon type={loading ? 'loading' : 'plus'} />
+                <div className="ant-upload-text">Upload</div>
+              </div>
+            );
+
+            return (
+
+              <Card>
+                <Form>
+                  <h3>账号信息</h3>
+                  <FormItem
+                    label="头像"
+                    required
+                  >
+                    <Upload
+                      name="avatar"
+                      listType="picture-card"
+                      className="avatar-uploader"
+                      showUploadList={false}
+                      action="//jsonplaceholder.typicode.com/posts/"
+                      onChange={this.handleChange}
+                    >
+                      {
+                        user.icon ?
+                          <img width="100" src={user.icon} alt="avatar" /> :
+                          <img width="100" src={DEFAULT_ICON} alt="avatar" />
+                      }
+                    </Upload>
+                  </FormItem>
+                  <FormItem
+                    label="个性签名"
+                  >
+                    <Input placeholder="个性签名" />
+                  </FormItem>
+                  <Button type="primary">保存</Button>
+                </Form>
+              </Card>
+            );
+          }
+        }
+      </Query>
     );
   }
 }
