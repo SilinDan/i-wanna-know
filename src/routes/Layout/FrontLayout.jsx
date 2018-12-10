@@ -74,7 +74,7 @@ export default class FrontLayout extends Component {
     return (
       <Layout className={styles.layout} id="front-layout">
         {/* 头部 */}
-        <Header className={`${styles['header-light']} ${styles['header-ant']}`}>
+        <Header className={`${styles['header-light']} ${styles['header-ant']} ${styles['front-header']}`}>
           <div className={`flex-between  ${styles.header}`}>
             {/* 导航左侧 */}
             <div className={'flex'}>
@@ -130,17 +130,23 @@ export default class FrontLayout extends Component {
               ? '0'
               : '3.5rem',
           }}
-          className="hidden-desktop hidden-tablet">
-          {MOBILE_MENUS.map(menu => (
-            <MenuItem
-              key={menu.name}
-              menu={menu}
-              isActive={location.pathname === menu.link}
-            />
-          ))}
-        </FooterToolbar>
+          className={`hidden-desktop hidden-tablet ${styles['mobile-toolbar']}`}
+          extra={(
+            <div className={styles['toolbar']}>
+              {
+                MOBILE_MENUS.map(menu => (
+                  <MenuItem
+                    key={menu.name}
+                    menu={menu}
+                    isActive={location.pathname === menu.link}
+                  />
+                ))
+              }
+            </div>
+          )}
+        />
         <BackTop />
-      </Layout>
+      </Layout >
     );
   }
 }

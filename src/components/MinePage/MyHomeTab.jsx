@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'antd-mobile';
-import { Icon } from 'antd';
+import { Icon, Badge } from 'antd';
 import { Link } from 'dva/router';
 
 export default class InformationCard extends Component {
@@ -12,7 +12,7 @@ export default class InformationCard extends Component {
                 <List
                     style={{ marginTop: '1rem' }}
                 >
-                    <List.Item >
+                    <List.Item extra={<Badge count={25} style={{ margin: 0 }} />}>
                         <Link to="/notice/default" style={{ color: '#111' }}>
                             <Icon type="bell" theme="twoTone" style={{ margin: '0.5rem 1rem' }} />
                             消息中心
