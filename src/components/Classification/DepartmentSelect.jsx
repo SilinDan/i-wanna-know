@@ -38,6 +38,29 @@ export default class DepartmentSelect extends Component {
                 departments,
             });
 
+            const pickerValue = [];
+
+            this.fetchMajors(
+                this.state.departments.list[0].value,
+                (data) => {
+                    const majors = [...get(data, 'majors.list')];
+                    const departments = { ...this.state.departments };
+
+                    departments.list[0].children = majors.map((major) => ({
+                        value: major._id,
+                        label: major.name
+                    }));
+
+                    pickerValue.push(majors[0]._id);
+
+                    this.setState({
+                        pickerValue,
+                        departments,
+                        colNum: 2
+                    });
+                }
+            );
+
         });
     }
 
@@ -82,28 +105,31 @@ export default class DepartmentSelect extends Component {
         // 手机端点击Picker
         const pickerValue = [];
 
-        pickerValue.push(this.state.departments.list[0]._id);
+        if (this.state.departments.length > 0) {
+            pickerValue.push(this.state.departments.list[0]._id);
 
-        this.fetchMajors(
-            this.state.departments.list[0].value,
-            (data) => {
-                const majors = [...get(data, 'majors.list')];
-                const departments = { ...this.state.departments };
+            this.fetchMajors(
+                this.state.departments.list[0].value,
+                (data) => {
+                    const majors = [...get(data, 'majors.list')];
+                    const departments = { ...this.state.departments };
 
-                departments.list[0].children = majors.map((major) => ({
-                    value: major._id,
-                    label: major.name
-                }));
+                    departments.list[0].children = majors.map((major) => ({
+                        value: major._id,
+                        label: major.name
+                    }));
 
-                pickerValue.push(majors[0]._id);
+                    pickerValue.push(majors[0]._id);
 
-                this.setState({
-                    pickerValue,
-                    departments,
-                    colNum: 2
-                });
-            }
-        );
+                    this.setState({
+                        pickerValue,
+                        departments,
+                        colNum: 2
+                    });
+                }
+            );
+
+        }
 
     }
 
