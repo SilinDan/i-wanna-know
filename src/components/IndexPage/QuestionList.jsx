@@ -13,7 +13,19 @@ import get from 'Utils/get';
 
 export default class QuestionList extends Component {
   static propTypes = {
+    title: PropTypes.isRequired,
+    extra: PropTypes.isRequired,
+    classificationId: PropTypes.string,
+    word: PropTypes.string,  // 搜索关键字
+  }
 
+  static defaultProps = {
+    title: '问题',
+    extra: (
+      <Button type="primary">
+        <Link to="/ask/default">提问</Link>
+      </Button>
+    )
   }
 
   state = {
@@ -22,10 +34,11 @@ export default class QuestionList extends Component {
 
   render() {
     const { page } = this.state;
+    const { classificationId, extra, title, word } = this.props;
 
     return (
       <Query
-        variables={{ page }}
+        variables={{ page, classificationId, title: word }}
         fetchPolicy="cache-and-network"
         query={GET_QUESTIONS}>
         {
@@ -34,12 +47,8 @@ export default class QuestionList extends Component {
 
             return (
               <Card
-                extra={(
-                  <Button type="primary">
-                    <Link to="/ask/default">提问</Link>
-                  </Button>
-                )}
-                title="热门提问"
+                extra={extra}
+                title={title}
                 id="list-question"
                 className={styles.list}
               >

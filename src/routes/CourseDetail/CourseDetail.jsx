@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
-import './Detail.less';
-import CourseQuestionList from 'Components/DetailPage/CourseQuestionList';
+import styles from './Detail.less';
+import QuestionList from 'Components/IndexPage/QuestionList';
 import { GET_COURSE } from 'Queries/classifications';
 import get from 'Utils/get';
+import Follow from 'Components/Classification/Follow';
 import { Query } from 'react-apollo';
 
 
@@ -23,12 +24,16 @@ export default class Detail extends Component {
                         const course = get(data, 'course') || {};
 
                         return (
-                            <div id="detail-dd" >
-                                <div className="course-name">
-                                    <h1>{course.name}</h1>
+                            <div className={styles.detail} >
+                                <div className={styles['course-name']}>
+                                    <h1 className={styles.title}>{course.name}</h1>
                                     <p>{course.followedNum} 关注，{course.questionsNum} 问题</p>
                                 </div>
-                                <CourseQuestionList />
+                                <QuestionList
+                                    extra={<div><a>热门</a><a>最新</a></div>}
+                                    title={<Follow />}
+                                    classificationId={_id}
+                                />
                             </div>
                         );
                     }
