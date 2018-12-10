@@ -31,7 +31,7 @@ export default class Detail extends Component {
                                 </div>
                                 <QuestionList
                                     extra={<div><a>热门</a><a>最新</a></div>}
-                                    title={<Follow />}
+                                    title={<Follow classification={course} />}
                                     classificationId={_id}
                                 />
                             </div>

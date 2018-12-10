@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const GET_QUESTIONS = gql`
-  query QuestionsQuery($title: String, $page: Int, $perPageNum: Int) {
-    questions: QuestionsQuery(title: $title, page: $page, perPageNum: $perPageNum) {
+  query QuestionsQuery($title: String, $userId: String, $classificationId: String $page: Int, $perPageNum: Int) {
+    questions: QuestionsQuery(title: $title, userId: $userId, classificationId: $classificationId, page: $page, perPageNum: $perPageNum) {
       list {
         _id
         title
