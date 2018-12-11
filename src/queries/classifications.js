@@ -26,3 +26,15 @@ export const GET_COURSE = gql`
         }
     }
 `;
+
+export const GET_FOLLOWED_COURSES = gql`
+  query FollowedClassificationsQuery($userId: ID!) {
+    followedCourses: FollowedClassificationsQuery(userId: $userId) {
+        list {
+            _id
+            name
+        }
+        total
+    }
+  }
+`;

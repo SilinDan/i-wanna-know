@@ -19,8 +19,8 @@ export default class Info extends Component {
     const { infoNum, infoList, messageList } = this.props;
 
     return (
-      <NoticeIcon count={infoNum} className="margin-right-md hidden-mb" >
-          <NoticeIcon.Tab
+      <NoticeIcon count={infoNum} className="margin-right-md hidden-mb vertical-center" >
+        <NoticeIcon.Tab
           list={infoList}
           title="通知"
           emptyText="没有新的通知"
