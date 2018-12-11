@@ -4,7 +4,7 @@ import { Input, Card, Form, Switch, Button, Radio } from 'antd';
 import InformationCard from 'Components/MinePage/InformationCard';
 import MyHomeTab from 'Components/MinePage/MyHomeTab';
 
-class HomePage extends Component {
+class MinePage extends Component {
     state = {}
     render() {
         return (
@@ -16,4 +16,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default MinePage;

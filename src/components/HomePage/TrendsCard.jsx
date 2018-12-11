@@ -34,7 +34,8 @@ export default class TrendsCard extends Component {
                     <Meta
                         avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                         title={
-                            <div>京蜜<span>点赞了回答</span>
+                            <div style={{ whiteSpace: 'normal' }}>
+                                京蜜<span>点赞了回答</span>
                                 《为什么函数式编程是最好的》
                             </div>}
                         description="1天前"

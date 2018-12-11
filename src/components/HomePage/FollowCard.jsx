@@ -29,8 +29,8 @@ export default class FollowCard extends Component {
                 <div className="FollowCard-dd hidden-mb">
                     <Link to="/follow/default">
                         <Card>
-                            <Card.Grid style={gridStyle}><span>{user.followsNum}</span><br />关注我的人</Card.Grid>
-                            <Card.Grid style={gridStyle}><span>{user.followersNum}</span><br />我关注的人</Card.Grid>
+                            <Card.Grid style={gridStyle}><span>{user.followsNum}</span><br />关注</Card.Grid>
+                            <Card.Grid style={gridStyle}><span>{user.followersNum}</span><br />关注者</Card.Grid>
                         </Card>
                     </Link>
                 </div>

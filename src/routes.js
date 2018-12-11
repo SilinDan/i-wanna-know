@@ -56,4 +56,14 @@ export default routesCreator([
     path: '/search/:word',
     component: import('./routes/SearchResult/SearchResult'),
   },
+  {
+    name: '手机端关注课程',
+    path: '/homeCourse/default',
+    component: import('./routes/HomePage/HomeCourse'),
+  },
+  {
+    name: '手机端动态',
+    path: '/homeTrends/default',
+    component: import('./routes/HomePage/HomeTrends'),
+  },
 ]);

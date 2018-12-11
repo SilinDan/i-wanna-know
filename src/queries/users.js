@@ -17,3 +17,21 @@ export const GET_CURRENT_USER = gql`
     }
   }
 `;
+
+export const GET_USER = gql`
+  query UserQuery($id: ID!) {
+    user: UserQuery(id: $id) {
+      id
+      name
+      departmentId
+      department
+      majorId
+      class
+      major
+      group
+      followsNum
+      followersNum
+      
+    }
+  }
+`;

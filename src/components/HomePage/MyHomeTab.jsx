@@ -4,6 +4,10 @@ import { List } from 'antd-mobile';
 import { Tabs } from 'antd';
 import './MyHomeTab.less';
 import TrendsCard from './TrendsCard';
+import CourseFollowed from './CourseFollowed';
+import { Link } from 'dva/router';
+
+
 const TabPane = Tabs.TabPane;
 
 function callback(key) {
@@ -24,7 +28,9 @@ export default class InformationCard extends Component {
                     <TabPane tab={<div>提问<span>2</span></div>} key="2">dd</TabPane>
                     <TabPane tab={<div>回答<span>3</span></div>} key="3">Content of Tab Pane 3</TabPane>
                     <TabPane tab={<div>关注的问题</div>} key="4">Content of Tab Pane 4</TabPane>
-                    <TabPane tab={<div>我的收藏</div>} key="5">Content of Tab Pane 5</TabPane>
+                    <TabPane tab={<div>关注的课程</div>} key="5">
+                        <CourseFollowed />
+                    </TabPane>
                 </Tabs>
 
 
@@ -34,9 +40,12 @@ export default class InformationCard extends Component {
 
                         style={{ marginTop: '1rem' }}
                     >
-                        <List.Item arrow="horizontal" onClick={() => { }}>
-                            动态
-                    </List.Item>
+                        <Link to="/homeTrends/default">
+                            <List.Item arrow="horizontal" onClick={() => { }}>
+                                动态
+                        </List.Item>
+                        </Link>
+
                     </List>
                     <List style={{ marginTop: '1rem' }}>
                         <List.Item
@@ -55,18 +64,21 @@ export default class InformationCard extends Component {
                     </List.Item>
                         <List.Item
                             arrow="horizontal"
-                            onClick={() => { }}
                             extra="0"
                         >
                             关注的问题
                     </List.Item>
-                        <List.Item
-                            arrow="horizontal"
-                            onClick={() => { }}
-                            extra="0"
-                        >
-                            关注的课程
-                    </List.Item>
+
+                        <Link to="/homeCourse/default">
+                            <List.Item
+                                arrow="horizontal"
+                                onClick={() => { }}
+                                extra="0"
+                            >
+
+                                关注的课程
+                            </List.Item>
+                        </Link>
 
                     </List>
 
