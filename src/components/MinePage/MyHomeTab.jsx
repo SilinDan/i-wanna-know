@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'antd-mobile';
 import { Icon, Badge } from 'antd';
 import { Link } from 'dva/router';
+import { LOGOUT_HREF } from 'Utils/constance';
 
 export default class InformationCard extends Component {
 
@@ -32,10 +33,16 @@ export default class InformationCard extends Component {
                         课程管理
                     </List.Item>
                 </List>
-                <List style={{ marginTop: '1rem' }}>
-                    <List.Item>
-                        <Icon type="setting" style={{ margin: '0.5rem 1rem' }} />
-                        设置
+                <List style={{ marginTop: '1rem' }} >
+                    <List.Item
+                        onClick={() => {
+                            localStorage.removeItem('token');
+                            location.href = LOGOUT_HREF;
+                        }}>
+                        <Icon
+                            type="export"
+                            style={{ margin: '0.5rem 1rem', color: '#f02825' }} />
+                        退出账号
                     </List.Item>
                 </List>
             </div>

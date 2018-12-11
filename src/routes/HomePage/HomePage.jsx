@@ -23,10 +23,13 @@ const formItemLayout = {
 class HomePage extends Component {
     state = {}
     render() {
+        const id = this.props.match.params.userId;
+
         return (
 
             <Query
                 query={GET_CURRENT_USER}
+                variables={{ id }}
             >
                 {
                     ({ data }) => {

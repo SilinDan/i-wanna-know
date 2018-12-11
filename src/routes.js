@@ -28,7 +28,7 @@ export default routesCreator([
   },
   {
     name: '我的主页',
-    path: '/home/default',
+    path: '/home/:userId',
     component: import('./routes/HomePage/HomePage'),
   },
   {
@@ -50,5 +50,10 @@ export default routesCreator([
     name: '关注页列表',
     path: '/follow/default',
     component: import('./routes/FollowDetail/FollowDetail'),
+  },
+  {
+    name: '搜索结果',
+    path: '/search/:word',
+    component: import('./routes/SearchResult/SearchResult'),
   },
 ]);

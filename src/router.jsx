@@ -18,7 +18,7 @@ const createRouter = (history) => (
       ({ data, loading }) => {
         const user = get(data, 'user');
 
-        if (__DEV__ || user || loading) {
+        if (user || loading) {
           return (
             <LocaleProvider locale={zh_CN}>
               <Router history={history}>

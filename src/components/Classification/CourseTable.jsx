@@ -68,7 +68,6 @@ export default class CourseTable extends Component {
 
                         return (
                             <div>
-                                {/* TODO:没显示关注数 */}
                                 <Table
                                     rowKey="_id"
                                     className="hidden-mb"
@@ -82,26 +81,7 @@ export default class CourseTable extends Component {
                                     style={{ margin: '1rem', 'minHeight': '300px' }}
 
                                 />
-                                {/* <List>
-                                    {
-                                        list.map((item) => (
-                                            <List.Item key={item._id} platform="android">
-                                                <Link to={`/course/${item._id}`} style={{ color: 'inherit' }}>
-                                                    <div className="flex-between" style={{ alignItems: 'center' }}>
-                                                        <span style={{ fontSize: '.95rem' }}>
-                                                            {item.name}
-                                                        </span>
-                                                        <span>
-                                                            <Follow
-                                                                classification={item}
-                                                                majorId={this.props.majorId} />
-                                                        </span>
-                                                    </div>
-                                                </Link>
-                                            </List.Item>
-                                        ))
-                                    }
-                                </List> */}
+
                                 {/* TODO:每行都要有横线 */}
 
                                 <List
@@ -116,7 +96,7 @@ export default class CourseTable extends Component {
                                                         <div
                                                             className="flex-between" style={{ padding: '0 1rem', 'alignItems': 'center' }}
                                                         >
-                                                            <div>
+                                                            <div className="ell" style={{ maxWidth: '200px' }}>
                                                                 {item.name}
                                                             </div>
                                                             <div

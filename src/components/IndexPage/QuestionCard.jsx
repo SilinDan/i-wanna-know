@@ -27,6 +27,7 @@ export default class QuestionCard extends Component {
 
   render() {
     const { item, isLoading } = this.props;
+    const userId = get(item, 'user.id');
 
     return (
       <Card loading={isLoading} id="question-card" bordered={false} hoverable>
@@ -38,10 +39,8 @@ export default class QuestionCard extends Component {
         </Link>
         <div className="card-bottom">
           <Link to={{
-            pathname: '/user/default',
-            state: {
-              _id: get(item, 'user._id')
-            }
+            pathname: `/home/${userId}`,
+
           }}
             className="user"
           >
