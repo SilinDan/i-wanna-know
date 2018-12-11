@@ -1,3 +1,4 @@
+// 废弃
 import React, { Component } from 'react';
 import styles from './Answer.less';
 import { Card, Button } from 'antd';

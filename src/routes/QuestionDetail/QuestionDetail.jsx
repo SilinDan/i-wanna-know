@@ -28,13 +28,12 @@ class QuestionDetail extends Component {
               <div>
                 <Question question={question} />
                 <Card style={{ marginTop: '2em' }}>
-                  <Radio.Group className="container">
+                  {/* <Radio.Group className="container">
                     <Radio.Button value="large">按热度排序</Radio.Button>
                     <Radio.Button value="default">按时间排序</Radio.Button>
-                  </Radio.Group>
+                  </Radio.Group> */}
                   <AnswerList />
                 </Card>
-                <Answer />
               </div>
             );
           }

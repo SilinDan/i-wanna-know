@@ -9,6 +9,10 @@ export default class Editor extends Component {
     onChange: PropTypes.func,
   }
 
+  static defaultProps = {
+    style: {}
+  }
+
   handleUpload = (param) => {
     const xhr = new XMLHttpRequest();
     const fd = new FormData();
@@ -56,6 +60,7 @@ export default class Editor extends Component {
   render() {
     return (
       <BraftEditor
+        className={this.props.className}
         media={{
           uploadFn: this.handleUpload,
           accepts: {
@@ -66,7 +71,7 @@ export default class Editor extends Component {
         }}
         value={this.props.value}
         onChange={this.props.onChange}
-        style={{ background: '#fff' }} />
+        style={{ background: '#fff', border: '1px #ccc solid', ...this.props.style }} />
     );
   }
 }

@@ -69,7 +69,7 @@ export default class QuestionList extends Component {
               } else {
                 list = <Exception
                   actions={classificationId ? (
-                    <Link to="/ask/default">
+                    <Link to={`/ask/${classificationId}`}>
                       <Button size="large" type="primary">去提问</Button>
                     </Link>
                   ) : (<div />)}
