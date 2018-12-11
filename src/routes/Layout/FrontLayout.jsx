@@ -31,9 +31,9 @@ const ResponsiveMenu = function (props) {
     : '首页';
 
   return (
-    <div>
+    <React.Fragment>
       <MenuList
-        className={styles['nav-desktop']}
+        className="hidden-mb"
         mode="horizontal"
         theme="light"
         {...props}
@@ -49,7 +49,7 @@ const ResponsiveMenu = function (props) {
           {title}<Icon type="down" className="margin-left-sm" />
         </a>
       </Dropdown> */}
-    </div>
+    </React.Fragment>
   );
 };
 
@@ -99,7 +99,7 @@ export default class FrontLayout extends Component {
             <div className="flex">
               {/* search */}
               <HeaderSearch
-                className={styles.search}
+                className={`${styles.search} vertical-center`}
                 placeholder="你在寻找什么呢"
                 onSearch={value => {
                   console.log('input', value); // eslint-disable-line
