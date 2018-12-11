@@ -56,13 +56,16 @@ function RouterConfig({ history }) {
         query={GET_TOKEN}
       >
         {
-          ({ data }) => {
+          ({ data, loading }) => {
             if (data && data.token) {
               localStorage.setItem('token', data.token);
               history.replace('/index/default');
+
+              return createRouter(history);
             }
 
-            return createRouter(history);
+            return null;
+
           }
         }
       </Query>
