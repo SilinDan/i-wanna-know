@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const GET_COURSES = gql`
-    query ClassificationsQuery($majorId:  String!){
+    query ClassificationsQuery($majorId: String!){
         courses : ClassificationsQuery(majorId: $majorId){
             list{
                 _id
@@ -16,8 +16,8 @@ export const GET_COURSES = gql`
 `;
 
 export const GET_COURSE = gql`
-    query ClassificationQuery($_id:ID!){
-        course :ClassificationQuery(_id : $_id){
+    query ClassificationQuery($_id: ID!){
+        course :ClassificationQuery(_id: $_id){
             _id
             name
             questionsNum

@@ -7,6 +7,7 @@ import { GET_COURSE } from 'Queries/classifications';
 import get from 'Utils/get';
 import Follow from 'Components/Classification/Follow';
 import { Query } from 'react-apollo';
+import { Link } from 'dva/router';
 
 
 export default class Detail extends Component {
@@ -31,7 +32,14 @@ export default class Detail extends Component {
                                 </div>
                                 <QuestionList
                                     extra={<div><a>热门</a><a>最新</a></div>}
-                                    title={<Follow classification={course} />}
+                                    title={(
+                                        <span>
+                                            <Follow classification={course} />
+                                            <Link to={`/ask/${course._id}`} className="margin-left-md">
+                                                <Button type="primary">提问</Button>
+                                            </Link>
+                                        </span>
+                                    )}
                                     classificationId={_id}
                                 />
                             </div>

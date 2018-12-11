@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import { GET_COURSES } from 'Queries/classifications';
+import { GET_COURSES, GET_COURSE } from 'Queries/classifications';
 
 const FOLLOW_CLASSIFICATION = gql`
   mutation followClassification($_id: ID!) {
@@ -26,7 +26,7 @@ mutation cancelFollowClassification($_id: ID!) {
 export default class Follow extends Component {
     static propTypes = {
         classification: PropTypes.object.isRequired,
-        majorId: PropTypes.string.isRequired,
+        majorId: PropTypes.string,
     }
 
     followClassification(follow) {
@@ -43,34 +43,55 @@ export default class Follow extends Component {
         });
     }
 
-    update = (cache, message, isFollowed) => {
-        if (message.code === 200) {
-            const { courses } = cache.readQuery({
-                query: GET_COURSES,
-                variables: {
-                    majorId: this.props.majorId
-                }
-            });
+    update = (cache, msg, isFollowed) => {
+        if (msg.code === 200) {
+            if (this.props.majorId) {
+                const { courses } = cache.readQuery({
+                    query: GET_COURSES,
+                    variables: {
+                        majorId: this.props.majorId
+                    }
+                });
 
-            cache.writeQuery({
-                query: GET_COURSES,
-                data: {
-                    list: courses.list.map((item) => {
-                        if (item._id === this.props.classification._id) {
-                            item.isFollowed = isFollowed;
-                            if (isFollowed) {
-                                item.followedNum++;
-                            } else {
-                                item.followedNum--;
+                cache.writeQuery({
+                    query: GET_COURSES,
+                    data: {
+                        list: courses.list.map((item) => {
+                            if (item._id === this.props.classification._id) {
+                                item.isFollowed = isFollowed;
+                                if (isFollowed) {
+                                    item.followedNum++;
+                                } else {
+                                    item.followedNum--;
+                                }
                             }
+
+                            return item;
+                        }),
+                        total: courses.total
+                    }
+                });
+            } else {
+                const { course } = cache.readQuery({
+                    query: GET_COURSE,
+                    variables: {
+                        _id: this.props.classification._id
+                    }
+                });
+
+                cache.writeQuery({
+                    query: GET_COURSE,
+                    data: {
+                        course: {
+                            ...course,
+                            isFollowed: isFollowed,
+                            followedNum: isFollowed ? course.followedNum + 1 : course.followedNum - 1,
                         }
-
-                        return item;
-                    }),
-                    total: courses.total
-                }
-            });
-
+                    }
+                });
+            }
+        } else {
+            message.error(msg.message);
         }
     }
 

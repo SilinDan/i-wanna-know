@@ -32,7 +32,6 @@ export default class Ask extends Component {
     isShowPublishModal: false,
     title: '',
     editorState: BraftEditor.createEditorState(null),
-    classificationId: '',
     fileList: []
   };
 
@@ -50,7 +49,8 @@ export default class Ask extends Component {
 
   publish = createQuestion => {
     // TODO: 修改分类id
-    const { title, editorState, classificationId } = this.state;
+    const classificationId = this.props.match.params._id;
+    const { title, editorState } = this.state;
     // const preview = content.replace(/<[^>]*>/g, '').substr(0, 140);
 
     if (!title) {
@@ -62,7 +62,7 @@ export default class Ask extends Component {
         variables: {
           title,
           content: editorState.toHTML(),
-          classificationId: '046259',
+          classificationId,
         },
       });
     }

@@ -21,12 +21,6 @@ export default class QuestionList extends Component {
   }
 
   static defaultProps = {
-    title: '问题',
-    extra: (
-      <Button type="primary">
-        <Link to="/ask/default">提问</Link>
-      </Button>
-    )
   }
 
   loadMore = () => {

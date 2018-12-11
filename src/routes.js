@@ -13,7 +13,7 @@ export default routesCreator([
   },
   {
     name: '提问',
-    path: '/ask/default',
+    path: '/ask/:_id',
     component: import('./routes/Ask/Ask'),
   },
   {
