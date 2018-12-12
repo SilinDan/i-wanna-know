@@ -9,14 +9,23 @@ import dva from 'dva';
 import browserHistory from 'history/createBrowserHistory';
 import { ApolloProvider } from 'react-apollo';
 import ReactDOM from 'react-dom';
-import './index.less';
-import './styles/common.less';
-import './styles/hidden.less';
-import 'highlight.js/styles/atom-one-dark-reasonable.css';
-import 'highlight.js';
+import Prism from 'prismjs';
+import BraftEditor from 'braft-editor';
+import 'braft-editor/dist/index.css';
+import 'braft-extensions/dist/code-highlighter.css';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-cpp';
+import 'prismjs/components/prism-php';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-markup-templating';
+import CodeHighlighter from 'braft-extensions/dist/code-highlighter';
 import { SERVER_ADDRESS } from './utils/constance';
 import handleError from './utils/errors';
 import { onError } from 'apollo-link-error';
+import './index.less';
+import './styles/common.less';
+import './styles/hidden.less';
 
 // 1. Initialize
 
@@ -72,6 +81,37 @@ export default app;
 
 // 2. Plugins
 // app.use({});
+const options = {
+  syntaxs: [
+    {
+      name: 'JavaScript',
+      syntax: 'javascript'
+    }, {
+      name: 'React JSX',
+      syntax: 'jsx'
+    }, {
+      name: 'HTML',
+      syntax: 'html'
+    }, {
+      name: 'CSS',
+      syntax: 'css'
+    }, {
+      name: 'Java',
+      syntax: 'java',
+    }, {
+      name: 'PHP',
+      syntax: 'php'
+    }, {
+      name: 'C',
+      syntax: 'c'
+    }, {
+      name: 'C++',
+      syntax: 'cpp'
+    }
+  ]
+};
+
+BraftEditor.use(CodeHighlighter(options));
 
 // 3. Model
 // app.model(require('./models/demo').default);

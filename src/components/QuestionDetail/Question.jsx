@@ -4,9 +4,9 @@ import styles from './Question.less';
 import { Icon, Button, Card, Avatar, Tag, message } from 'antd';
 import PropTypes from 'prop-types';
 import { formatDate, createMarkup } from 'Utils/utils';
-import hljs from 'highlight.js/lib/highlight';
+import Prism from 'prismjs';
 import Editor from 'Components/Common/Editor';
-import { DEFAULT_ICON } from 'Utils/constance';
+import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance';
 import { shallowCompare } from 'windlike-utils/dist/object';
 import { Link } from 'dva/router';
 import { Mutation } from 'react-apollo';
@@ -40,15 +40,9 @@ class Question extends Component {
     this.setState({ answerContent: value });
   }
 
-  componentDidMount() {
-    hljs.initHighlighting.called = false;
-    hljs.initHighlighting();
-  }
-
-  componentDidUpdate(preProps) {
-    if (preProps.question._id !== this.props.question._id) {
-      hljs.initHighlighting.called = false;
-      hljs.initHighlighting();
+  highlight = (container) => {
+    if (container) {
+      Prism.highlightAllUnder(container);
     }
   }
 
@@ -88,16 +82,20 @@ class Question extends Component {
           (answer, { data }) => {
             return (
               <Card>
-                <Link to={`/home/${user.id}`} className={styles.user}>
-                  <Avatar size="large" src={user.icon || DEFAULT_ICON} />
+                <div className={styles.user}>
+                  <Link to={`/home/${user.id}`} >
+                    <Avatar size="large" src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />
+                  </Link>
                   <div className="margin-left-sm">
                     <div>
-                      <h3 style={{ display: 'inline-block', marginRight: 8 }}>{user.name}</h3>
+                      <Link to={`/home/${user.id}`} >
+                        <h3 style={{ display: 'inline-block', marginRight: 8 }}>{user.name}</h3>
+                      </Link>
                       <UserTag group={user.group} />
                     </div>
                     <p className={styles.time}>{formatDate(question.createdTime)}</p>
                   </div>
-                </Link>
+                </div>
                 <h2 className={styles.title}>
                   {question.title}
                   <Link to={`/course/${classification._id}`} className="margin-left-sm">
@@ -105,7 +103,8 @@ class Question extends Component {
                   </Link>
                 </h2>
                 <div
-                  className={styles.content}
+                  ref={this.highlight}
+                  className={`${styles.content}`}
                   dangerouslySetInnerHTML={createMarkup(question.content)} />
                 <Button
                   onClick={() => this.setState({ isShowEditor: true })}

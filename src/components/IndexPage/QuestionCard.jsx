@@ -5,7 +5,7 @@ import { Link } from 'dva/router';
 import styles from './QuestionCard.less';
 import get from 'Utils/get';
 import { Button } from 'antd-mobile';
-import { DEFAULT_ICON } from 'Utils/constance';
+import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance';
 
 const { Meta } = Card;
 
@@ -52,7 +52,7 @@ export default class QuestionCard extends Component {
           >
             <Avatar
               className="icon-user"
-              src={user.icon || DEFAULT_ICON}
+              src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON}
             />
             <span className="username">{get(item, 'user.name')}</span>
           </Link>

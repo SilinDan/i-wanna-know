@@ -4,7 +4,7 @@ import { Card, Icon, Avatar, Tag, Button } from 'antd';
 import './InformationCard.less';
 import FollowCard from 'Components/HomePage/FollowCard';
 import AlterInformation from 'Components/HomePage/AlterInformation';
-import { DEFAULT_ICON } from 'Utils/constance.js';
+import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance.js';
 import { Query } from 'react-apollo';
 import UserTag from 'Components/Common/UserTag';
 import get from 'Utils/get';
@@ -23,7 +23,7 @@ export default class InformationCard extends Component {
         const id = this.props.id || 'default';
 
         return (
-            <Query query={GET_CURRENT_USER}>
+            <Query query={GET_CURRENT_USER} fetchPolicy="network-only">
                 {
                     ({ data }) => {
                         const currentUser = get(data, 'user') || {};
@@ -33,7 +33,11 @@ export default class InformationCard extends Component {
                             <div className="information-card-dd">
                                 <Card className="hidden-mb">
                                     <Meta
-                                        avatar={<Avatar size={84} src={user.icon ? user.icon : DEFAULT_ICON} />}
+                                        avatar={
+                                            <Avatar
+                                                size={84}
+                                                src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />
+                                        }
                                         title={(
                                             <div className="flex-between" style={{ flexWrap: 'wrap' }}>
                                                 <div>{user.name} <UserTag group={user.group} /></div>
@@ -51,7 +55,7 @@ export default class InformationCard extends Component {
                                                 <span className="ell">{user.department} | {user.major} | {user.class}</span>
                                                 <br />
                                                 <Icon type="idcard" theme="filled" className="idcard-dd" />
-                                                <span className="ell">沙关在沙漠，星星死在天上，名字葬在咽喉</span>
+                                                <span className="ell">{user.text}</span>
                                             </div>
                                         }
                                     />
@@ -64,14 +68,14 @@ export default class InformationCard extends Component {
                                         bordered={false}
                                     >
                                         <Meta
-                                            avatar={<Avatar size={68} src={user.icon ? user.icon : DEFAULT_ICON} />}
+                                            avatar={<Avatar size={68} src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />}
                                             title={
                                                 <div>
                                                     {user.name} <UserTag group={user.group} />
                                                 </div>}
                                             description={
                                                 <div >
-                                                    <p className="introduce-mb ell">沙关在沙漠，星星死在天上，名字葬在咽喉</p>
+                                                    <p className="introduce-mb ell">{user.text}</p>
                                                 </div>
                                             }
                                         />
