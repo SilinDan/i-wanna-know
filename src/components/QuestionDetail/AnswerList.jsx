@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import styles from './Answer.less';
 import { Link } from 'dva/router';
 import { List, Avatar, Icon, Skeleton, Button } from 'antd';
-import hljs from 'highlight.js/lib/highlight';
+import Prism from 'prismjs';
 import { formatDate, createMarkup } from 'Utils/utils';
 import { GET_ANSWERS } from 'Queries/answers';
 import { Query } from 'react-apollo';
 import PropTypes from 'prop-types';
 import get from 'Utils/get';
 import UserTag from 'Components/Common/UserTag';
-import { DEFAULT_ICON } from 'Utils/constance';
+import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance';
 
+window.Prism = Prism;
 
 const IconText = ({ type, text }) => (
     <span>
@@ -28,9 +29,10 @@ class AnswerList extends Component {
 
     };
 
-    handleCompleted = () => {
-        hljs.initHighlighting.called = false;
-        hljs.initHighlighting();
+    highlight = (container) => {
+        if (container) {
+            Prism.highlightAllUnder(container);
+        }
     }
 
     render() {
@@ -38,7 +40,6 @@ class AnswerList extends Component {
 
         return (
             <Query
-                onCompleted={this.handleCompleted}
                 skip={!questionId}
                 variables={{ questionId }}
                 query={GET_ANSWERS}
@@ -89,13 +90,13 @@ class AnswerList extends Component {
                                                             </p>
                                                         </React.Fragment>
                                                     }
-                                                    avatar={<Avatar size="large" src={item.user.icon || DEFAULT_ICON} />}
+                                                    avatar={<Avatar size="large" src={item.user.icon ? `${SERVER_ADDRESS}/uploads/icons/${item.user.icon}` : DEFAULT_ICON} />}
                                                 />
-                                                <p dangerouslySetInnerHTML={createMarkup(item.content)} />
+                                                <p ref={this.highlight} dangerouslySetInnerHTML={createMarkup(item.content)} />
                                             </Skeleton>
                                         </List.Item>
                                         <div className={styles.reply}>
-                                            <Avatar src={DEFAULT_ICON} />
+                                            <Avatar src={item.user.icon ? `${SERVER_ADDRESS}/uploads/icons/${item.user.icon}` : DEFAULT_ICON} />
                                             <span className="margin-left-md">
                                                 <h3>用户</h3>
                                                 <p className="margin-top-sm">回复:你好呀</p>

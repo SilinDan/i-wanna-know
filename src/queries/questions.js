@@ -11,6 +11,7 @@ export const GET_QUESTIONS = gql`
           id
           name
           group
+          icon
         }
         classification {
           _id
@@ -37,6 +38,7 @@ export const GET_QUESTION = gql`
         id
         name
         group
+        icon
       }
       classification {
         _id

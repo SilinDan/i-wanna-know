@@ -4,37 +4,44 @@ import { Link } from 'dva/router';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './User.less';
+import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance';
+import { GET_CURRENT_USER } from 'Queries/users';
+import { Query } from 'react-apollo';
 
 export default class User extends Component {
   static propTypes = {
     menu: PropTypes.element.isRequired,
-    username: PropTypes.string,
-    icon: PropTypes.string,
-  }
-
-  static defaultProps = {
-    icon: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
   }
 
   render() {
-    const { menu, username, icon } = this.props;
+    const { menu } = this.props;
 
     return (
-      <Dropdown
-        overlay={menu}
-      >
-        <Link
-          to="/home/default"
-          className="flex-center hidden-mb"
-          style={{ minHeight: '100%' }}>
-          <Avatar
-            style={{ marginRight: username ? '8px' : '0' }}
-            src={icon}
-            className={styles.avatar}
-          />
-          <span className={styles.username}>{username}</span>
-        </Link>
-      </Dropdown>
+      <Query query={GET_CURRENT_USER}>
+        {
+          ({ data }) => {
+            const user = data.user || {};
+
+            return (
+              <Dropdown
+                overlay={menu}
+              >
+                <Link
+                  to="/home/default"
+                  className="flex-center hidden-mb"
+                  style={{ minHeight: '100%' }}>
+                  <Avatar
+                    style={{ marginRight: user.name ? '8px' : '0' }}
+                    src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON}
+                    className={styles.avatar}
+                  />
+                  <span className={styles.username}>{user.name}</span>
+                </Link>
+              </Dropdown>
+            );
+          }
+        }
+      </Query>
     );
   }
 }

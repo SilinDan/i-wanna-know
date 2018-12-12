@@ -54,6 +54,13 @@ export default {
           { libraryName: 'antd-mobile', style: 'css' },
           'antd-mobile'
         ],
+        // [
+        //   "prismjs", {
+        //     "languages": ["javascript", "css", "markup", "java", "cpp", "html", "php"],
+        //     "plugins": ["line-numbers"],
+        //     "theme": "twilight",
+        //     "css": true
+        // }]
       ],
       devtool: 'eval',
       ignoreMomentLocale: true,

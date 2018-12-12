@@ -8,6 +8,7 @@ export const GET_ANSWERS = gql`
         user {
           id
           name
+          icon
           group
         }
         content

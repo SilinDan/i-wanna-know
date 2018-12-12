@@ -13,7 +13,8 @@ export const GET_CURRENT_USER = gql`
       group
       followsNum
       followersNum
-      
+      icon
+      text
     }
   }
 `;
@@ -31,7 +32,8 @@ export const GET_USER = gql`
       group
       followsNum
       followersNum
-      
+      icon
+      text
     }
   }
 `;

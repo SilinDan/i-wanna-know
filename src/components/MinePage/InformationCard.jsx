@@ -5,7 +5,7 @@ import { Link } from 'dva/router';
 import { GET_CURRENT_USER } from 'Queries/users.js';
 import { Query } from 'react-apollo';
 import get from 'Utils/get';
-import { DEFAULT_ICON } from 'Utils/constance.js';
+import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance.js';
 
 export default class InformationCard extends Component {
 
@@ -28,7 +28,7 @@ export default class InformationCard extends Component {
                                         thumb={
                                             <div>
                                                 <img
-                                                    src={user.icon ? user.icon : DEFAULT_ICON}
+                                                    src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON}
                                                     style={{ width: '40px', height: '40px' }}
                                                 />
                                             </div>
