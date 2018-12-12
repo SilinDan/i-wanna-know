@@ -48,7 +48,6 @@ export default class Ask extends Component {
   };
 
   publish = createQuestion => {
-    // TODO: 修改分类id
     const classificationId = this.props.match.params._id;
     const { title, editorState } = this.state;
     // const preview = content.replace(/<[^>]*>/g, '').substr(0, 140);

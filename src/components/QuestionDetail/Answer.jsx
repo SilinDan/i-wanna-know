@@ -13,7 +13,6 @@ class Answer extends Component {
           <Editor />
         </div>
         <Button type="primary" style={{ marginTop: '1rem' }}>提交回答</Button>
-
       </Card>
     );
   }

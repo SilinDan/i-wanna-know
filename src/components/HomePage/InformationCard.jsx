@@ -6,6 +6,7 @@ import FollowCard from 'Components/HomePage/FollowCard';
 import AlterInformation from 'Components/HomePage/AlterInformation';
 import { DEFAULT_ICON } from 'Utils/constance.js';
 import { Query } from 'react-apollo';
+import UserTag from 'Components/Common/UserTag';
 import get from 'Utils/get';
 import { GET_CURRENT_USER } from 'Queries/users';
 
@@ -19,12 +20,6 @@ export default class InformationCard extends Component {
 
     render() {
         const user = this.props.user || {};
-        const student = (
-            <Tag color="#108ee9">学 生</Tag>
-        );
-        const teacher = (
-            <Tag color="#faad14">老 师</Tag>
-        );
         const id = this.props.id || 'default';
 
         return (
@@ -41,7 +36,7 @@ export default class InformationCard extends Component {
                                         avatar={<Avatar size={84} src={user.icon ? user.icon : DEFAULT_ICON} />}
                                         title={(
                                             <div className="flex-between" style={{ flexWrap: 'wrap' }}>
-                                                <div>{user.name} {user.group === 'Student' ? student : teacher}</div>
+                                                <div>{user.name} <UserTag group={user.group} /></div>
                                                 {
                                                     currentUser.id === user.id || user.id === 'default' ? (
                                                         <AlterInformation user={user} id={id} />
@@ -69,10 +64,10 @@ export default class InformationCard extends Component {
                                         bordered={false}
                                     >
                                         <Meta
-                                            avatar={<Avatar size={50} src={user.icon ? user.icon : DEFAULT_ICON} />}
+                                            avatar={<Avatar size={68} src={user.icon ? user.icon : DEFAULT_ICON} />}
                                             title={
                                                 <div>
-                                                    {user.name} {user.group === 'Student' ? student : teacher}
+                                                    {user.name} <UserTag group={user.group} />
                                                 </div>}
                                             description={
                                                 <div >

@@ -10,6 +10,7 @@ export const GET_QUESTIONS = gql`
         user {
           id
           name
+          group
         }
         classification {
           _id
@@ -35,6 +36,7 @@ export const GET_QUESTION = gql`
       user {
         id
         name
+        group
       }
       classification {
         _id
