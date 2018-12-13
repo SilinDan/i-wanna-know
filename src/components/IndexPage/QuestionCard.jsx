@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Avatar, Tag } from 'antd';
+import { Card, Avatar, Icon } from 'antd';
 import { Link } from 'dva/router';
 import styles from './QuestionCard.less';
 import get from 'Utils/get';
@@ -56,7 +56,7 @@ export default class QuestionCard extends Component {
             />
             <span className="username">{get(item, 'user.name')}</span>
           </Link>
-          {/* <span>
+          <span>
             <span className="icon pointer">
               <Icon type="heart" className="like" /> {item.like}
             </span>
@@ -66,7 +66,7 @@ export default class QuestionCard extends Component {
             <span className="icon pointer">
               <Icon type="star" className="star" />
             </span>
-          </span> */}
+          </span>
         </div>
       </Card >
     );

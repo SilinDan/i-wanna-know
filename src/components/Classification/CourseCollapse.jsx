@@ -18,9 +18,8 @@ const GET_DEPARTMENTS = gql`
   }
 `;
 
+
 const Panel = Collapse.Panel;
-
-
 
 export default class FollowAll extends Component {
     render() {
