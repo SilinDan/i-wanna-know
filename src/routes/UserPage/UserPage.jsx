@@ -120,7 +120,7 @@ class UserPage extends Component {
                         <img
                           width="100"
                           style={{ borderRadius: '50%' }}
-                          src={icon ? `${SERVER_ADDRESS}/uploads/icons/${icon}` : `${SERVER_ADDRESS}/uploads/icons/${user.icon}` || DEFAULT_ICON}
+                          src={icon ? `${SERVER_ADDRESS}/uploads/icons/${icon}` : user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON}
                           alt="avatar" />
                       }
                     </Upload>
