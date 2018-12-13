@@ -14,7 +14,7 @@ function callback(key) {
     console.log(key);
 }
 
-export default class InformationCard extends Component {
+export default class MyHomeTab extends Component {
 
     render() {
         return (
@@ -43,7 +43,7 @@ export default class InformationCard extends Component {
                         <Link to="/homeTrends/default">
                             <List.Item arrow="horizontal" onClick={() => { }}>
                                 动态
-                        </List.Item>
+                            </List.Item>
                         </Link>
 
                     </List>

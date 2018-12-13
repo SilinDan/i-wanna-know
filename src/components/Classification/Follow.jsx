@@ -27,6 +27,7 @@ export default class Follow extends Component {
     static propTypes = {
         classification: PropTypes.object.isRequired,
         majorId: PropTypes.string,
+        refetch: PropTypes.func,  // 如果有则优先执行重新请求
     }
 
     followClassification(follow) {
@@ -45,6 +46,12 @@ export default class Follow extends Component {
 
     update = (cache, msg, isFollowed) => {
         if (msg.code === 200) {
+            if (this.props.refetch) {
+                this.props.refetch();
+
+                return;
+            }
+
             if (this.props.majorId) {
                 const { courses } = cache.readQuery({
                     query: GET_COURSES,
