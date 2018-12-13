@@ -4,21 +4,43 @@ import { List } from 'antd-mobile';
 import { Icon, Badge } from 'antd';
 import { Link } from 'dva/router';
 import { LOGOUT_HREF } from 'Utils/constance';
+import { client } from '../../index';
+import { GET_INFORMATION_NUM } from 'Queries/information';
 
 export default class InformationCard extends Component {
 
+    state = {
+        informationNum: {
+            infoNum: 0,
+            inviteNum: 0
+        }
+    }
+
+    componentDidMount() {
+        client.query({
+            query: GET_INFORMATION_NUM
+        }).then(({ data }) => {
+            if (data.informationNum) {
+                this.setState({ informationNum: data.informationNum });
+            }
+        });
+    }
+
     render() {
+        const { informationNum } = this.state;
+        const { infoNum, inviteNum } = informationNum;
+
         return (
             <div>
                 <List
                     style={{ marginTop: '1rem' }}
                 >
-                    <List.Item extra={<Badge count={25} style={{ margin: 0 }} />}>
-                        <Link to="/notice/default" style={{ color: '#111' }}>
+                    <Link to="/notice/default" style={{ color: '#111' }}>
+                        <List.Item extra={<Badge count={infoNum + inviteNum} style={{ margin: 0 }} />}>
                             <Icon type="bell" theme="twoTone" style={{ margin: '0.5rem 1rem' }} />
                             消息中心
-                        </Link>
-                    </List.Item>
+                        </List.Item>
+                    </Link>
                     <List.Item extra="2个">
                         <Icon type="like" theme="twoTone" twoToneColor="#eb2f96" style={{ margin: '0.5rem 1rem' }} />
                         我赞过的

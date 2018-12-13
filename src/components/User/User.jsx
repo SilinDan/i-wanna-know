@@ -7,6 +7,7 @@ import styles from './User.less';
 import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance';
 import { GET_CURRENT_USER } from 'Queries/users';
 import { Query } from 'react-apollo';
+import get from 'Utils/get';
 
 export default class User extends Component {
   static propTypes = {
@@ -20,7 +21,7 @@ export default class User extends Component {
       <Query query={GET_CURRENT_USER}>
         {
           ({ data }) => {
-            const user = data.user || {};
+            const user = get(data, 'user') || {};
 
             return (
               <Dropdown
