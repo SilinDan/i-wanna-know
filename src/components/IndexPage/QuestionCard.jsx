@@ -34,15 +34,15 @@ export default class QuestionCard extends Component {
 
     return (
       <Card loading={isLoading} id="question-card" bordered={false} hoverable>
-        <Link
-          to={`/question/${item._id}`}
-        >
-          <div className="flex-between">
+        <div className="flex-between">
+          <Link
+            to={`/question/${item._id}`}
+          >
             <h3 className="title ell">{item.title}</h3>
-            <Link to={`/course/${classification._id}`} className="classification">{classification.name}</Link>
-          </div>
-          <content>{item.preview}</content>
-        </Link>
+          </Link>
+          <Link to={`/course/${classification._id}`} className="classification">{classification.name}</Link>
+        </div>
+        <content>{item.preview}</content>
         <div className="card-bottom">
           <Link to={{
             pathname: `/home/${user.id}`,
