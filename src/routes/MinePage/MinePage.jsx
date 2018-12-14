@@ -9,7 +9,7 @@ class MinePage extends Component {
         return (
             <div>
                 < InformationCard />
-                < MyHomeTab />
+                < MyHomeTab history={this.props.history} />
             </div>
         );
     }

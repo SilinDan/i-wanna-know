@@ -66,4 +66,9 @@ export default routesCreator([
     path: '/homeTrends/default',
     component: import('./routes/HomePage/HomeTrends'),
   },
+  {
+    name: '手机端关注问题',
+    path: '/homeQuestion/default',
+    component: import('./routes/HomePage/HomeQuestion'),
+  },
 ]);

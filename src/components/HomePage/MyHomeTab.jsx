@@ -6,7 +6,7 @@ import './MyHomeTab.less';
 import TrendsCard from './TrendsCard';
 import CourseFollowed from './CourseFollowed';
 import { Link } from 'dva/router';
-
+import QuestionList from 'Components/IndexPage/QuestionList';
 
 const TabPane = Tabs.TabPane;
 
@@ -15,8 +15,14 @@ function callback(key) {
 }
 
 export default class MyHomeTab extends Component {
+    static propTypes = {
+        history: PropTypes.object.isRequired,
+        id: PropTypes.string.isRequired,
+    }
 
     render() {
+        const { history } = this.props;
+
         return (
             <div>
                 <Tabs
@@ -27,9 +33,9 @@ export default class MyHomeTab extends Component {
                     <TabPane tab="动态" key="1"><TrendsCard /></TabPane>
                     <TabPane tab={<div>提问<span>2</span></div>} key="2">dd</TabPane>
                     <TabPane tab={<div>回答<span>3</span></div>} key="3">Content of Tab Pane 3</TabPane>
-                    <TabPane tab={<div>关注的问题</div>} key="4">Content of Tab Pane 4</TabPane>
+                    <TabPane tab={<div>关注的问题</div>} key="4"><QuestionList /></TabPane>
                     <TabPane tab={<div>关注的课程</div>} key="5">
-                        <CourseFollowed />
+                        <CourseFollowed id={this.props.id} />
                     </TabPane>
                 </Tabs>
 
@@ -37,48 +43,46 @@ export default class MyHomeTab extends Component {
                 {/* 下面为手机端 */}
                 <div className="hidden-desktop hidden-tablet">
                     <List
-
                         style={{ marginTop: '1rem' }}
                     >
-                        <Link to="/homeTrends/default">
-                            <List.Item arrow="horizontal" onClick={() => { }}>
-                                动态
-                            </List.Item>
-                        </Link>
+                        <List.Item arrow="horizontal" onClick={() => { history.push('/homeTrends/default'); }}>
+                            动态
+                        </List.Item>
 
                     </List>
+
                     <List style={{ marginTop: '1rem' }}>
                         <List.Item
                             arrow="horizontal"
-                            onClick={() => { }}
+                            onClick={() => { history.push(''); }}
                             extra="0"
                         >
                             提问
-                    </List.Item>
+                        </List.Item>
+
                         <List.Item
                             arrow="horizontal"
-                            onClick={() => { }}
+                            onClick={() => { history.push(''); }}
                             extra="0"
                         >
                             回答
-                    </List.Item>
+                        </List.Item>
+
                         <List.Item
                             arrow="horizontal"
                             extra="0"
+                            onClick={() => history.push('/homeQuestion/default')}
                         >
                             关注的问题
-                    </List.Item>
+                        </List.Item>
 
-                        <Link to="/homeCourse/default">
-                            <List.Item
-                                arrow="horizontal"
-                                onClick={() => { }}
-                                extra="0"
-                            >
-
-                                关注的课程
-                            </List.Item>
-                        </Link>
+                        <List.Item
+                            arrow="horizontal"
+                            onClick={() => { history.push('/homeCourse/default'); }}
+                            extra="0"
+                        >
+                            关注的课程
+                        </List.Item>
 
                     </List>
 
@@ -90,18 +94,10 @@ export default class MyHomeTab extends Component {
                         >
                             赞过的回答
 
-                    </List.Item>
-                        <List.Item
-                            arrow="horizontal"
-                            onClick={() => { }}
-                            extra="0"
-                        >
-                            收藏集
-
-                    </List.Item>
+                        </List.Item>
                     </List>
                 </div>
-            </div>
+            </div >
         );
     }
 }

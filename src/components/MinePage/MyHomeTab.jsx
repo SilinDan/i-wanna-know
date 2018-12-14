@@ -8,6 +8,9 @@ import { client } from '../../index';
 import { GET_INFORMATION_NUM } from 'Queries/information';
 
 export default class InformationCard extends Component {
+    static propTypes = {
+        history: PropTypes.object.isRequired,
+    }
 
     state = {
         informationNum: {
@@ -28,6 +31,7 @@ export default class InformationCard extends Component {
 
     render() {
         const { informationNum } = this.state;
+        const { history } = this.props;
         const { infoNum, inviteNum } = informationNum;
 
         return (
@@ -35,12 +39,13 @@ export default class InformationCard extends Component {
                 <List
                     style={{ marginTop: '1rem' }}
                 >
-                    <Link to="/notice/default" style={{ color: '#111' }}>
-                        <List.Item extra={<Badge count={infoNum + inviteNum} style={{ margin: 0 }} />}>
-                            <Icon type="bell" theme="twoTone" style={{ margin: '0.5rem 1rem' }} />
-                            消息中心
-                        </List.Item>
-                    </Link>
+                    <List.Item
+                        onClick={() => history.push('/notice/default')}
+                        extra={<Badge count={infoNum + inviteNum}
+                            style={{ margin: 0 }} />}>
+                        <Icon type="bell" theme="twoTone" style={{ margin: '0.5rem 1rem' }} />
+                        消息中心
+                    </List.Item>
                     <List.Item extra="2个">
                         <Icon type="like" theme="twoTone" twoToneColor="#eb2f96" style={{ margin: '0.5rem 1rem' }} />
                         我赞过的
@@ -49,8 +54,9 @@ export default class InformationCard extends Component {
                         <Icon type="star" theme="twoTone" twoToneColor="#52c41a" style={{ margin: '0.5rem 1rem' }} />
                         收藏集
                     </List.Item>
-
-                    <List.Item>
+                    <List.Item
+                        onClick={() => history.push('/homeCourse/default')}
+                    >
                         <Icon type="appstore" theme="twoTone" style={{ margin: '0.5rem 1rem' }} />
                         课程管理
                     </List.Item>

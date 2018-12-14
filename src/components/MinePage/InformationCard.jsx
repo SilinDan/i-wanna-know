@@ -20,7 +20,7 @@ export default class InformationCard extends Component {
 
                         return (
 
-                            <Link to="/home/default">
+                            <Link to={`/home/${user.id}`}>
                                 <List>
                                     <List.Item arrow="horizontal"
                                         onClick={() => { }}

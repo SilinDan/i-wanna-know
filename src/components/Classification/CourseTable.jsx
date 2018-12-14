@@ -3,7 +3,7 @@ import { Table, List } from 'antd';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import get from 'Utils/get';
-import Follow from './Follow';
+import Follow from '../Common/FollowCourseButton';
 import { Link } from 'dva/router';
 import { GET_COURSES } from 'Queries/classifications';
 
@@ -41,9 +41,6 @@ export default class CourseTable extends Component {
                 key: 'followedNum',
             },
             {
-
-            },
-            {
                 title: 'Action',
                 key: 'action',
                 render: (record) => (
@@ -79,40 +76,40 @@ export default class CourseTable extends Component {
                                     }}
                                     dataSource={list}
                                     style={{ margin: '1rem', 'minHeight': '300px' }}
-
                                 />
 
                                 {/* TODO:每行都要有横线 */}
-
-                                <List
-                                    className="visible-block-mobile container"
-                                    itemLayout="horizontal"
-                                    dataSource={list}
-                                    renderItem={item => (
-                                        <Link to={`/course/${item._id}`}>
-                                            <List.Item>
-                                                <List.Item.Meta
-                                                    title={
-                                                        <div
-                                                            className="flex-between" style={{ padding: '0 1rem', 'alignItems': 'center' }}
-                                                        >
-                                                            <div className="ell" style={{ maxWidth: '200px' }}>
-                                                                {item.name}
-                                                            </div>
+                                <div className="hidden-desktop hidden-tablet">
+                                    <List
+                                        className="container"
+                                        itemLayout="horizontal"
+                                        dataSource={list}
+                                        renderItem={item => (
+                                            <Link to={`/course/${item._id}`}>
+                                                <List.Item>
+                                                    <List.Item.Meta
+                                                        title={
                                                             <div
-                                                                onClick={(e) => e.preventDefault()}
+                                                                className="flex-between" style={{ padding: '0 1rem', 'alignItems': 'center' }}
                                                             >
-                                                                <Follow
-                                                                    classification={item}
-                                                                    majorId={this.props.majorId} />
+                                                                <div className="ell" style={{ maxWidth: '200px' }}>
+                                                                    {item.name}
+                                                                </div>
+                                                                <div
+                                                                    onClick={(e) => e.preventDefault()}
+                                                                >
+                                                                    <Follow
+                                                                        classification={item}
+                                                                        majorId={this.props.majorId} />
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    }
-                                                />
-                                            </List.Item>
-                                        </Link>
-                                    )}
-                                />
+                                                        }
+                                                    />
+                                                </List.Item>
+                                            </Link>
+                                        )}
+                                    />
+                                </div>
                             </div>
                         );
                     }
