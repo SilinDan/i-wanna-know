@@ -24,6 +24,7 @@ const createRouter = (history) => (
               <Router history={history}>
                 {/* 前台布局 */}
                 <FrontLayout
+                  user={user || {}}
                   history={history}
                   logoName="i Wanna Know" />
                 {/* 后台布局 */}
