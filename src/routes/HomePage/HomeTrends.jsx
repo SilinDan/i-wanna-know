@@ -5,7 +5,7 @@ export default class HomeTrends extends Component {
 
     render() {
         return (
-            <div style={{ marginTop: '-1rem' }}>
+            <div style={{ marginTop: '1rem' }}>
                 <TrendsCard />
             </div>
         );

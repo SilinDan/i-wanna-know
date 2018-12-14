@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { List, Button, Card } from 'antd';
+import './SearchCourse.less';
 
 const data = [
     {
@@ -21,8 +22,8 @@ export default class CourseFollowed extends Component {
     render() {
 
         return (
-            <Card title="相关课程" bordered={false}>
-                <List id="FollowList-dd"
+            <Card title="相关课程" bordered={false} id="course-list-dd" >
+                <List
                     style={{ background: '#fff' }}
                     itemLayout="horizontal"
                     dataSource={data}
@@ -32,9 +33,9 @@ export default class CourseFollowed extends Component {
                                 style={{ padding: '0rem 1rem' }}
                                 title=
                                 {
-                                    <div className="flexfollow-dd">
+                                    <div className="flex-course-dd">
                                         <div><a href="">{item.title}</a> </div>
-                                        <div className="follow-button">
+                                        <div className="course-button">
                                             <Button type="primary" style={{ marginTop: '0.5rem' }}>关注</Button>
                                         </div>
                                     </div>
@@ -43,7 +44,7 @@ export default class CourseFollowed extends Component {
                                 {
                                     <div className="description-dd">
                                         <strong>2000</strong>个问题  <strong>2000</strong>个关注者
-                                </div>
+                                    </div>
                                 }
                             />
                         </List.Item>

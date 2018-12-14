@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Icon, Input, AutoComplete } from 'antd';
+import PropTypes from 'prop-types';
 
 const Option = AutoComplete.Option;
 const OptGroup = AutoComplete.OptGroup;
 
 const dataSource = [{
-    title: '话题',
+    title: '课程',
     children: [{
         title: 'AntDesign',
         count: 10000,
@@ -22,12 +23,6 @@ const dataSource = [{
         title: 'AntDesign 是啥',
         count: 30010,
     }],
-}, {
-    title: '文章',
-    children: [{
-        title: 'AntDesign 是一个设计语言',
-        count: 100000,
-    }],
 }];
 
 function renderTitle(title) {
@@ -36,7 +31,7 @@ function renderTitle(title) {
             {title}
             <a
                 style={{ float: 'right' }}
-                href="https://www.google.com/search?q=antd"
+                href="/search/:word"
                 target="_blank"
                 rel="noopener noreferrer"
             >更多
@@ -69,23 +64,35 @@ const options = dataSource.map(group => (
 ]);
 
 export default class SearchInput extends Component {
+    static propTypes = {
+        word: PropTypes.string,
+        history: PropTypes.object.isRequired,
+    }
+    state = {
+        word: ''
+    }
+
+    goToSearch = (e) => {
+
+        this.props.history.replace(`/search/${e.target.value}`);
+    }
 
     render() {
+        console.log(this.props.word);
+
         return (
             <div className="certain-category-search-wrapper" style={{ width: '100%' }}>
-                <AutoComplete
-                    className="certain-category-search"
-                    dropdownClassName="certain-category-search-dropdown"
-                    dropdownMatchSelectWidth={false}
-                    dropdownStyle={{ width: 300 }}
-                    size="large"
-                    style={{ width: '100%' }}
-                    dataSource={options}
-                    placeholder="input here"
-                    optionLabelProp="value"
-                >
-                    <Input suffix={<Icon type="search" className="certain-category-icon" />} />
-                </AutoComplete>
+
+                <Input
+                    defaultValue={this.props.word}
+                    onPressEnter={this.goToSearch}
+                    suffix=
+                    {
+                        <Icon type="search"
+                            className="certain-category-icon"
+                        />
+                    }
+                />
             </div>
         );
     }

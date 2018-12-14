@@ -5,7 +5,7 @@ import styles from './Detail.less';
 import QuestionList from 'Components/IndexPage/QuestionList';
 import { GET_COURSE } from 'Queries/classifications';
 import get from 'Utils/get';
-import Follow from 'Components/Classification/Follow';
+import Follow from 'Components/Common/FollowCourseButton';
 import { Query } from 'react-apollo';
 import { Link } from 'dva/router';
 

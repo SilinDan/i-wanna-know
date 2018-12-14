@@ -1,5 +1,7 @@
 import { Menu, Icon } from 'antd';
 import { Link } from 'dva/router';
+import { client } from '../../index';
+import { GET_CURRENT_USER } from 'Queries/users';
 import { LOGOUT_HREF } from 'Utils/constance';
 
 const styles = {
@@ -9,17 +11,17 @@ const styles = {
   }
 };
 
-const menus = [
+const menus = (userId) => ([
   {
     name: '我的主页',
     icon: 'user',
-    href: '/home/default',
+    href: `/home/${userId}`,
   },
-  {
-    name: '个人中心',
-    icon: 'user',
-    href: '/user/default',
-  },
+  // {
+  //   name: '个人中心',
+  //   icon: 'user',
+  //   href: '/user/default',
+  // },
   {
     name: '注销',
     icon: 'logout',
@@ -28,7 +30,7 @@ const menus = [
       location.href = LOGOUT_HREF;
     }
   },
-];
+]);
 
 function handleClick(history, href, onClick) {
   if (href && history && history.push) {
@@ -43,7 +45,7 @@ function handleClick(history, href, onClick) {
 const UserMenu = (props = { history: {} }) => (
   <Menu>
     {
-      menus.map((menu) => (
+      menus(props.userId).map((menu) => (
         <Menu.Item key={menu.name}>
           <a
             style={styles.menuItem}

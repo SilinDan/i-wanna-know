@@ -66,6 +66,7 @@ class AnswerList extends Component {
                                     total: answers.total,
                                     hideOnSinglePage: true
                                 }}
+                                loading={loading}
                                 dataSource={list}
                                 renderItem={item => (
                                     <React.Fragment>
@@ -77,23 +78,30 @@ class AnswerList extends Component {
                                             ]}
 
                                         >
-                                            <Skeleton loading={loading} avatar paragraph={{ rows: 4 }} >
-                                                <List.Item.Meta
-                                                    title={
-                                                        <React.Fragment>
-                                                            <div>
-                                                                <Link className={styles.name} to="/user/default">{item.user.name}</Link>
-                                                                <UserTag group={item.user.group} />
-                                                            </div>
-                                                            <p className={styles.time}>
-                                                                {formatDate(item.createdTime)}
-                                                            </p>
-                                                        </React.Fragment>
-                                                    }
-                                                    avatar={<Avatar size="large" src={item.user.icon ? `${SERVER_ADDRESS}/uploads/icons/${item.user.icon}` : DEFAULT_ICON} />}
-                                                />
-                                                <p ref={this.highlight} dangerouslySetInnerHTML={createMarkup(item.content)} />
-                                            </Skeleton>
+                                            <List.Item.Meta
+                                                title={
+                                                    <React.Fragment>
+                                                        <div>
+                                                            <Link className={styles.name} to={`/home/${item.user.id}`}>{item.user.name}</Link>
+                                                            <UserTag group={item.user.group} />
+                                                        </div>
+                                                        <p className={styles.time}>
+                                                            {formatDate(item.createdTime)}
+                                                        </p>
+                                                    </React.Fragment>
+                                                }
+                                                avatar={
+                                                    <Link to={`/home/${item.user.id}`}>
+                                                        <Avatar
+                                                            size="large"
+                                                            src={item.user.icon ?
+                                                                `${SERVER_ADDRESS}/uploads/icons/${item.user.icon}` :
+                                                                DEFAULT_ICON}
+                                                        />
+                                                    </Link>
+                                                }
+                                            />
+                                            <p ref={this.highlight} dangerouslySetInnerHTML={createMarkup(item.content)} />
                                         </List.Item>
                                         <div className={styles.reply}>
                                             <Avatar src={item.user.icon ? `${SERVER_ADDRESS}/uploads/icons/${item.user.icon}` : DEFAULT_ICON} />

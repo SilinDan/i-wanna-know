@@ -22,6 +22,13 @@ const ANSWER = gql`
     }
   }
 `;
+const gridStyle = {
+  width: '50%',
+  textAlign: 'center',
+  padding: '.6rem 0',
+  boxShadow: 'none'
+};
+
 
 class Question extends Component {
   static propTypes = {
@@ -81,54 +88,76 @@ class Question extends Component {
         {
           (answer, { data }) => {
             return (
-              <Card>
-                <div className={styles.user}>
-                  <Link to={`/home/${user.id}`} >
-                    <Avatar size="large" src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />
-                  </Link>
-                  <div className="margin-left-sm">
-                    <div>
-                      <Link to={`/home/${user.id}`} >
-                        <h3 style={{ display: 'inline-block', marginRight: 8 }}>{user.name}</h3>
-                      </Link>
-                      <UserTag group={user.group} />
+              <div>
+                <Card>
+                  <div className={styles.user}>
+                    <Link to={`/home/${user.id}`} >
+                      <Avatar size="large" src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />
+                    </Link>
+                    <div className="margin-left-sm">
+                      <div>
+                        <Link to={`/home/${user.id}`} >
+                          <h3 style={{ display: 'inline-block', marginRight: 8 }}>{user.name}</h3>
+                        </Link>
+                        <UserTag group={user.group} />
+                      </div>
+                      <p className={styles.time}>{formatDate(question.createdTime)}</p>
                     </div>
-                    <p className={styles.time}>{formatDate(question.createdTime)}</p>
                   </div>
-                </div>
-                <h2 className={styles.title}>
-                  {question.title}
-                  <Link to={`/course/${classification._id}`} className="margin-left-sm">
-                    <Tag color="cyan" >{classification.name}</Tag>
-                  </Link>
-                </h2>
-                <div
-                  ref={this.highlight}
-                  className={`${styles.content}`}
-                  dangerouslySetInnerHTML={createMarkup(question.content)} />
-                <Button
-                  onClick={() => this.setState({ isShowEditor: true })}
-                  className="margin-right-sm" type="primary">
-                  <Icon type="highlight" />写回答
-                </Button>
-                <Button
-                  style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}>
-                  <Icon type="user-add" />邀请回答
-                </Button>
-                <div
-                  style={{ display: isShowEditor ? 'block' : 'none' }}>
-                  <div className={styles.close}>
-                    <span
-                      onClick={() => this.setState({ isShowEditor: false })}
-                      className="pointer">收起</span>
-                  </div>
-                  <Editor value={this.state.answerContent} onChange={this.onAnswerChange} />
+                  <h2 className={styles.title}>
+                    {question.title}
+                    <Link to={`/course/${classification._id}`} className="margin-left-sm">
+                      <Tag color="cyan" >{classification.name}</Tag>
+                    </Link>
+                  </h2>
+                  <div
+                    ref={this.highlight}
+                    className={`${styles.content}`}
+                    dangerouslySetInnerHTML={createMarkup(question.content)} />
                   <Button
-                    onClick={() => this.handleAnswer(answer)}
-                    type="primary"
-                    className="margin-top-md">回答</Button>
+                    onClick={() => this.setState({ isShowEditor: true })}
+                    className="margin-right-sm hidden-mb" type="primary">
+                    <Icon type="highlight" />写回答
+                </Button>
+
+                  <Button
+                    style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}
+                    className="margin-right-sm hidden-mb" >
+                    <Icon type="user-add" />邀请回答
+                </Button>
+
+                  <Button
+                    style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}>
+                    <Icon type="user-add" />关注问题
+                </Button>
+
+                  <div
+                    style={{ display: isShowEditor ? 'block' : 'none' }}>
+                    <div className={styles.close}>
+                      <span
+                        onClick={() => this.setState({ isShowEditor: false })}
+                        className="pointer">收起</span>
+                    </div>
+                    <Editor value={this.state.answerContent} onChange={this.onAnswerChange} />
+                    <Button
+                      onClick={() => this.handleAnswer(answer)}
+                      type="primary"
+                      className="margin-top-md">回答</Button>
+                  </div>
+                </Card>
+                <div className="hidden-desktop hidden-tablet">
+                  <Card bodyStyle={{ padding: '0' }} bordered={false}>
+                    <Card.Grid
+                      style={{ ...gridStyle, borderRight: '1px #eee solid' }}
+                      onClick={() => this.setState({ isShowEditor: true })}>
+                      <Icon type="highlight" />写回答
+                  </Card.Grid>
+                    <Card.Grid style={gridStyle}>
+                      <Icon type="user-add" />邀请回答
+                  </Card.Grid>
+                  </Card>
                 </div>
-              </Card>
+              </div>
             );
           }
 

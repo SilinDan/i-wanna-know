@@ -28,7 +28,7 @@ export default class User extends Component {
                 overlay={menu}
               >
                 <Link
-                  to="/home/default"
+                  to={`/home/${user.id}`}
                   className="flex-center hidden-mb"
                   style={{ minHeight: '100%' }}>
                   <Avatar

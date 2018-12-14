@@ -29,7 +29,7 @@ class HomePage extends Component {
 
             <Query
                 query={id === 'default' ? GET_CURRENT_USER : GET_USER}
-                variables={{ id }}
+                variables={{ id: id === 'default' ? undefined : id }}
             >
                 {
                     ({ data }) => {
@@ -39,7 +39,7 @@ class HomePage extends Component {
                             <div className={styles['flex-box-between']}>
                                 <div className={styles['left']}>
                                     < InformationCard user={user} id={id} />
-                                    < MyHomeTab />
+                                    < MyHomeTab history={this.props.history} id={id} />
                                 </div>
                                 <div className={`${styles['right']} hidden-mb`}>
                                     <FollowCard user={user} />

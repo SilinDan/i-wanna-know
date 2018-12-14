@@ -6,9 +6,7 @@ export default class HomeCourse extends Component {
 
     render() {
         return (
-            <div style={{ marginTop: '-1rem' }}>
-                <CourseFollowed />
-            </div>
+            <CourseFollowed />
         );
     }
 }

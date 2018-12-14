@@ -33,6 +33,9 @@ export const GET_FOLLOWED_COURSES = gql`
         list {
             _id
             name
+            questionsNum
+            followedNum
+            isFollowed
         }
         total
     }

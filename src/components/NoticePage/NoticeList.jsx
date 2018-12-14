@@ -21,7 +21,7 @@ export default class NoticeList extends Component {
 
     render() {
         return (
-            <List style={{ paddingLeft: '2rem' }}
+            <List
                 itemLayout="horizontal"
                 dataSource={data}
                 renderItem={item => (

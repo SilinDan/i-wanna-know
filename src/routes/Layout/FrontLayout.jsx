@@ -58,18 +58,17 @@ export default class FrontLayout extends Component {
     history: PropTypes.object.isRequired,
     logoIcon: PropTypes.string.isRequired,
     logoName: PropTypes.string.isRequired,
-    infoNum: PropTypes.number.isRequired,
+    user: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
     logoIcon: icon,
     logoName: 'Windlike',
-    infoNum: 0,
   };
 
   render() {
     const { location } = this.props.history;
-    const { logoName, logoIcon, infoNum } = this.props;
+    const { logoName, logoIcon, user } = this.props;
 
     return (
       <Layout className={styles.layout} id="front-layout">
@@ -106,12 +105,15 @@ export default class FrontLayout extends Component {
                 }}
                 onPressEnter={value => {
                   console.log('enter', value); // eslint-disable-line
+                  this.props.history.replace(`/search/${value}`);
                 }}
               />
               {/* info */}
-              <Info infoNum={infoNum} />
+              <Info />
               <User
+                userId={user.id}
                 menu={UserMenu({
+                  userId: user.id,
                   history: this.props.history,
                 })}
               />

@@ -13,9 +13,8 @@ export default class NoticeTab extends Component {
     render() {
         return (
             <Tabs defaultActiveKey="1" onChange={callback}>
-                <TabPane tab="赞" key="1"><NoticeList /></TabPane>
+                <TabPane tab="消息" key="1"><NoticeList /></TabPane>
                 <TabPane tab="邀请" key="2">Content of Tab Pane 2</TabPane>
-                <TabPane tab="回复" key="3">Content of Tab Pane 3</TabPane>
             </Tabs>
         );
     }
