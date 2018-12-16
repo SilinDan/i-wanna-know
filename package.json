@@ -28,9 +28,9 @@
     "graphql-tag": "^2.9.2",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.1",
-    "react": "^16.2.0",
+    "react": "^16.7.0-alpha.2",
     "react-apollo": "^2.3.2",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.7.0-alpha.2",
     "windlike-utils": "^2.1.6"
   },
   "devDependencies": {

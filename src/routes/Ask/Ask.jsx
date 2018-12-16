@@ -24,11 +24,19 @@ const CREATE_QUESTION = gql`
     }
   }
 `;
+const EDIT_QUESTION = gql`
+  mutation updateQuestion($title: String!, $content: String!, $_id: ID!) {
+    data: updateQuestion(title: $title, content: $content, _id: $_id) {
+      code
+      message
+    }
+  }
+`;
 
 export default class Ask extends Component {
-  static propTypes = {};
 
   state = {
+    _id: '',
     isShowPublishModal: false,
     title: '',
     editorState: BraftEditor.createEditorState(null),
@@ -49,7 +57,7 @@ export default class Ask extends Component {
 
   publish = createQuestion => {
     const classificationId = this.props.match.params._id;
-    const { title, editorState } = this.state;
+    const { title, editorState, _id } = this.state;
     // const preview = content.replace(/<[^>]*>/g, '').substr(0, 140);
 
     if (!title) {
@@ -62,10 +70,21 @@ export default class Ask extends Component {
           title,
           content: editorState.toHTML(),
           classificationId,
+          _id
         },
       });
     }
   };
+
+  componentDidMount() {
+    const props = this.props.history.location.state;
+
+    this.setState({
+      title: props.title,
+      editorState: BraftEditor.createEditorState(props.content),
+      _id: props._id
+    });
+  }
 
   handlePublishSuccess = ({ data }) => {
     // TODO: 发布完成后跳转到问题详情页
@@ -75,13 +94,13 @@ export default class Ask extends Component {
   };
 
   render() {
-    const { fileList } = this.state;
+    const { fileList, _id } = this.state;
 
     return (
       <Mutation
         onCompleted={this.handlePublishSuccess}
-        mutation={CREATE_QUESTION}>
-        {(createQuestion, { data }) => (
+        mutation={_id ? EDIT_QUESTION : CREATE_QUESTION}>
+        {(publishQuestion, { data }) => (
           <div>
             <input
               value={this.state.title}
@@ -109,7 +128,7 @@ export default class Ask extends Component {
               removeStyle={false}
             /> */}
             <Button
-              onClick={() => this.publish(createQuestion)}
+              onClick={() => this.publish(publishQuestion)}
               type="primary"
               size="large"
               className={styles['btn-submit']}>

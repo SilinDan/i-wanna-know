@@ -6,13 +6,14 @@ import PropTypes from 'prop-types';
 import { formatDate, createMarkup } from 'Utils/utils';
 import Prism from 'prismjs';
 import Editor from 'Components/Common/Editor';
+import { GET_CURRENT_USER } from 'Queries/users';
 import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance';
-import { shallowCompare } from 'windlike-utils/dist/object';
 import { Link } from 'dva/router';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import UserTag from 'Components/Common/UserTag';
 import { client } from '../../index';
+import InviteButton from './InviteButton';
 
 const ANSWER = gql`
   mutation answer($questionId: ID!, $content: String!) {
@@ -22,11 +23,13 @@ const ANSWER = gql`
     }
   }
 `;
+
 const gridStyle = {
   width: '50%',
   textAlign: 'center',
   padding: '.6rem 0',
-  boxShadow: 'none'
+  boxShadow: 'none',
+  borderTop: '1px #eee solid'
 };
 
 
@@ -36,20 +39,30 @@ class Question extends Component {
   }
 
   static defaultProps = {
-    question: {}
+    question: {
+      user: {}
+    }
   }
 
   state = {
-    answerContent: {}
+    answerContent: {},
+    currentUser: {},
+    isShowEditor: false
+  }
+
+  componentDidMount() {
+    client.query({
+      query: GET_CURRENT_USER
+    }).then(({ data }) => this.setState({ currentUser: data.user }));
   }
 
   onAnswerChange = (value) => {
     this.setState({ answerContent: value });
   }
 
-  highlight = (container) => {
-    if (container) {
-      Prism.highlightAllUnder(container);
+  componentDidUpdate(preProps) {
+    if (preProps.question._id !== this.props.question._id) {
+      Prism.highlightAllUnder(this.container);
     }
   }
 
@@ -71,15 +84,11 @@ class Question extends Component {
     });
   }
 
-  state = {
-    isShowEditor: false
-  };
-
   render() {
     const { question } = this.props;
     const user = question.user || {};
     const classification = question.classification || {};
-    const { isShowEditor } = this.state;
+    const { isShowEditor, currentUser } = this.state;
 
     return (
       <Mutation
@@ -111,25 +120,52 @@ class Question extends Component {
                     </Link>
                   </h2>
                   <div
-                    ref={this.highlight}
+                    ref={(container) => this.container = container}
                     className={`${styles.content}`}
                     dangerouslySetInnerHTML={createMarkup(question.content)} />
+
                   <Button
                     onClick={() => this.setState({ isShowEditor: true })}
                     className="margin-right-sm hidden-mb" type="primary">
                     <Icon type="highlight" />写回答
-                </Button>
+                  </Button>
 
-                  <Button
-                    style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}
-                    className="margin-right-sm hidden-mb" >
-                    <Icon type="user-add" />邀请回答
-                </Button>
+                  <InviteButton classificationId={classification._id} questionId={question._id}>
+                    <Button
+                      style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}
+                      className="margin-right-sm hidden-mb" >
+                      <Icon type="user-add" />邀请回答
+                    </Button>
+                  </InviteButton>
 
-                  <Button
-                    style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}>
-                    <Icon type="user-add" />关注问题
-                </Button>
+                  {
+                    currentUser.id === user.id ? null : (
+                      <Button
+                        style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}>
+                        <Icon type="user-add" />关注问题
+                      </Button>
+                    )
+                  }
+
+
+                  {
+                    currentUser.id === user.id ? (
+                      <Link
+                        to={{
+                          pathname: '/ask/default',
+                          state: {
+                            _id: question._id,
+                            title: question.title,
+                            content: question.content
+                          }
+                        }}>
+                        <Button
+                          style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}>
+                          <Icon type="edit" />编辑
+                        </Button>
+                      </Link>
+                    ) : null
+                  }
 
                   <div
                     style={{ display: isShowEditor ? 'block' : 'none' }}>
