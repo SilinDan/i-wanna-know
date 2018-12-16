@@ -42,7 +42,11 @@ export default class QuestionCard extends Component {
           </Link>
           <Link to={`/course/${classification._id}`} className="classification">{classification.name}</Link>
         </div>
-        <content>{item.preview}</content>
+        <Link
+          to={`/question/${item._id}`}
+        >
+          <content>{item.preview}</content>
+        </Link>
         <div className="card-bottom">
           <Link to={{
             pathname: `/home/${user.id}`,

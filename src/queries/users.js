@@ -37,3 +37,21 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_RECOMMEND_USERS = gql`
+  query RecommendUsersQuery($classificationId: ID!, $questionId: ID!) {
+    recommendUsers: RecommendUsersQuery(classificationId: $classificationId, questionId: $questionId) {
+      teachers {
+        id
+        name
+        department
+        isInvited
+      }
+      students {
+        id
+        name
+        isInvited
+      }
+    }
+  }
+`;

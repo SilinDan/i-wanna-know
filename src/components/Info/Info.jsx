@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NoticeIcon from 'ant-design-pro/lib/NoticeIcon';
 import { client } from '../../index';
 import { GET_INFORMATION_NUM, GET_INFORMATION } from 'Queries/information';
-import { SERVER_ADDRESS } from 'Utils/constance';
+import { SERVER_ADDRESS, DEFAULT_ICON } from 'Utils/constance';
 import { formatDate } from 'Utils/utils';
 import { Link } from 'dva/router';
 
@@ -45,9 +45,10 @@ export default class Info extends Component {
     return list.map((information) => {
       const info = {
         id: information._id,
-        avatar: `${SERVER_ADDRESS}/uploads/icons/${information.user.icon}`,
+        avatar: information.user.icon ? `${SERVER_ADDRESS}/uploads/icons/${information.user.icon}` : DEFAULT_ICON,
         title: information.question.title,
         datetime: formatDate(information.time),
+        type: information.type
       };
       const user = information.user;
 
@@ -99,6 +100,15 @@ export default class Info extends Component {
     });
   }
 
+  handleItemClick = (item) => {
+    switch (item.type) {
+      case 'Answer':
+      case 'Reply': {
+        break;
+      }
+    }
+  }
+
   fetchInformation = () => {
     client.query({
       query: GET_INFORMATION,
@@ -123,7 +133,7 @@ export default class Info extends Component {
 
     return (
       <NoticeIcon
-        onItemClick={(item) => console.log(item)}
+        onItemClick={this.handleItemClick}
         count={infoNum + inviteNum}
         className="margin-right-md hidden-mb vertical-center" >
         <NoticeIcon.Tab
