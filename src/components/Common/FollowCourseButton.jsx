@@ -30,14 +30,17 @@ export default class Follow extends Component {
         refetch: PropTypes.func,  // 如果有则优先执行重新请求
     }
 
-    followClassification(follow) {
+    followClassification(e, follow) {
+        e.preventDefault();
         follow({
             variables:
                 { _id: this.props.classification._id }
         });
     }
 
-    cancelFollowClassification(cancel) {
+    cancelFollowClassification(e, cancel) {
+        e.preventDefault();
+        e.stopPropagation();
         cancel({
             variables:
                 { _id: this.props.classification._id }
@@ -122,7 +125,7 @@ export default class Follow extends Component {
                         (followClassification, { data, loading }) => (
                             <Button
                                 disabled={loading}
-                                onClick={() => this.followClassification(followClassification)}
+                                onClick={(e) => this.followClassification(e, followClassification)}
                                 type="primary">关注</Button>
                         )
                     }
@@ -144,7 +147,7 @@ export default class Follow extends Component {
                             (cancel, { data, loading }) => (
                                 <Button
                                     disabled={loading}
-                                    onClick={() => this.cancelFollowClassification(cancel)}
+                                    onClick={(e) => this.cancelFollowClassification(e, cancel)}
                                     type="danger">取关</Button>
                             )
                         }

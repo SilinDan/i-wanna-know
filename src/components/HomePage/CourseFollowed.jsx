@@ -5,15 +5,18 @@ import { Query } from 'react-apollo';
 import get from 'Utils/get';
 import { GET_FOLLOWED_COURSES } from 'Queries/classifications';
 import PropTypes from 'prop-types';
-
+import { Link } from 'dva/router';
 export default class CourseFollowed extends Component {
-    static propType = {
+    static propTypes = {
         id: PropTypes.string.isRequired,
+        history: PropTypes.object.isRequired,
     }
 
     render() {
         return (
             <Query
+                fetchPolicy="network-only"
+                skip={!this.props.id}
                 query={GET_FOLLOWED_COURSES}
                 variables={
                     {
@@ -33,14 +36,20 @@ export default class CourseFollowed extends Component {
                                 dataSource={list}
                                 loading={loading}
                                 renderItem={item => (
-                                    <List.Item >
+                                    // <Link to="/course/:_id">
+                                    <List.Item
+                                        onClick={(e) => {
+                                            this.props.history.push(`/course/${item._id}`);
+                                        }}
+                                        style={{ cursor: 'pointer' }}
+                                    >
                                         <List.Item.Meta
                                             style={{ padding: '0rem 1rem' }}
                                             title=
                                             {
                                                 <div className="flexfollow-dd">
-                                                    <div><a href="">{item.name}</a> </div>
-                                                    <div className="follow-button">
+                                                    <div className="color-primary">{item.name}</div>
+                                                    <div className="follow-button margin-top-md">
                                                         {/* <Button type="primary" style={{ marginTop: '0.5rem' }}>已关注</Button> */}
                                                         <FollowCourseButton refetch={refetch} classification={item} />
                                                     </div>

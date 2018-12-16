@@ -29,7 +29,7 @@ export default class InformationCard extends Component {
                                             <div>
                                                 <img
                                                     src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON}
-                                                    style={{ width: '40px', height: '40px' }}
+                                                    style={{ width: '4rem', height: '4rem', borderRadius: '50%' }}
                                                 />
                                             </div>
                                         }

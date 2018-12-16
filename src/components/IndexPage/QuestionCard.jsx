@@ -15,7 +15,7 @@ export default class QuestionCard extends Component {
       _id: PropTypes.string,
       title: PropTypes.string,
       preview: PropTypes.string,
-      like: PropTypes.number,
+      message: PropTypes.number,
       view: PropTypes.number,
       user: PropTypes.object,
       classification: PropTypes.object,
@@ -38,11 +38,11 @@ export default class QuestionCard extends Component {
           <Link
             to={`/question/${item._id}`}
           >
-            <h3 className="title ell">{item.title}</h3>
+            <h3 className="title ell" style={{ 'maxWidth': '250px' }}>{item.title}</h3>
           </Link>
           <Link to={`/course/${classification._id}`} className="classification">{classification.name}</Link>
         </div>
-        <content>{item.preview}</content>
+        <content style={{ wordBreak: 'break-all' }}>{item.preview}</content>
         <div className="card-bottom">
           <Link to={{
             pathname: `/home/${user.id}`,
@@ -58,13 +58,10 @@ export default class QuestionCard extends Component {
           </Link>
           <span>
             <span className="icon pointer">
-              <Icon type="heart" className="like" /> {item.like}
+              <Icon type="message" theme="twoTone" /> {item.message || 0}
             </span>
             <span className="icon">
               <Icon type="eye" /> {item.view}
-            </span>
-            <span className="icon pointer">
-              <Icon type="star" className="star" />
             </span>
           </span>
         </div>
