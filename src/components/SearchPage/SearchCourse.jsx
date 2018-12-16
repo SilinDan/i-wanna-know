@@ -1,56 +1,70 @@
 import React, { Component } from 'react';
 import { List, Button, Card } from 'antd';
 import './SearchCourse.less';
+import { Query } from 'react-apollo';
+import { GET_COURSES } from 'Queries/classifications';
+import PropTypes from 'prop-types';
+import get from 'Utils/get';
+import FollowCourseButton from 'Components/Common/FollowCourseButton';
+import { Link } from 'dva/router';
 
-const data = [
-    {
-        title: '计算机',
-    },
-    {
-        title: '艺术',
-    },
-    {
-        title: '大数据',
-    },
-    {
-        title: '云计算',
-    },
-];
 
 export default class CourseFollowed extends Component {
+    static propTypes = {
+        word: PropTypes.string,
+    }
+
 
     render() {
+        const word = this.props.word;
 
         return (
-            <Card title="相关课程" bordered={false} id="course-list-dd" >
-                <List
-                    style={{ background: '#fff' }}
-                    itemLayout="horizontal"
-                    dataSource={data}
-                    renderItem={item => (
-                        <List.Item >
-                            <List.Item.Meta
-                                style={{ padding: '0rem 1rem' }}
-                                title=
-                                {
-                                    <div className="flex-course-dd">
-                                        <div><a href="">{item.title}</a> </div>
-                                        <div className="course-button">
-                                            <Button type="primary" style={{ marginTop: '0.5rem' }}>关注</Button>
-                                        </div>
-                                    </div>
-                                }
-                                description=
-                                {
-                                    <div className="description-dd">
-                                        <strong>2000</strong>个问题  <strong>2000</strong>个关注者
-                                    </div>
-                                }
-                            />
-                        </List.Item>
-                    )}
-                />
-            </Card>
+            <Query
+                query={GET_COURSES}
+                variables={{ name: word }}
+            >
+                {
+                    ({ data, loading, refetch }) => {
+                        const list = get(data, 'courses.list') || {};
+
+                        return (
+                            <Card title="相关课程" bordered={false} id="course-list-dd" >
+                                <List
+                                    loading={loading}
+                                    style={{ background: '#fff' }}
+                                    itemLayout="horizontal"
+                                    dataSource={list}
+                                    renderItem={item => (
+                                        <Link to={`/course/${item._id}`}>
+                                            <List.Item >
+                                                <List.Item.Meta
+                                                    style={{ padding: '0rem 1rem' }}
+                                                    title=
+                                                    {
+                                                        <div className="flex-course-dd">
+                                                            <div>{item.name}</div>
+                                                            <div className="course-button">
+                                                                <FollowCourseButton classification={item} refetch={refetch} />
+                                                                {/* <Button type="primary" style={{ marginTop: '0.5rem' }}>关注</Button> */}
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    description=
+                                                    {
+                                                        <div className="description-dd">
+                                                            <strong>{item.questionsNum}</strong>个问题  <strong>{item.followedNum}</strong>个关注者
+                                                    </div>
+                                                    }
+                                                />
+                                            </List.Item>
+                                        </Link>
+                                    )}
+                                />
+                            </Card>
+                        );
+                    }
+                }
+            </Query>
         );
     }
 }

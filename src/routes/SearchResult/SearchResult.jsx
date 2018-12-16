@@ -13,7 +13,7 @@ export default class SearchResult extends Component {
         return (
             <div style={{ background: '#fff', padding: '1rem' }}>
                 <SearchInput word={decodeURI(word)} history={this.props.history} />
-                <SearchCourse />
+                <SearchCourse word={decodeURI(word)} />
                 <QuestionList word={decodeURI(word)} title="相关问题" />
             </div>
         );

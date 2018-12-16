@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const GET_COURSES = gql`
-    query ClassificationsQuery($majorId: String!){
-        courses : ClassificationsQuery(majorId: $majorId){
+    query ClassificationsQuery($majorId: String ,$name: String){
+        courses : ClassificationsQuery(majorId: $majorId,name: $name){
             list{
                 _id
                 name

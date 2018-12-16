@@ -7,6 +7,7 @@ import TrendsCard from './TrendsCard';
 import CourseFollowed from './CourseFollowed';
 import { Link } from 'dva/router';
 import QuestionList from 'Components/IndexPage/QuestionList';
+import AnswerDetail from './AnswerDetail';
 
 const TabPane = Tabs.TabPane;
 
@@ -32,10 +33,10 @@ export default class MyHomeTab extends Component {
                 >
                     <TabPane tab="动态" key="1"><TrendsCard /></TabPane>
                     <TabPane tab={<div>提问<span>2</span></div>} key="2">dd</TabPane>
-                    <TabPane tab={<div>回答<span>3</span></div>} key="3">Content of Tab Pane 3</TabPane>
+                    <TabPane tab={<div>回答<span>3</span></div>} key="3"><AnswerDetail /></TabPane>
                     <TabPane tab={<div>关注的问题</div>} key="4"><QuestionList /></TabPane>
                     <TabPane tab={<div>关注的课程</div>} key="5">
-                        <CourseFollowed id={this.props.id} />
+                        <CourseFollowed history={history} id={this.props.id} />
                     </TabPane>
                 </Tabs>
 
