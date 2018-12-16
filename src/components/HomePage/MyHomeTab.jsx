@@ -63,7 +63,7 @@ export default class MyHomeTab extends Component {
 
                         <List.Item
                             arrow="horizontal"
-                            onClick={() => { history.push(''); }}
+                            onClick={() => { history.push('/homeAnswer/default'); }}
                             extra="0"
                         >
                             回答

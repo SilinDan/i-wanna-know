@@ -31,11 +31,7 @@ export default routesCreator([
     path: '/home/:userId',
     component: import('./routes/HomePage/HomePage'),
   },
-  {
-    name: '手机我的个人中心',
-    path: '/mine/default',
-    component: import('./routes/MinePage/MinePage'),
-  },
+
   {
     name: '课程详情',
     path: '/course/:_id',
@@ -57,6 +53,11 @@ export default routesCreator([
     component: import('./routes/SearchResult/SearchResult'),
   },
   {
+    name: '手机我的个人中心',
+    path: '/mine/default',
+    component: import('./routes/MinePage/MinePage'),
+  },
+  {
     name: '手机端关注课程',
     path: '/homeCourse/default',
     component: import('./routes/HomePage/HomeCourse'),
@@ -71,4 +72,9 @@ export default routesCreator([
     path: '/homeQuestion/default',
     component: import('./routes/HomePage/HomeQuestion'),
   },
+  {
+    name: '手机端回答',
+    path: '/homeAnswer/default',
+    component: import('./routes/HomePage/HomeAnswer'),
+  }
 ]);

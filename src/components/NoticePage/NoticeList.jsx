@@ -84,7 +84,11 @@ export default class NoticeList extends Component {
         return (
             <List.Item>
                 <List.Item.Meta
-                    avatar={<Avatar src={`${SERVER_ADDRESS}/uploads/icons/${item.user.icon}`} />}
+                    avatar={
+                        item.user.icon ?
+                            <Avatar src={`${SERVER_ADDRESS}/uploads/icons/${item.user.icon}`} /> :
+                            <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
+                    }
                     title={formatDate(item.time)}
                     description={info}
                 />
