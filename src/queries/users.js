@@ -13,6 +13,12 @@ export const GET_CURRENT_USER = gql`
       group
       followsNum
       followersNum
+      followClassificationsNum
+      followQuestionsNum
+      questionsNum
+      likesNum
+      answersNum
+      informationNum
       icon
       text
     }
@@ -32,6 +38,11 @@ export const GET_USER = gql`
       group
       followsNum
       followersNum
+      followClassificationsNum
+      followQuestionsNum
+      questionsNum
+      answersNum
+      likesNum
       icon
       text
     }
@@ -52,6 +63,38 @@ export const GET_RECOMMEND_USERS = gql`
         name
         isInvited
       }
+    }
+  }
+`;
+
+export const GET_FOLLOWED_USER = gql`
+  query FollowedUsersQuery($userId: ID!) {
+    users: FollowedUsersQuery(userId: $userId) {
+      list {
+        id
+        name
+        icon
+        isFollowed
+        followsNum
+        followersNum
+      }
+      total
+    }
+  }
+`;
+
+export const GET_FOLLOWERS = gql`
+  query FollowersQuery($userId: ID!) {
+    users: FollowersQuery(userId: $userId) {
+      list {
+        id
+        name
+        icon
+        isFollowed
+        followsNum
+        followersNum
+      }
+      total
     }
   }
 `;

@@ -12,6 +12,11 @@ export default routesCreator([
     component: import('./routes/Classification/Classification'),
   },
   {
+    name: '动态',
+    path: '/news/default',
+    component: import('./routes/News/News'),
+  },
+  {
     name: '提问',
     path: '/ask/:_id',
     component: import('./routes/Ask/Ask'),
@@ -20,6 +25,11 @@ export default routesCreator([
     name: '问题详情',
     path: '/question/:_id',
     component: import('./routes/QuestionDetail/QuestionDetail'),
+  },
+  {
+    name: '回答详情',
+    path: '/AnswerDetail/:_id',
+    component: import('./routes/AnswerDetail/AnswerDetail'),
   },
   {
     name: '用户信息',
@@ -44,7 +54,7 @@ export default routesCreator([
   },
   {
     name: '关注页列表',
-    path: '/follow/default',
+    path: '/follow/:userId',
     component: import('./routes/FollowDetail/FollowDetail'),
   },
   {
@@ -59,22 +69,32 @@ export default routesCreator([
   },
   {
     name: '手机端关注课程',
-    path: '/homeCourse/default',
+    path: '/HomeCourse/:userId',
     component: import('./routes/HomePage/HomeCourse'),
   },
   {
     name: '手机端动态',
-    path: '/homeTrends/default',
+    path: '/HomeTrends/:userId',
     component: import('./routes/HomePage/HomeTrends'),
   },
   {
     name: '手机端关注问题',
-    path: '/homeQuestion/default',
+    path: '/HomeFollowedQuestion/:userId',
+    component: import('./routes/HomePage/HomeFollowedQuestion'),
+  },
+  {
+    name: '手机端用户的问题',
+    path: '/HomeQuestion/:userId',
     component: import('./routes/HomePage/HomeQuestion'),
   },
   {
     name: '手机端回答',
-    path: '/homeAnswer/default',
+    path: '/HomeAnswer/:userId',
     component: import('./routes/HomePage/HomeAnswer'),
-  }
+  },
+  {
+    name: '喜欢的回答',
+    path: '/LikedAnswers/:userId',
+    component: import('./routes/LikedAnswers/LikedAnswers'),
+  },
 ]);

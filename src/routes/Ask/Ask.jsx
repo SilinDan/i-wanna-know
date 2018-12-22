@@ -79,11 +79,13 @@ export default class Ask extends Component {
   componentDidMount() {
     const props = this.props.history.location.state;
 
-    this.setState({
-      title: props.title,
-      editorState: BraftEditor.createEditorState(props.content),
-      _id: props._id
-    });
+    if (props) {
+      this.setState({
+        title: props.title,
+        editorState: BraftEditor.createEditorState(props.content),
+        _id: props._id
+      });
+    }
   }
 
   handlePublishSuccess = ({ data }) => {

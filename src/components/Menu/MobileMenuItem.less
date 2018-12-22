@@ -1,3 +1,16 @@
+.dot {
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  sup {
+    right: 40%;
+    top: 10%;
+  }
+}
+
 .menu-item {
   cursor: pointer;
   height: 100%;
@@ -5,7 +18,6 @@
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
-
   .menu-name {
     font-size: .8rem;
     color: #333;
@@ -13,22 +25,18 @@
     text-align: center;
     height: 1rem;
   }
-  
   .menu-icon {
     font-size: 1.5rem;
     margin-top: .5rem;
     color: #333;
   }
-
-  &:hover > .menu-name,
-  &:hover > .menu-icon {
+  &:hover>.menu-name,
+  &:hover>.menu-icon {
     color: #1890ff;
     transition: color .3s ease;
   }
-
   .menu-active {
     color: #1890ff;
     transition: color .3s ease;
   }
 }
-

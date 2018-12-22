@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+/** 用户发布的问题 */
+import React from 'react';
 import QuestionList from 'Components/IndexPage/QuestionList';
 
-export default class QuestionFollow extends Component {
-    render() {
-        return (
-            <QuestionList />
-        );
-    }
+function HomeQuestion(props) {
+  const userId = props.match.params.userId;
+
+  return (
+    <QuestionList userId={userId} />
+  );
 }
+
+export default HomeQuestion;

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import AnswerDetail from 'Components/HomePage/AnswerDetail';
+import AnswerList from 'Components/HomePage/AnswerList';
 
 export default class HomeAnswer extends Component {
     render() {
+        const { userId } = this.props.match.params;
+        const history = this.props.history;
+
         return (
-            <AnswerDetail />
+            <AnswerList userId={userId} history={history} />
         );
     }
 }

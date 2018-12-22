@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
+import { Icon, Badge } from 'antd';
 import { Link } from 'dva/router';
 import styles from './MobileMenuItem.less';
 
@@ -12,6 +12,7 @@ export default class MobileMenuItem extends Component {
       link: PropTypes.string.isRequired,
     }).isRequired,
     isActive: PropTypes.bool,
+    dot: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -23,16 +24,19 @@ export default class MobileMenuItem extends Component {
   }
 
   render() {
-    const { menu, isActive } = this.props;
+    const { menu, isActive, dot } = this.props;
 
     return (
-      <Link className={styles['menu-item']} to={menu.link}>
-        <Icon
-          type={menu.icon}
-          className={isActive ? `${styles['menu-icon']} ${styles['menu-active']}` : styles['menu-icon']} />
-        <h2
-          className={isActive ? `${styles['menu-name']} ${styles['menu-active']}` : styles['menu-name']}>{menu.name}</h2>
-      </Link>
+      <Badge dot={Boolean(dot)} className={styles['dot']}>
+        <Link to={menu.link} className={styles['menu-item']}>
+          <Icon
+            type={menu.icon}
+            className={isActive ? `${styles['menu-icon']} ${styles['menu-active']}` : styles['menu-icon']} />
+          <h2
+            className={isActive ? `${styles['menu-name']} ${styles['menu-active']}` : styles['menu-name']}>{menu.name}</h2>
+        </Link>
+
+      </Badge>
     );
   }
 }

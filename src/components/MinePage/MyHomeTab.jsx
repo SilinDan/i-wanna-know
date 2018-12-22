@@ -10,6 +10,7 @@ import { GET_INFORMATION_NUM } from 'Queries/information';
 export default class InformationCard extends Component {
     static propTypes = {
         history: PropTypes.object.isRequired,
+        user: PropTypes.object.isRequired,
     }
 
     state = {
@@ -31,7 +32,7 @@ export default class InformationCard extends Component {
 
     render() {
         const { informationNum } = this.state;
-        const { history } = this.props;
+        const { history, user } = this.props;
         const { infoNum, inviteNum } = informationNum;
 
         return (
@@ -46,16 +47,18 @@ export default class InformationCard extends Component {
                         <Icon type="bell" theme="twoTone" style={{ margin: '0.5rem 1rem' }} />
                         消息中心
                     </List.Item>
-                    <List.Item extra="2个">
+                    <List.Item
+                        onClick={() => history.push(`/LikedAnswers/${user.id}`)}
+                    >
                         <Icon type="like" theme="twoTone" twoToneColor="#eb2f96" style={{ margin: '0.5rem 1rem' }} />
                         我赞过的
                     </List.Item>
-                    <List.Item extra="0个">
+                    {/* <List.Item extra="0个">
                         <Icon type="star" theme="twoTone" twoToneColor="#52c41a" style={{ margin: '0.5rem 1rem' }} />
                         收藏集
-                    </List.Item>
+                    </List.Item> */}
                     <List.Item
-                        onClick={() => history.push('/homeCourse/default')}
+                        onClick={() => history.push(`/homeCourse/${user.id}`)}
                     >
                         <Icon type="appstore" theme="twoTone" style={{ margin: '0.5rem 1rem' }} />
                         课程管理

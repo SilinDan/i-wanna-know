@@ -2,45 +2,39 @@ import React, { Component } from 'react';
 import { Card } from 'antd';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from './AnswerDetail.less';
-import { CLASSIFICATION_ICON_PATH } from 'Utils/constance';
+import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance';
+import get from 'Utils/get';
+import PropTypes from 'prop-types';
+import { formatDate } from 'Utils/utils';
+import News from 'Components/Common/News';
 
 export default class AnswerDetail extends Component {
+    static propTypes = {
+        answers: PropTypes.object.isRequired,
+        loading: PropTypes.bool,
+        history: PropTypes.object.isRequired,
+    }
+
     render() {
+        const { answers, loading, history } = this.props;
+        const list = answers.list || [];
+
         return (
-            <Card>
-                <div className="answer-card-dd">
-                    <div className="flex-between">
-                        <div className="trends">
-                            <img src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
-                            沈丹回答了问题
-                        </div>
-
-                        <div className="time">
-                            1天前
-                        </div>
-                    </div>
-
-                    <div className="title">
-                        中文转码问题
-                    </div>
-                    <div className="content">
-                        <Ellipsis lines={3}
-                        >
-                            这个问题我也遇到过，这个是转码的问题。
-                            用decodeURI来解码，就可以将JS中的%E8%8B%B1%E8%AF%AD转成“英语”啦😉
-                            JS当中的%E8%8B%B1%E8%AF%AD是unicode字符，为什么呢？
-                            因为一旦网页的原始编码是什么，一旦被JS编码，都会变成unicode字符。
-                            给你延伸拓展一下吧(*^__^*) 嘻嘻……
-                            decodeURI 方法
-                            描述：简单来说就是从编码到非编码的过程（即解码）
-                        </Ellipsis>
-                    </div>
-                    <div className="questionDescription ">
-                        1,0006回答  ·  83,904关注  ·  已关注
-                    </div>
-
-                </div>
-            </Card>
+            <React.Fragment>
+                {
+                    list.map((answer) => (
+                        <News
+                            key={answer._id}
+                            describe={`${answer.user.name}回答了问题`}
+                            icon={answer.user.icon ? `${SERVER_ADDRESS}/uploads/icons/${answer.user.icon}` : DEFAULT_ICON}
+                            time={answer.createdTime}
+                            title={answer.question.title}
+                            preview={answer.preview}
+                            to={`/AnswerDetail/${answer._id}`}
+                        />
+                    ))
+                }
+            </React.Fragment>
         );
     }
 }

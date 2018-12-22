@@ -62,7 +62,7 @@ export default class QuestionCard extends Component {
           </Link>
           <span>
             <span className="icon pointer">
-              <Icon type="message" theme="twoTone" /> {item.message || 0}
+              <Icon type="message" theme="twoTone" /> {item.answersNum || 0}
             </span>
             <span className="icon">
               <Icon type="eye" /> {item.view}

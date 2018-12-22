@@ -1,49 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Avatar, Button } from 'antd';
-
+import { DEFAULT_ICON, SERVER_ADDRESS } from 'Utils/constance';
+import { withRouter } from 'dva/router';
 import './FollowList.less';
 
-const data = [
-    {
-        title: '沈丹',
-    },
-    {
-        title: 'TONY',
-    },
-    {
-        title: '刘杨锋',
-    },
-    {
-        title: '华晨宇',
-    },
-];
-
-export default class NoticeTab extends Component {
+class FollowList extends Component {
     static propTypes = {
-        prop: PropTypes
+        users: PropTypes.string.isRequired,
+        loading: PropTypes.bool,
     }
 
     render() {
+        const { users, history, loading } = this.props;
+
         return (
-            <List id="FollowList-dd"
+            <List
+                loading={loading}
+                id="FollowList-dd"
                 itemLayout="horizontal"
-                dataSource={data}
-                renderItem={item => (
-                    <List.Item>
+                dataSource={users}
+                renderItem={user => (
+                    <List.Item onClick={() => history.push(`/home/${user.id}`)}>
                         <List.Item.Meta
-                            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                            title={<div className="flexfollow-dd">
-                                <div><a href="">{item.title}</a> </div>
-                                <div className="follow-button"><Button type="primary">+关注</Button></div>
-                            </div>}
-                            description={<div className="description-dd">
-                                <b>2000</b>个回答
-                                <span>
-                                    <b>2000</b>
-                                    个关注者
-                                </span>
-                            </div>}
+                            avatar={
+                                <Avatar
+                                    src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />
+                            }
+                            title={(
+                                <div className="flex-follow-dd">
+                                    <div>{user.name} </div>
+                                    <div className="follow-button"><Button type="primary">+关注</Button></div>
+                                </div>
+                            )}
+                            description={<p><strong>{user.followersNum}</strong>个关注者</p>}
                         />
                     </List.Item>
                 )}
@@ -51,3 +41,5 @@ export default class NoticeTab extends Component {
         );
     }
 }
+
+export default withRouter(FollowList);

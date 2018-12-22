@@ -117,11 +117,14 @@ class UserPage extends Component {
                       onChange={this.handleChange}
                     >
                       {
-                        <img
-                          width="100"
-                          style={{ borderRadius: '50%' }}
-                          src={icon ? `${SERVER_ADDRESS}/uploads/icons/${icon}` : user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON}
-                          alt="avatar" />
+                        <div className="christmas-hat">
+                          <img
+                            width="100"
+                            height="100"
+                            style={{ borderRadius: '50%' }}
+                            src={icon ? `${SERVER_ADDRESS}/uploads/icons/${icon}` : user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON}
+                            alt="avatar" />
+                        </div>
                       }
                     </Upload>
                   </FormItem>

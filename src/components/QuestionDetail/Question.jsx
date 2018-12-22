@@ -13,6 +13,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import UserTag from 'Components/Common/UserTag';
 import { client } from '../../index';
+import FollowQuestionButton from 'Components/Common/FollowQuestionButton';
 import InviteButton from './InviteButton';
 
 const ANSWER = gql`
@@ -85,7 +86,7 @@ class Question extends Component {
   }
 
   render() {
-    const { question } = this.props;
+    const { question, refetch } = this.props;
     const user = question.user || {};
     const classification = question.classification || {};
     const { isShowEditor, currentUser } = this.state;
@@ -99,6 +100,7 @@ class Question extends Component {
             return (
               <div>
                 <Card>
+                  {/* 用户 */}
                   <div className={styles.user}>
                     <Link to={`/home/${user.id}`} >
                       <Avatar size="large" src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />
@@ -113,8 +115,11 @@ class Question extends Component {
                       <p className={styles.time}>{formatDate(question.createdTime)}</p>
                     </div>
                   </div>
+                  {/* 问题 */}
                   <h2 className={styles.title}>
-                    {question.title}
+                    <Link
+                      to={`/question/${question._id}`}
+                      style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{question.title}</Link>
                     <Link to={`/course/${classification._id}`} className="margin-left-sm">
                       <Tag color="cyan" >{classification.name}</Tag>
                     </Link>
@@ -123,7 +128,7 @@ class Question extends Component {
                     ref={(container) => this.container = container}
                     className={`${styles.content}`}
                     dangerouslySetInnerHTML={createMarkup(question.content)} />
-
+                  {/* 按钮 */}
                   <Button
                     onClick={() => this.setState({ isShowEditor: true })}
                     className="margin-right-sm hidden-mb" type="primary">
@@ -140,10 +145,26 @@ class Question extends Component {
 
                   {
                     currentUser.id === user.id ? null : (
-                      <Button
-                        style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}>
-                        <Icon type="user-add" />关注问题
-                      </Button>
+                      <FollowQuestionButton
+                        refetch={refetch}
+                        questionId={question._id}
+                        isFollowed={question.isFollowed}>
+                        {
+                          question.isFollowed ? (
+                            <Button
+                              type="danger"
+                            >
+                              <Icon type="user-add" />取消关注
+                            </Button>
+                          ) : (
+                              <Button
+                                style={{ color: '#40a9ff', 'borderColor': '#40a9ff' }}>
+                                <Icon type="user-add" />关注问题
+                              </Button>
+                            )
+                        }
+
+                      </FollowQuestionButton>
                     )
                   }
 
@@ -166,7 +187,7 @@ class Question extends Component {
                       </Link>
                     ) : null
                   }
-
+                  {/* 编辑器 */}
                   <div
                     style={{ display: isShowEditor ? 'block' : 'none' }}>
                     <div className={styles.close}>
@@ -181,6 +202,7 @@ class Question extends Component {
                       className="margin-top-md">回答</Button>
                   </div>
                 </Card>
+                {/* 手机端按钮 */}
                 <div className="hidden-desktop hidden-tablet">
                   <Card bodyStyle={{ padding: '0' }} bordered={false}>
                     <Card.Grid
@@ -189,8 +211,10 @@ class Question extends Component {
                       <Icon type="highlight" />写回答
                   </Card.Grid>
                     <Card.Grid style={gridStyle}>
-                      <Icon type="user-add" />邀请回答
-                  </Card.Grid>
+                      <InviteButton classificationId={classification._id} questionId={question._id}>
+                        <Icon type="user-add" />邀请回答
+                      </InviteButton>
+                    </Card.Grid>
                   </Card>
                 </div>
               </div>

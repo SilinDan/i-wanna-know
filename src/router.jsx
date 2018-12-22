@@ -7,6 +7,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import FrontLayout from './routes/Layout/FrontLayout';
 import BackLayout from './routes/Layout/BackLayout';
+import Loading from 'Components/Loading/Loading';
 import { LOGOUT_HREF } from 'Utils/constance';
 import get from 'Utils/get';
 import { GET_TOKEN } from 'Queries/tokens';
@@ -18,7 +19,7 @@ const createRouter = (history) => (
       ({ data, loading }) => {
         const user = get(data, 'user');
 
-        if (user || loading) {
+        if (__DEV__ || user || loading) {
           return (
             <LocaleProvider locale={zh_CN}>
               <Router history={history}>
@@ -38,7 +39,7 @@ const createRouter = (history) => (
         } else {
           location.href = LOGOUT_HREF;
 
-          return '未登录';
+          return null;
         }
       }
     }
@@ -65,7 +66,7 @@ function RouterConfig({ history }) {
               return createRouter(history);
             }
 
-            return null;
+            return <Loading />;
 
           }
         }

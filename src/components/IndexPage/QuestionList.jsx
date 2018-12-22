@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import QuestionCard from './QuestionCard';
-import { Card, Button } from 'antd';
+import { List, Card, Button } from 'antd';
 import { Link } from 'dva/router';
 import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -10,6 +10,7 @@ import styles from './QuestionList.less';
 import { GET_QUESTIONS } from 'Queries/questions';
 import Exception from 'ant-design-pro/lib/Exception';
 import get from 'Utils/get';
+import InfiniteScroll from 'react-infinite-scroller';
 import { throttle } from 'windlike-utils/dist/fn';
 
 export default class QuestionList extends Component {
@@ -18,25 +19,34 @@ export default class QuestionList extends Component {
     extra: PropTypes.any,
     classificationId: PropTypes.string,
     word: PropTypes.string,  // 搜索关键字
+    userId: PropTypes.string,
   }
 
   static defaultProps = {
-  }
-
-  loadMore = () => {
 
   }
 
-  componentDidMount() {
-    const executor = throttle(this.loadMore, 200);
+  fetchMore = (fetchMore) => {
+    const { page } = this.state;
 
-    document.addEventListener('scroll', function () {
-      executor.execute();
+    fetchMore({
+      variables: { page: page + 1 },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) { return prev; }
+
+        return {
+          questions: {
+            list: [...prev.questions.list, ...fetchMoreResult.questions.list],
+            total: fetchMoreResult.questions.total,
+            __typename: 'Questions'
+          }
+        };
+
+      },
     });
-  }
 
-  componentWillUnmount() {
-    document.removeEventListener('scroll', this.loadMore);
+    this.setState({ page: page + 1 });
+
   }
 
   state = {
@@ -45,19 +55,20 @@ export default class QuestionList extends Component {
 
   render() {
     const { page } = this.state;
-    const { classificationId, extra, title, word } = this.props;
+    const { userId, classificationId, extra, title, word } = this.props;
 
     return (
       <Query
-        variables={{ page, classificationId, title: word }}
+        variables={{ userId, page: 1, classificationId, title: word }}
         fetchPolicy="cache-and-network"
         query={GET_QUESTIONS}>
         {
-          ({ loading, data }) => {
-            const questions = get(data, 'questions');
+          ({ loading, data, fetchMore }) => {
+            const questions = get(data, 'questions') || { list: [], total: 0 };
             let list = null;
+            const hasMore = (!loading && page * 8 < questions.total);
 
-            if (loading) {
+            if (loading && !questions.list.length) {
               list = (new Array(3).fill(true)).map((value, index) => (
                 <QuestionCard key={index} isLoading={loading} />
               ));
@@ -79,15 +90,31 @@ export default class QuestionList extends Component {
             }
 
             return (
-              <Card
-                extra={extra}
-                title={title}
-                id="list-question"
-                className={styles.list}
+              <InfiniteScroll
+                style={{ width: '100%' }}
+                initialLoad={false}
+                pageStart={0}
+                loadMore={() => this.fetchMore(fetchMore)}
+                hasMore={hasMore}
+                useWindow={true}
+                loader={<p className={styles['load-text']} key={0}>Loading ...</p>}
               >
-                {/* TODO:当没数据的时候显示图片 */}
-                {list}
-              </Card>
+                <Card
+                  extra={extra}
+                  title={title}
+                  id="list-question"
+                  className={styles.list}
+                >
+                  {list}
+                </Card>
+                {
+                  list.length ?
+                    loading || page * 8 < questions.total ?
+                      (<p className={styles['load-text']} key={0}>Loading ...</p>)
+                      : (<p className={styles['load-text']} key={0}>没有更多啦</p>)
+                    : null
+                }
+              </InfiniteScroll>
             );
           }
         }

@@ -1,0 +1,104 @@
+.loading {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  transition: all .6s ease;
+  .loadingWrap {
+    width: 40%;
+    margin: auto;
+    .loadingBox {
+      margin: 0 auto;
+      position: relative;
+      width: 40px;
+      height: 40px;
+      .halfCircle {
+        width: 40px;
+        height: 50%;
+        background: #333;
+        position: absolute;
+        animation: rotate .3s linear infinite alternate;
+        animation-delay: .3s;
+        &:nth-of-type(1) {
+          left: 0;
+          top: 0px;
+          transform: rotate(-45deg);
+          border-radius: 50px 50px 0 0;
+          transform-origin: bottom center;
+        }
+        &:nth-of-type(2) {
+          left: 0;
+          top: 50%;
+          transform: rotate(45deg);
+          border-radius: 0 0 50px 50px;
+          transform-origin: top center;
+        }
+      }
+      .ball {
+        width: 10px;
+        height: 10px;
+        background: #333;
+        border-radius: 50%;
+        opacity: 0;
+        position: absolute;
+        top: calc(50% - 5px);
+        transform: translate(160px);
+        animation: ballMove linear 1.2s infinite;
+        &:nth-of-type(2) {
+          transform: translate(110px);
+          animation: ballMove linear .6s;
+          animation-fill-mode: forwards;
+        }
+        &:nth-of-type(3) {
+          animation-delay: .6s;
+        }
+        &:nth-of-type(4) {
+          animation-delay: 1.2s;
+        }
+      }
+    }
+    .loadingBarWrap {
+      border-radius: 3px;
+      margin-top: 8em;
+      width: 100%;
+      height: 5px;
+      background: lighten(#DDE4EF, 8);
+      .loadingBar {
+        border-radius: 3px;
+        position: relative;
+        transition: width ease-in-out;
+        height: 100%;
+        width: 0%;
+        background: #4FC1E9;
+        .loadingNum {
+          position: absolute;
+          top: -1.5em;
+          right: 0;
+          transform: translate(50%);
+          color: #999;
+        }
+      }
+    }
+  }
+  .text {
+    padding-top: .5rem;
+    text-align: center;
+  }
+}
+
+@keyframes ballMove {
+  to {
+    transform: translate(10px);
+    opacity: 1;
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(0deg);
+  }
+}

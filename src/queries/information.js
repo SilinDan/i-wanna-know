@@ -50,6 +50,10 @@ export const GET_INFORMATION = gql`
           answer {
             _id
           }
+          reply {
+            _id
+            content
+          }
         }
 
         ...on InviteInformation {

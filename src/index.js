@@ -1,14 +1,8 @@
-import 'ant-design-pro/dist/ant-design-pro.css';
-// import ApolloClient from 'apollo-boost';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloLink } from 'apollo-link';
-import { setContext } from 'apollo-link-context';
-import { createHttpLink, HttpLink } from 'apollo-link-http';
+/** react */
 import dva from 'dva';
 import browserHistory from 'history/createBrowserHistory';
-import { ApolloProvider } from 'react-apollo';
 import ReactDOM from 'react-dom';
+/** editor and highlight */
 import Prism from 'prismjs';
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
@@ -20,9 +14,19 @@ import 'prismjs/components/prism-php';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-markup-templating';
 import CodeHighlighter from 'braft-extensions/dist/code-highlighter';
+/** graphql */
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
+import { ApolloLink } from 'apollo-link';
+import { setContext } from 'apollo-link-context';
+import { createHttpLink, HttpLink } from 'apollo-link-http';
 import { SERVER_ADDRESS } from './utils/constance';
+import { ApolloProvider } from 'react-apollo';
 import handleError from './utils/errors';
 import { onError } from 'apollo-link-error';
+import introspectionQueryResultData from './types/information.json';
+/** global style */
+import 'ant-design-pro/dist/ant-design-pro.css';
 import './index.less';
 import './styles/common.less';
 import './styles/hidden.less';
@@ -64,6 +68,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
 });
 
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+});
+
 // 默认情况客户端会发送到相同主机名(域名)下的/graphql端点
 export const client = new ApolloClient({
   clientState: {
@@ -74,7 +82,7 @@ export const client = new ApolloClient({
     `
   },
   link: authLink.concat(errorLink).concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({ fragmentMatcher }),
 });
 
 export default app;

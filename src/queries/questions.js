@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const GET_QUESTIONS = gql`
-  query QuestionsQuery($title: String, $userId: String, $classificationId: String $page: Int, $perPageNum: Int) {
+  query QuestionsQuery($title: String, $userId: ID, $classificationId: String $page: Int, $perPageNum: Int) {
     questions: QuestionsQuery(title: $title, userId: $userId, classificationId: $classificationId, page: $page, perPageNum: $perPageNum) {
       list {
         _id
@@ -17,7 +17,7 @@ export const GET_QUESTIONS = gql`
           _id
           name
         }
-        like
+        answersNum
         view
         createdTime
         updatedTime
@@ -44,8 +44,8 @@ export const GET_QUESTION = gql`
         _id
         name
       }
-      like
       view
+      isFollowed
       createdTime
       updatedTime
     }

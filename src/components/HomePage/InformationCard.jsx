@@ -62,9 +62,11 @@ export default class InformationCard extends Component {
                                                 <Card className="hidden-mb">
                                                     <Meta
                                                         avatar={
-                                                            <Avatar
-                                                                size={84}
-                                                                src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />
+                                                            <div className="christmas-hat">
+                                                                <Avatar
+                                                                    size={84}
+                                                                    src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />
+                                                            </div>
                                                         }
                                                         title={(
                                                             <div className="flex-between" style={{ flexWrap: 'wrap' }}>
@@ -108,7 +110,13 @@ export default class InformationCard extends Component {
                                         bordered={false}
                                     >
                                         <Meta
-                                            avatar={<Avatar size={68} src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />}
+                                            avatar={
+                                                <div className="christmas-hat">
+                                                    <Avatar
+                                                        size={68}
+                                                        src={user.icon ? `${SERVER_ADDRESS}/uploads/icons/${user.icon}` : DEFAULT_ICON} />
+                                                </div>
+                                            }
                                             title={
                                                 <div>
                                                     {user.name} <UserTag group={user.group} />

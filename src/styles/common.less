@@ -109,5 +109,21 @@
     .ant-list-item:hover {
       background-color: #fcfcfc;
     }
+    .christmas-hat {
+      position: relative;
+      &::before {
+        content: '';
+        display: block;
+        width: 75%;
+        height: 75%;
+        position: absolute;
+        top: -25%;
+        left: 50%;
+        z-index: 1;
+        transform: translate(-35%, 0%) rotate(5deg);
+        background-image: url('../assets/hat.png');
+        background-size: 100% 100%;
+      }
+    }
   }
 }

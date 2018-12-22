@@ -12,6 +12,11 @@ const MENUS = [
     titles: [],
     links: [],
   },
+  {
+    name: '动态',
+    icon: 'bulb',
+    link: 'news'
+  }
 ];
 
 export default MENUS;
@@ -26,6 +31,11 @@ export const MOBILE_MENUS = [
     name: '分类',
     icon: 'bars',
     link: '/classification/default',
+  },
+  {
+    name: '动态',
+    icon: 'bulb',
+    link: '/news/default',
   },
   {
     name: '我的',

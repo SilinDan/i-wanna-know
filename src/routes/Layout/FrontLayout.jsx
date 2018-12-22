@@ -138,6 +138,7 @@ export default class FrontLayout extends Component {
               {
                 MOBILE_MENUS.map(menu => (
                   <MenuItem
+                    dot={Boolean(menu.name === '我的' && user.informationNum)}
                     key={menu.name}
                     menu={menu}
                     isActive={location.pathname === menu.link}

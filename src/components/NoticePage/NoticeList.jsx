@@ -6,33 +6,25 @@ import { GET_INFORMATION } from 'Queries/information';
 import { SERVER_ADDRESS } from 'Utils/constance';
 import get from 'Utils/get';
 import { formatDate } from 'Utils/utils';
-import { Link } from 'dva/router';
+import { Link, withRouter } from 'dva/router';
 
-const data = [
-    {
-        title: '2018年11月22日16:55',
-    },
-    {
-        title: '2018年11月22日16:55',
-    },
-    {
-        title: '2018年11月22日16:55',
-    },
-    {
-        title: '2018年11月22日16:55',
-    },
-];
 
-export default class NoticeList extends Component {
+class NoticeList extends Component {
+    static propTypes = {
+        type: PropTypes.array.isRequired,
+    }
+
 
     getNotice(item) {
         let info = '';
+        let url = '';
+        const { history } = this.props;
 
         switch (item.type) {
             case 'Answer': {
                 info = (
                     <div>
-                        <Link to={`/home/${item.user._id}`}>
+                        <Link to={`/home/${item.user.id}`}>
                             <strong>{item.user.name}</strong>
                         </Link> 回答了你的问题
                         <Link to={`/question/${item.question._id}`}>
@@ -40,13 +32,14 @@ export default class NoticeList extends Component {
                         </Link>
                     </div>
                 );
+                url = `/AnswerDetail/${item.answer._id}`;
                 break;
             }
 
             case 'Like': {
                 info = (
                     <div>
-                        <Link to={`/home/${item.user._id}`}>
+                        <Link to={`/home/${item.user.id}`}>
                             <strong>{item.user.name}</strong>
                         </Link> 喜欢了你在问题
                         <Link to={`/question/${item.question._id}`}>
@@ -60,7 +53,7 @@ export default class NoticeList extends Component {
             case 'Follow': {
                 info = (
                     <div>
-                        <Link to={`/home/${item.user._id}`}>
+                        <Link to={`/home/${item.user.id}`}>
                             <strong>{item.user.name}</strong>
                         </Link> 关注了你
                     </div>
@@ -71,18 +64,34 @@ export default class NoticeList extends Component {
             case 'Reply': {
                 info = (
                     <div>
-                        <Link to={`/home/${item.user._id}`}>
+                        <Link to={`/home/${item.user.id}`}>
                             <strong>{item.user.name}</strong>
-                        </Link> 回复了你
+                        </Link>
+                        回复了你: {item.reply.content}
                     </div>
                 );
+                url = `/AnswerDetail/${item.answer._id}`;
+                break;
+            }
+
+            case 'Invite': {
+                info = (
+                    <div>
+                        <Link to={`/home/${item.user.id}`}>
+                            <strong>{item.user.name}</strong>
+                        </Link>
+                        邀请你回答
+                        <Link to={`/question/${item.question._id}`}>《{item.question.title}》</Link>
+                    </div>
+                );
+                url = `/question/${item.question._id}`;
                 break;
             }
 
         }
 
         return (
-            <List.Item>
+            <List.Item onClick={() => url ? history.push(url) : null}>
                 <List.Item.Meta
                     avatar={
                         item.user.icon ?
@@ -97,11 +106,13 @@ export default class NoticeList extends Component {
     }
 
     render() {
+        const { type } = this.props;
+
         return (
             <Query
                 query={GET_INFORMATION}
                 variables={{
-                    type: ['Answer', 'Reply', 'Follow', 'Like']
+                    type
                 }}
             >
                 {
@@ -122,3 +133,5 @@ export default class NoticeList extends Component {
         );
     }
 }
+
+export default withRouter(NoticeList);

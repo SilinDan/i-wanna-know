@@ -39,7 +39,7 @@ class HomePage extends Component {
                             <div className={styles['flex-box-between']}>
                                 <div className={styles['left']}>
                                     < InformationCard user={user} id={id} />
-                                    < MyHomeTab history={this.props.history} id={id} />
+                                    < MyHomeTab history={this.props.history} user={user} />
                                 </div>
                                 <div className={`${styles['right']} hidden-mb`}>
                                     <FollowCard user={user} />

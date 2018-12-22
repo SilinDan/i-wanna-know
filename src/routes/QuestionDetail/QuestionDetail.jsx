@@ -20,12 +20,12 @@ class QuestionDetail extends Component {
         variables={{ _id }}
       >
         {
-          ({ data, loading }) => {
+          ({ data, loading, refetch }) => {
             const question = get(data, 'question') || {};
 
             return (
               <div>
-                <Question question={question} />
+                <Question question={question} refetch={refetch} />
                 <Card style={{ marginTop: '2em' }}>
                   {/* <Radio.Group className="container">
                     <Radio.Button value="large">按热度排序</Radio.Button>

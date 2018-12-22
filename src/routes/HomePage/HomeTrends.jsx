@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import TrendsCard from 'Components/HomePage/TrendsCard';
+import TrendsList from 'Components/HomePage/TrendsList';
 
 export default class HomeTrends extends Component {
 
     render() {
+        const userId = this.props.match.params.userId;
+
         return (
-            <div style={{ marginTop: '1rem' }}>
-                <TrendsCard />
-            </div>
+            <TrendsList userId={userId} />
         );
     }
 }
